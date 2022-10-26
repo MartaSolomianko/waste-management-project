@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}{{ user.email }}'s Page{% endblock %}
+{% block title %}{% endblock %}
 {% block body %}
-<p>User profile page</p>
+<p>User {{ user.user_id }}'s profile page</p>
+
+<div>
+    <ul>
+        {% for record in user.records %}
+            <li>Bin Type- {{ record.bin_type_code }}</li>
+            <li>Weight- {{ record.weight }}</li>
+            <li>Date- {{ record.date_time }}</li><br>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

@@ -13,14 +13,14 @@ def create_user(email, password):
 
 
 def get_user_by_id(user_id):
-    """Return a user by their ID"""
+    """Return a user by their ID, returns None if not found"""
 
     return User.query.get(user_id)
 
 
 
 def get_user_by_email(email):
-    """Return a user by email."""
+    """Return a user by email, returns None if not foundqu."""
 
     return User.query.filter(User.email == email).first()
 
