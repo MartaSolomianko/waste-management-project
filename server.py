@@ -22,8 +22,28 @@ def homepage():
 
 
 
+@app.route("/profile")
+def user_profile():
+    """Show user's profile page."""
+
+    # getting the user's user_id from session, returns None if no user_id
+    session_user_id = session.get("user_id")
+
+    # if there is no user_id in the session, ask the user to Login
+    if not session_user_id:
+        flash("Please Login")
+        return redirect("/")
+
+    # querying the db with the user_id stored in session
+    user = crud.get_user_by_id(session_user_id)
+
+    return render_template("profile.html", user=user)
+
+
+
 @app.route("/register", methods=["POST"])
 def register_user():
+    """Register a new user."""
 
     user_email = request.form.get("email")
     user_password = request.form.get("password")
@@ -47,11 +67,6 @@ def register_user():
             new_user = crud.create_user(user_email, hashed_pw)
             model.db.session.add(new_user)
             model.db.session.commit()
-
-            # for better security, do not use the user object to redirect 
-            # the user to their profile page. Instead store their id 
-            # in session and use that to send them to their profile page.
-            # the route on line 95 /profile now handles this. 
 
             # get the new user from the db 
             new_user = crud.get_user_by_email(user_email)
@@ -99,26 +114,34 @@ def login():
 
         # take them to their profile page with ID from session
         return redirect("/profile")
+    
+
+    
+@app.route("/profile/logout")
+def user_logout():
+    """Process user logout."""
+
+    session.clear()
+
+    # lines 107 - 113 are essentially a print statement for me to 
+    # double check I cleared the session 
+    session_user_id = session.get("user_id")
+
+    if not session_user_id:
+        flash("cleared session")
+
+    return redirect("/")
 
 
     
-@app.route("/profile")
-def user_profile():
-    """Show user's profile page."""
+@app.route("/search")
+def search():
+    """Search the database."""
 
-    # getting the user's user_id from session, returns None if no user_id
-    session_user_id = session.get("user_id")
+    #TODO: 
+    ## Think about where you'll display returned items/info from search
 
-    # if there is no user_id in the session, ask the user to Login
-    if not session_user_id:
-        flash("Please Login")
-        return redirect("/")
-
-    # querying the db with the user_id stored in session
-    user = crud.get_user_by_id(session_user_id)
-
-    return render_template("profile.html", user=user)
-
+    return redirect("/")
 
 
 

@@ -2,7 +2,13 @@
 {% block title %}{% endblock %}
 {% block body %}
 <p>User {{ user.user_id }}'s profile page</p>
-
+<nav>
+    <div>
+      <a href="/profile/logout">
+        <button>Log Out</button>
+      </a>
+    </div>
+</nav>
 <div>
     <ul>
         {% for record in user.records %}
