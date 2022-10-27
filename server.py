@@ -44,16 +44,18 @@ def register_user():
             new_user = crud.create_user(user_email, user_password)
             model.db.session.add(new_user)
             model.db.session.commit()
-            # get that new user you just committed from the db
-            user = crud.get_user_by_email(user_email)
+
+            # for better security, do not use the user object to redirect 
+            # the user to their profile page. Instead store their id 
+            # in session and use that to send them to their profile page.
+            # the route on line 95 /profile now handles this.  
+            session["user_id"] = user.user_id
+            
             # flash a message saying Welcome, _____!
             flash(f"Welcome, {user.email}!")
-            # redirect to homepage or user profile page? 
-            return redirect (f"/profile/{user.user_id}")
-    
-    
-## TODO:    
-#### 2. Save user_id to session? 
+
+            # send the new user to their profile page 
+            return redirect ("/profile")
 
         
 
@@ -78,30 +80,34 @@ def login():
         if password != user.password:
             flash(f"{user.email}, check your password")
             return redirect("/")
-        # if their password is correct, welcome them back using their email
+        
+        # if their password is correct, store their user_id in session 
+        session["user_id"] = user.user_id
+       
+        # welcome them back using their email from the Login Form
         flash(f"Welcome back, {user.email}!")
-        # take them to their profile page
-        return redirect(f"/profile/{user.user_id}")
 
-    
-    ## TODO: 
-    #### 1. store user ID in session
-    #### 2. instead of using the user object from db to make my URL, use client's session
-    ## this is for added security so that folks can't just get to a user's profile page by 
-    ## guessing their user id in the URL, meaning if their user ID is not stored in their
-    ## session, they will not be allowed to go to that profile page. 
-    
+        # take them to their profile page with ID from session
+        return redirect("/profile")
 
 
     
-
-@app.route("/profile/<user_id>")
-def user_profile(user_id):
+@app.route("/profile")
+def user_profile():
     """Show user's profile page."""
 
-    user = crud.get_user_by_id(user_id)
+    # getting the user's user_id from session, if statement here? 
+    session_user_id = session.get("user_id")
 
-    return render_template(f"profile.html", user=user)
+    # if there is no user_id in the session, ask the user to Login
+    if not session_user_id:
+        flash("Please Login")
+        return redirect("/")
+
+    # querying the db with the user_id stored in session
+    user = crud.get_user_by_id(session_user_id)
+
+    return render_template("profile.html", user=user)
 
 
 
