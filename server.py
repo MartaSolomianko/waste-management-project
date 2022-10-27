@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, request, flash, session, redirect
 from model import connect_to_db
+from argon2 import PasswordHasher
 import crud
 import model
 
@@ -10,6 +11,7 @@ from jinja2 import StrictUndefined
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
+ph = PasswordHasher()
 
 
 @app.route('/')
@@ -41,18 +43,24 @@ def register_user():
             flash("Please enter in a password")
             return redirect ("/")
         else:
-            new_user = crud.create_user(user_email, user_password)
+            hashed_pw = ph.hash(user_password)
+            new_user = crud.create_user(user_email, hashed_pw)
             model.db.session.add(new_user)
             model.db.session.commit()
 
             # for better security, do not use the user object to redirect 
             # the user to their profile page. Instead store their id 
             # in session and use that to send them to their profile page.
-            # the route on line 95 /profile now handles this.  
-            session["user_id"] = user.user_id
+            # the route on line 95 /profile now handles this. 
+
+            # get the new user from the db 
+            new_user = crud.get_user_by_email(user_email)
+
+            #add the new users id to the session
+            session["user_id"] = new_user.user_id
             
             # flash a message saying Welcome, _____!
-            flash(f"Welcome, {user.email}!")
+            flash(f"Welcome, {new_user.email}!")
 
             # send the new user to their profile page 
             return redirect ("/profile")
@@ -77,7 +85,9 @@ def login():
 
     # if user in db, check that their password is correct
     else:
-        if password != user.password:
+        try: 
+            ph.verify(user.password, password)
+        except:
             flash(f"{user.email}, check your password")
             return redirect("/")
         
@@ -96,7 +106,7 @@ def login():
 def user_profile():
     """Show user's profile page."""
 
-    # getting the user's user_id from session, if statement here? 
+    # getting the user's user_id from session, returns None if no user_id
     session_user_id = session.get("user_id")
 
     # if there is no user_id in the session, ask the user to Login
