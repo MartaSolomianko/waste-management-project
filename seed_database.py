@@ -74,13 +74,16 @@ model.db.session.commit()
 
 ############### Make users in my database table user, each user will make 2 records ####
 ph = PasswordHasher()
+names = ["Daniela", "Sherese", "Dan", "Rochelle", "Leslie", "Ozan", "Xenia", "Emily", "Monica", "Javier"]
 
 for n in range(10):
     email = f"user{n}@test.com" 
     password = "test"
+    for name in names:
+        name = f"{names[n]}"
 
     hashed_pw = ph.hash(password)
-    user = crud.create_user(email, hashed_pw)
+    user = crud.create_user(email, hashed_pw, name)
     model.db.session.add(user)
 
     for _ in range(2):

@@ -2,7 +2,7 @@
 {% block title %}{% endblock %}
 {% block body %}
 <div>
-    <h1>Welcome User {{ user.user_id }}!</h1>
+    <h1>Hi {{ user.name }}!</h1>
 </div>
 <div>
     <nav>
@@ -24,7 +24,7 @@
     </form>
   </div> -->
 <div>
-    <h2>User {{ user.user_id }}'s Waste Records</h2>
+    <h2>{{ user.name }}'s Waste Records</h2>
         <ul>
             {% for record in user.records %}
                 <li>Bin Type- {{ record.bin_type_code }}</li>

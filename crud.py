@@ -3,10 +3,10 @@
 from model import db, User, Record, Item, BinType, connect_to_db
 
 
-def create_user(email, password):
+def create_user(email, password, name):
     """Create and return a new user."""
 
-    user = User(email=email, password=password)
+    user = User(email=email, password=password, name=name)
 
     return user
 

@@ -29,6 +29,7 @@ def homepage():
 # account for blank input. Use crud.check_search_not_empty()
 
 # put entire search in a loop(s) to minimize repetitive if statements
+# account for search appearing on other pages...
 #########################################################################
 
 @app.route("/search")
@@ -90,6 +91,7 @@ def register_user():
 
     user_email = request.form.get("email")
     user_password = request.form.get("password")
+    user_name = request.form.get("name")
 
     # check that user does not exist in db
     user = crud.get_user_by_email(user_email)
@@ -107,7 +109,7 @@ def register_user():
             return redirect ("/")
         else:
             hashed_pw = ph.hash(user_password)
-            new_user = crud.create_user(user_email, hashed_pw)
+            new_user = crud.create_user(user_email, hashed_pw, user_name)
             model.db.session.add(new_user)
             model.db.session.commit()
 
@@ -118,7 +120,7 @@ def register_user():
             session["user_id"] = new_user.user_id
             
             # flash a message saying Welcome, _____!
-            flash(f"Welcome, {new_user.email}!")
+            flash(f"Welcome, {new_user.name}!")
 
             # send the new user to their profile page 
             return redirect ("/profile")
@@ -153,7 +155,7 @@ def login():
         session["user_id"] = user.user_id
        
         # welcome them back using their email from the Login Form
-        flash(f"Welcome back, {user.email}!")
+        flash(f"Welcome back, {user.name}!")
 
         # take them to their profile page with ID from session
         return redirect("/profile")
