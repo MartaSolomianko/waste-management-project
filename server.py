@@ -14,6 +14,8 @@ app.jinja_env.undefined = StrictUndefined
 ph = PasswordHasher()
 
 
+####################### HOMEPAGE/LOGIN/LOGOUT/REGISTER/SEARCH ROUTES ##################
+
 @app.route("/")
 def homepage():
     """View homepage."""
@@ -21,16 +23,6 @@ def homepage():
     return render_template("homepage.html")
 
 
-########################################################################
-###TODO for Search:
-
-# edge cases: 
-# longer searches (i.e. break them down into one word searches)
-# account for blank input. Use crud.check_search_not_empty()
-
-# put entire search in a loop(s) to minimize repetitive if statements
-# account for search appearing on other pages...
-#########################################################################
 
 @app.route("/search")
 def search():
@@ -42,6 +34,11 @@ def search():
     # accounting for odd characters, capital letters, or blank spaces in search
     search = crud.clean_user_search(user_input)
 
+    # if empty input submitted
+    if search == "":
+        flash("Sorry, couldn't find that. Try searching again.")
+        return redirect("/search/")
+    
     # check if there is an exact name match in db
     item = crud.get_item_by_name(search)
 
@@ -56,33 +53,25 @@ def search():
             # check if there is a similar sounding material in db
             if not item:
                 item = crud.get_similar_item_by_material(search)
-    
+                
                 # if you can't find an item, flash an error message
                 if not item:
-                    flash("We couldn't find that, try searching again.")
-                    return redirect("/")
+                    flash(f"Sorry, {search} is not in our database. Try searching for something else.")
+                    return redirect("/search/")
+                        
     
     return render_template("search.html", item=item)
 
 
 
-@app.route("/profile")
-def user_profile():
-    """Show user's profile page."""
+@app.route("/search/")
+def search_results_error():
+    """Show error message on search results page if no item is found."""
 
-    # getting the user's user_id from session, returns None if no user_id
-    session_user_id = session.get("user_id")
+    item = None
 
-    # if there is no user_id in the session, ask the user to Login
-    if not session_user_id:
-        flash("Please Login")
-        return redirect("/")
-
-    # querying the db with the user_id stored in session
-    user = crud.get_user_by_id(session_user_id)
-
-    return render_template("profile.html", user=user)
-
+    return render_template("search.html", item=item)
+    
 
 
 @app.route("/register", methods=["POST"])
@@ -169,6 +158,46 @@ def user_logout():
     session.clear()
 
     return redirect("/")
+
+
+
+##################### User Profile Routes ############################################
+
+@app.route("/profile")
+def user_profile():
+    """Show user's profile page."""
+
+    # getting the user's user_id from session, returns None if no user_id
+    session_user_id = session.get("user_id")
+
+    # if there is no user_id in the session, ask the user to Login
+    if not session_user_id:
+        flash("Please Login")
+        return redirect("/")
+
+    # querying the db with the user_id stored in session
+    user = crud.get_user_by_id(session_user_id)
+
+    return render_template("profile.html", user=user)
+
+
+#### AJAX ####################################
+@app.route("/add-record", methods=["POST"])
+def add_record():
+    """Return inputs from profile form."""
+
+    # get record info from form
+    # date_time = request.json[]
+    # weight = request.json[]
+    # user_id = request.json[]
+    # bin_type_code = request.json[]
+
+    ## MAKE SURE YOU HAVE THE CORRECT VALUE TYPES FOR RECORD TABLE IN DB
+
+    # create record and add it to the db
+    # do I need to add and commit the new record to both the record and user tables? 
+
+    #return jsonify()
 
 
 

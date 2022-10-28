@@ -47,7 +47,16 @@ def create_item(bin_type, name, material, rinse, special_instructions):
 def get_item_by_name(name):
     """Return an item by name, else returns None."""
 
-    return db.session.query(Item).filter(Item.name == f"{name}").first() 
+    item = db.session.query(Item).filter(Item.name == f"{name}").first() 
+
+    if not item:
+        word_list = name.split() # returns a list of strings original word was split at spaces
+        for word in word_list:
+            item = db.session.query(Item).filter(Item.name == f"{word}").first()
+            if item:
+                return item
+    
+    return item 
 
 
 
@@ -89,27 +98,18 @@ def create_bin_type(type_code):
 
 
 def clean_user_search(user_search):
-    """Returns a lowercased, punctuation-free, and space-free string."""
+    """Returns a lowercased, punctuation-free, and right-side-space-free string."""
 
     formatted_string = ""
     punctuation = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
     
-    string = user_search.lower().strip()
+    string = user_search.lower().rstrip()
 
     for element in string:
         if element not in punctuation:
             formatted_string+=element
 
     return formatted_string
-
-
-
-def check_search_not_empty(user_search):
-    """Returns None if user search is empty."""
-
-    if user_search == " ":
-        return None
-    return user_search 
 
 
 

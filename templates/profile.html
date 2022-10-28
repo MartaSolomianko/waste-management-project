@@ -13,7 +13,7 @@
         </div>
     </nav>
 </div>
-<!-- <div>
+<div>
     <h2>Search</h2>
         <form action="/search" method="GET">
             <div>
@@ -22,7 +22,32 @@
             </div>
         <input value="Search" type="submit">
     </form>
-  </div> -->
+  </div>
+
+<!------------- FORM TO ADD A RECORD TO DB ------------------------>
+<div>
+    <h2>Add a record:</h2>
+        <form id="add-record">
+            <label for="add-record"></label>
+                <div>
+                    <select id="bin-type-code">
+                        <option value="T">Trash</option>
+                        <option value="R">Recycling</option>
+                        <option value="C">Compost</option>
+                        <option value="H">Hazard</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="weight"></label>
+                    <input type="number" id="weight" name="weight" placeholder="weight in lbs">
+                </div>
+
+              <input type="submit" id="add-trip-btn" value="Add Record">
+
+        </form>
+</div>
+
+<!--------------- DISPLAY USER WASTE RECORDS ---------------------->
 <div>
     <h2>{{ user.name }}'s Waste Records</h2>
         <ul>
@@ -33,4 +58,8 @@
             {% endfor %}
         </ul>
 </div>
+
+<!----------------- JS SCRIPT FOR USER ---------------------------->
+<script src="static/userpage.js"></script>
+
 {% endblock %}
