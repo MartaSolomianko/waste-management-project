@@ -37,7 +37,7 @@ def search():
     # if empty input submitted
     if search == "":
         flash("Sorry, couldn't find that. Try searching again.")
-        return redirect("/search/")
+        return redirect("/search/error")
     
     # check if there is an exact name match in db
     item = crud.get_item_by_name(search)
@@ -57,15 +57,15 @@ def search():
                 # if you can't find an item, flash an error message
                 if not item:
                     flash(f"Sorry, {search} is not in our database. Try searching for something else.")
-                    return redirect("/search/")
+                    return redirect("/search/error")
                         
     
     return render_template("search.html", item=item)
 
 
 
-@app.route("/search/")
-def search_results_error():
+@app.route("/search/error")
+def search_error():
     """Show error message on search results page if no item is found."""
 
     item = None
