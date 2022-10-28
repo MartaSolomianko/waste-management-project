@@ -1,21 +1,36 @@
 {% extends 'base.html' %}
 {% block title %}{% endblock %}
 {% block body %}
-<p>User {{ user.user_id }}'s profile page</p>
-<nav>
-    <div>
-      <a href="/profile/logout">
-        <button>Log Out</button>
-      </a>
-    </div>
-</nav>
 <div>
-    <ul>
-        {% for record in user.records %}
-            <li>Bin Type- {{ record.bin_type_code }}</li>
-            <li>Weight- {{ record.weight }}</li>
-            <li>Date- {{ record.date_time }}</li><br>
-        {% endfor %}
-    </ul>
+    <h1>Welcome User {{ user.user_id }}!</h1>
+</div>
+<div>
+    <nav>
+        <div>
+            <a href="/profile/logout">
+                <button>Log Out</button>
+            </a>
+        </div>
+    </nav>
+</div>
+<!-- <div>
+    <h2>Search</h2>
+        <form action="/search" method="GET">
+            <div>
+              <label for="search"></label>
+              <input type="text" name="q" placeholder="Search for something">
+            </div>
+        <input value="Search" type="submit">
+    </form>
+  </div> -->
+<div>
+    <h2>User {{ user.user_id }}'s Waste Records</h2>
+        <ul>
+            {% for record in user.records %}
+                <li>Bin Type- {{ record.bin_type_code }}</li>
+                <li>Weight- {{ record.weight }}</li>
+                <li>Date- {{ record.date_time }}</li><br>
+            {% endfor %}
+        </ul>
 </div>
 {% endblock %}

@@ -14,11 +14,54 @@ app.jinja_env.undefined = StrictUndefined
 ph = PasswordHasher()
 
 
-@app.route('/')
+@app.route("/")
 def homepage():
     """View homepage."""
 
-    return render_template('homepage.html')
+    return render_template("homepage.html")
+
+
+########################################################################
+###TODO for Search:
+
+# edge cases: 
+# longer searches (i.e. break them down into one word searches)
+# account for blank input. Use crud.check_search_not_empty()
+
+# put entire search in a loop(s) to minimize repetitive if statements
+#########################################################################
+
+@app.route("/search")
+def search():
+    """Show search results."""
+
+    # saving search form inputs to variable 
+    user_input = request.args.get("q")
+
+    # accounting for odd characters, capital letters, or blank spaces in search
+    search = crud.clean_user_search(user_input)
+
+    # check if there is an exact name match in db
+    item = crud.get_item_by_name(search)
+
+    # check if you can return a result based on a material in db
+    if not item:
+        item = crud.get_item_by_material(search)
+
+        # if there are no exact matches, check if there is a similar name match in db
+        if not item:
+            item = crud.get_similar_item_by_name(search)
+
+            # check if there is a similar sounding material in db
+            if not item:
+                item = crud.get_similar_item_by_material(search)
+    
+                # if you can't find an item, flash an error message
+                if not item:
+                    flash("We couldn't find that, try searching again.")
+                    return redirect("/")
+    
+    return render_template("search.html", item=item)
 
 
 
@@ -122,24 +165,6 @@ def user_logout():
     """Process user logout."""
 
     session.clear()
-
-    # lines 107 - 113 are essentially a print statement for me to 
-    # double check I cleared the session 
-    session_user_id = session.get("user_id")
-
-    if not session_user_id:
-        flash("cleared session")
-
-    return redirect("/")
-
-
-    
-@app.route("/search")
-def search():
-    """Search the database."""
-
-    #TODO: 
-    ## Think about where you'll display returned items/info from search
 
     return redirect("/")
 

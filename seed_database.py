@@ -4,6 +4,7 @@ import os
 import csv
 from random import choice, uniform
 from datetime import datetime
+from argon2 import PasswordHasher
 
 import crud
 import model
@@ -17,6 +18,7 @@ model.db.create_all()
 
 
 ####### Make bin_types in my database table bin_types ###################################
+
 bin_type_list = ["R", "T", "C", "H"]
 
 for bin in bin_type_list:
@@ -71,12 +73,14 @@ model.db.session.commit()
 
 
 ############### Make users in my database table user, each user will make 2 records ####
+ph = PasswordHasher()
 
 for n in range(10):
     email = f"user{n}@test.com" 
     password = "test"
 
-    user = crud.create_user(email, password)
+    hashed_pw = ph.hash(password)
+    user = crud.create_user(email, hashed_pw)
     model.db.session.add(user)
 
     for _ in range(2):

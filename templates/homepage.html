@@ -2,45 +2,50 @@
 {% block title %}Waste Management Home{% endblock %}
 
 {% block body %}
-  <h1>Name of my App!</h1>
-
+<div>
+    <h1>Name of my App!</h1>
+</div>
+<div>
   <h2>Search</h2>
-  <form action="/search" method="GET">
-    <div>
-      <label for="search"></label>
-      <input type="text" name="search" placeholder="search">
-    </div>
-    <input type="submit">
+      <form action="/search" method="GET">
+          <div>
+            <label for="search"></label>
+            <input type="text" name="q" placeholder="Search for something">
+          </div>
+      <input value="Search" type="submit">
   </form>
-
+</div>
+<div>
   <h2>Log In</h2>
-  <form action="/login" method="POST">
-    <div>
-      <label for="email"></label>
-      <input type="text" name="email" placeholder="email">
-    </div>
-    <div>
-      <label for="password"></label>
-      <input type="password" name="password" placeholder="password">
-    </div>
-    <input type="submit">
-  </form>
+      <form action="/login" method="POST">
+          <div>
+            <label for="email"></label>
+            <input type="text" name="email" placeholder="email">
+          </div>
+          <div>
+            <label for="password"></label>
+            <input type="password" name="password" placeholder="password">
+          </div>
+        <input value="Login" type="submit">
+      </form>
+</div>
   <!-- <div>
     Don't have an account?
     <a href="/register">Register.</a>
   </div> -->
-
+<div>
   <h2>Create an account</h2>
-  <form action="/register" method="POST">
-    <div>
-      <label for="email"></label>
-      <input type="text" name="email" placeholder="email">
-    </div>
-    <div>
-      <label for="password"></label>
-      <input type="password" name="password" placeholder="password">
-    </div>
-    <input type="submit">
-  </form>
+      <form action="/register" method="POST">
+          <div>
+            <label for="email"></label>
+            <input type="text" name="email" placeholder="email">
+          </div>
+          <div>
+            <label for="password"></label>
+            <input type="password" name="password" placeholder="password">
+          </div>
+        <input value="Register" type="submit">
+      </form>
+</div>
 
 {% endblock %}

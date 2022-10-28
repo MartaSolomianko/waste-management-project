@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Waste Management Search Results Page{% endblock %}
+
+{% block body %}
+<!-- <div>
+    <h2>Search</h2>
+        <form action="/search" method="GET">
+            <div>
+              <label for="search"></label>
+              <input type="text" name="q" placeholder="Search for something">
+            </div>
+        <input value="Search" type="submit">
+    </form>
+  </div> -->
+<div>
+    <h2>Search Results</h2>
+        <div>
+        </div>
+        <div>
+            <ul>
+                <li>{{ item.name }}</li>
+                <li>{{ item.material }}</li>
+                <li>{{ item.bin_type_code }}</li><br>
+            </ul>
+        </div>
+</div>
+{% endblock %}
