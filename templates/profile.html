@@ -25,41 +25,58 @@
   </div>
 
 <!------------- FORM TO ADD A RECORD TO DB ------------------------>
+<input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
+
 <div>
-    <h2>Add a record:</h2>
-        <form id="add-record">
-            <label for="add-record"></label>
-                <div>
-                    <select id="bin-type-code">
-                        <option value="T">Trash</option>
-                        <option value="R">Recycling</option>
-                        <option value="C">Compost</option>
-                        <option value="H">Hazard</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="weight"></label>
-                    <input type="number" id="weight" name="weight" placeholder="weight in lbs">
-                </div>
+<h2>Add a record:</h2>
+<form id="addrecord">
+<label for="add-record"></label>
 
-              <input type="submit" id="add-trip-btn" value="Add Record">
+    <div>
+    <p>
+    <label for="bintype">Select a bin type:</label>
+    <select id="bin-type">
+        <option value="T">Trash</option>
+        <option value="C">Compost</option>
+        <option value="R">Recycle</option>
+        <option value="H">Hazard</option>
+    </select>
+    </p>
+    </div>
 
-        </form>
+    <div>
+    <p>
+    <label for="weight">Enter in a Weight:</label>
+    <input type="range" id="weight" name="weight" min="0" max="1000" step="0.01">
+    </p>
+    </div>
+
+    <input type="submit" value="Add record">
+
+</form>
 </div>
+
 
 <!--------------- DISPLAY USER WASTE RECORDS ---------------------->
+<br>
 <div>
     <h2>{{ user.name }}'s Waste Records</h2>
-        <ul>
+        <div id="display-record">
             {% for record in user.records %}
-                <li>Bin Type- {{ record.bin_type_code }}</li>
-                <li>Weight- {{ record.weight }}</li>
-                <li>Date- {{ record.date_time }}</li><br>
+            <div>
+                <p>
+
+                Bin Type- {{ record.bin_type_code }}
+                Weight- {{ record.weight }}
+                </p>
+            </div>
             {% endfor %}
-        </ul>
+
+        </div>
 </div>
 
+
 <!----------------- JS SCRIPT FOR USER ---------------------------->
-<script src="static/userpage.js"></script>
+<script src="/static/profile.js"></script>
 
 {% endblock %}

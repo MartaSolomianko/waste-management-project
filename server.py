@@ -1,7 +1,8 @@
 """Server for waste management app."""
 
-from flask import Flask, render_template, request, flash, session, redirect
-from model import connect_to_db
+from turtle import window_height
+from flask import Flask, render_template, request, flash, session, redirect, jsonify
+from model import connect_to_db, db
 from argon2 import PasswordHasher
 import crud
 import model
@@ -181,23 +182,34 @@ def user_profile():
     return render_template("profile.html", user=user)
 
 
-#### AJAX ####################################
-@app.route("/add-record", methods=["POST"])
+
+################# AJAX ####################################
+@app.route("/profile/add-record", methods=["POST"])
 def add_record():
-    """Return inputs from profile form."""
+    """Add waste record to user's profile page."""
 
-    # get record info from form
-    # date_time = request.json[]
-    # weight = request.json[]
-    # user_id = request.json[]
-    # bin_type_code = request.json[]
+    # connect to formInputs in js file
+    user_id = request.json.get("userid")
+    bin_type_code = request.json.get("bintype")
+    #date_time: request.json.get("datetime")
+    weight = request.json.get("weight")
 
-    ## MAKE SURE YOU HAVE THE CORRECT VALUE TYPES FOR RECORD TABLE IN DB
+
+    #convert values to the value types for record table in db
+    weight = float(weight)
+    #user_id is a string
+    #bin_type_code is a string
 
     # create record and add it to the db
+    ##def create_record(user, bin_type, date_time, weight):
+    new_record = crud.create_record(user=user_id, bin_type=bin_type_code, weight=weight)
+    db.session.add(new_record)
+    db.session.commit()
+
     # do I need to add and commit the new record to both the record and user tables? 
 
-    #return jsonify()
+
+    return jsonify({'weight': weight, 'bintype': bin_type_code, 'userid':user_id})
 
 
 

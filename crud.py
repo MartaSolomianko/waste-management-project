@@ -26,10 +26,19 @@ def get_user_by_email(email):
 
 
 
-def create_record(user, bin_type, date_time, weight):
+# def create_record(user, bin_type, date_time, weight):
+#     """Create and return a new record."""
+
+#     record = Record(user=user, bin_type_code=bin_type, date_time=date_time, weight=weight)
+
+#     return record
+
+
+
+def create_record(user, bin_type, weight):
     """Create and return a new record."""
 
-    record = Record(user=user, bin_type_code=bin_type, date_time=date_time, weight=weight)
+    record = Record(user_id=user, bin_type_code=bin_type, weight=weight)
 
     return record
 

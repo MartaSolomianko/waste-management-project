@@ -86,13 +86,14 @@ for n in range(10):
     user = crud.create_user(email, hashed_pw, name)
     model.db.session.add(user)
 
-    for _ in range(2):
-        random_bin = choice(bin_type_list)
-        weight = uniform(1, 20)
-        date_time = datetime.now()
+    # for _ in range(2):
+    #     random_bin = choice(bin_type_list)
+    #     weight = uniform(1, 20)
+    #     #date_time = datetime.now()
 
-        record = crud.create_record(user, random_bin, date_time, weight)
-        model.db.session.add(record)
+    #     #record = crud.create_record(user, random_bin, date_time, weight)
+    #     record = crud.create_record(user, random_bin, weight)
+    #     model.db.session.add(record)
 
 model.db.session.commit()
 

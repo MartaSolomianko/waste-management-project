@@ -3,33 +3,42 @@
 
 ////////////////////// ADD RECORD TO USER PROFILE ///////////////////////////////////
 
-function submitRecord(evt) {
+// capturing the form id we want to listen for a submission on 
+const form = document.querySelector('#addrecord');
+
+// when the submit button is hit on the html form, the callback function is called
+function formSubmit(evt) {
     evt.preventDefault();
 
-    //get the values from the form with the specific #id input fields
+    // capturing inputs from HTML form
     const formInputs = {
-        user_id: document.querySelector('#').value, //where does the user_id come from? 
-        bin_type_code: document.querySelector('#bin-type-code').value,
-        date_time: document.querySelector('#').value, //how do I capture date-time on submit?
         weight: document.querySelector('#weight').value,
+        userid: document.querySelector('#user-id').value,
+        bintype: document.querySelector('#bin-type').value,
+        //datetime: new Date(),
+
     };
 
-    fetch('/add-record', {
+    // connecting to Flask route in Python file
+    fetch('/profile/add-record', {
         method: 'POST',
         body: JSON.stringify(formInputs),
         headers: {
           'Content-Type': 'application/json',
         },
-      })
-
-    .then((response) => response.json())
-    .then(userRecord => {
-        /// find id of where to insert the user's new record document.querySelector()
-        // and perhaps use .insertAdjacentHTML 
     })
+
+    // at this point the Flask route has added the form inputs to the db
+    // and returned the infomation it added to the db here as a json response
+    // we then take that response, unpack it and 
+    // insert those values back into our html user profile page. 
+        .then((response) => response.json())
+        .then(userRecord => {
+            const showRecord = document.querySelector('#display-record');
+            showRecord.insertAdjacentHTML('beforeend', `<div><p>Bin Type- ${userRecord.bintype} Weight- ${userRecord.weight}</p></div>`);
+        });
 }
 
-
-
-// capture the #add-record form and listen for submit
-document.querySelector('#add-record').addEventListener('submit', submitRecord)
+// adding a submit listener to the form in our html file
+form.addEventListener('submit', formSubmit);
+    
