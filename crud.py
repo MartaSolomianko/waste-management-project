@@ -35,10 +35,10 @@ def get_user_by_email(email):
 
 
 
-def create_record(user, bin_type, weight):
+def create_record(user, bin_type, date_time, weight):
     """Create and return a new record."""
 
-    record = Record(user_id=user, bin_type_code=bin_type, weight=weight)
+    record = Record(user_id=user, bin_type_code=bin_type, date_time=date_time, weight=weight)
 
     return record
 
@@ -66,7 +66,7 @@ def get_similar_item_by_name(name):
     item = db.session.query(Item).filter(Item.name.like(f"%{name}%")).first()
 
     if not item:
-        word_list = name.split() # returns a list of strings original word was split at spaces
+        word_list = name.split() # returns a list of strings, original word was split at spaces
         for word in word_list:
             item = db.session.query(Item).filter(Item.name.like(f"%{word}%")).first()
             if item:

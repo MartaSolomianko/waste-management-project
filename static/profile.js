@@ -15,7 +15,7 @@ function formSubmit(evt) {
         weight: document.querySelector('#weight').value,
         userid: document.querySelector('#user-id').value,
         bintype: document.querySelector('#bin-type').value,
-        //datetime: new Date(),
+        datetime: new Date(),
 
     };
 
@@ -35,10 +35,10 @@ function formSubmit(evt) {
         .then((response) => response.json())
         .then(userRecord => {
             const showRecord = document.querySelector('#display-record');
-            showRecord.insertAdjacentHTML('beforeend', `<div><p>Bin Type- ${userRecord.bintype} Weight- ${userRecord.weight}</p></div>`);
+            showRecord.insertAdjacentHTML('beforeend', `<div><p>Bin Type- ${userRecord.bintype} Weight- ${userRecord.weight} Date- ${userRecord.datetime}</p></div>`);
         });
 }
 
-// adding a submit listener to the form in our html file
+// listening for a submit from the form in our html file
 form.addEventListener('submit', formSubmit);
     

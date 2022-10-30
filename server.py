@@ -1,13 +1,12 @@
 """Server for waste management app."""
 
-from turtle import window_height
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db, db
 from argon2 import PasswordHasher
+from jinja2 import StrictUndefined
+from datetime import datetime
 import crud
 import model
-
-from jinja2 import StrictUndefined
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -183,33 +182,34 @@ def user_profile():
 
 
 
-################# AJAX ####################################
+########################## AJAX ####################################################
 @app.route("/profile/add-record", methods=["POST"])
 def add_record():
     """Add waste record to user's profile page."""
 
-    # connect to formInputs in js file
+    # connect to formInputs in JS file
     user_id = request.json.get("userid")
     bin_type_code = request.json.get("bintype")
-    #date_time: request.json.get("datetime")
+    date_time = request.json.get("datetime")
     weight = request.json.get("weight")
 
 
-    #convert values to the value types for record table in db
+    # convert values to the accepted value types for record table in db
     weight = float(weight)
-    #user_id is a string
-    #bin_type_code is a string
+
+    format = "%Y-%m-%dT%H:%M:%S.%fZ"
+    date_time = datetime.strptime(date_time, format)
+    # user_id is a string
+    # bin_type_code is a string
 
     # create record and add it to the db
     ##def create_record(user, bin_type, date_time, weight):
-    new_record = crud.create_record(user=user_id, bin_type=bin_type_code, weight=weight)
+    new_record = crud.create_record(user=user_id, bin_type=bin_type_code, date_time=date_time, weight=weight)
     db.session.add(new_record)
     db.session.commit()
 
-    # do I need to add and commit the new record to both the record and user tables? 
-
-
-    return jsonify({'weight': weight, 'bintype': bin_type_code, 'userid':user_id})
+    # this dictionary goes to .then in JS file and eventually inserted back to the html file
+    return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time, 'userid': user_id})
 
 
 

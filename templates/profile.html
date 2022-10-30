@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}{% endblock %}
 {% block body %}
+
+<!------------- USER GREETING -------------------------------------->
+
 <div>
     <h1>Hi {{ user.name }}!</h1>
 </div>
+
+<!------------- LOGOUT ON USER PROFILE ----------------------------->
+
 <div>
     <nav>
         <div>
@@ -13,6 +19,9 @@
         </div>
     </nav>
 </div>
+
+<!------------ SEARCH FORM ON USER PROFILE ------------------------>
+
 <div>
     <h2>Search</h2>
         <form action="/search" method="GET">
@@ -24,7 +33,8 @@
     </form>
   </div>
 
-<!------------- FORM TO ADD A RECORD TO DB ------------------------>
+<!------------- FORM TO ADD A RECORD TO DB -------------------------->
+
 <input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
 
 <div>
@@ -56,8 +66,8 @@
 </form>
 </div>
 
+<!--------------- DISPLAY USER WASTE RECORDS ------------------------>
 
-<!--------------- DISPLAY USER WASTE RECORDS ---------------------->
 <br>
 <div>
     <h2>{{ user.name }}'s Waste Records</h2>
@@ -77,6 +87,7 @@
 
 
 <!----------------- JS SCRIPT FOR USER ---------------------------->
+
 <script src="/static/profile.js"></script>
 
 {% endblock %}
