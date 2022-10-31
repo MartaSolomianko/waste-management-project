@@ -192,13 +192,16 @@ def add_record():
     bin_type_code = request.json.get("bintype")
     date_time = request.json.get("datetime")
     weight = request.json.get("weight")
-
+    # print(date_time)
+    # print(type(date_time))
 
     # convert values to the accepted value types for record table in db
     weight = float(weight)
 
+    # keep this format because JS is returning a full date and time stamp
     format = "%Y-%m-%dT%H:%M:%S.%fZ"
-    date_time = datetime.strptime(date_time, format)
+    # discarding all of the time info and translating to datetime for python
+    date_time = datetime.strptime(date_time, format).date()
     # user_id is a string
     # bin_type_code is a string
 
@@ -208,8 +211,8 @@ def add_record():
     db.session.add(new_record)
     db.session.commit()
 
-    # this dictionary goes to .then in JS file and eventually inserted back to the html file
-    return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time, 'userid': user_id})
+    # this dictionary goes to .then in JS file and eventually gets inserted back into the html file
+    return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%Y-%m-%d"), 'userid': user_id})
 
 
 

@@ -10,7 +10,7 @@ const form = document.querySelector('#addrecord');
 function formSubmit(evt) {
     evt.preventDefault();
 
-    // capturing inputs from HTML form
+    // capturing inputs from HTML form and including a date and time stamp 
     const formInputs = {
         weight: document.querySelector('#weight').value,
         userid: document.querySelector('#user-id').value,
@@ -18,6 +18,8 @@ function formSubmit(evt) {
         datetime: new Date(),
 
     };
+
+    // console.log(formInputs.datetime)
 
     // connecting to Flask route in Python file
     fetch('/profile/add-record', {
@@ -35,7 +37,7 @@ function formSubmit(evt) {
         .then((response) => response.json())
         .then(userRecord => {
             const showRecord = document.querySelector('#display-record');
-            showRecord.insertAdjacentHTML('beforeend', `<div><p>Bin Type- ${userRecord.bintype} Weight- ${userRecord.weight} Date- ${userRecord.datetime}</p></div>`);
+            showRecord.insertAdjacentHTML('beforeend', `<div><p>Date - ${userRecord.datetime} Bin Type- ${userRecord.bintype} Weight- ${userRecord.weight}</p></div>`);
         });
 }
 
