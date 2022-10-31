@@ -8,18 +8,6 @@
     <h1>Hi {{ user.name }}!</h1>
 </div>
 
-<!------------- LOGOUT ON USER PROFILE ----------------------------->
-
-<div>
-    <nav>
-        <div>
-            <a href="/profile/logout">
-                <button>Log Out</button>
-            </a>
-        </div>
-    </nav>
-</div>
-
 <!------------ SEARCH FORM ON USER PROFILE ------------------------>
 
 <div>
@@ -75,7 +63,7 @@
             {% for record in user.records %}
             <div>
                 <p>
-
+                Date - {{ record.date_time }}
                 Bin Type- {{ record.bin_type_code }}
                 Weight- {{ record.weight }}
                 </p>

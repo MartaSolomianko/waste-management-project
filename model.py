@@ -29,7 +29,7 @@ class Record(db.Model):
     __tablename__ = "records"
 
     record_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    date_time = db.Column(db.DateTime, nullable=True)
+    date_time = db.Column(db.DateTime, nullable=False)
     weight = db.Column(db.Float, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
     bin_type_code = db.Column(db.String(5), db.ForeignKey("bin_types.type_code"), nullable=False)

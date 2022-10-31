@@ -2,9 +2,11 @@
 {% block title %}Waste Management Home{% endblock %}
 
 {% block body %}
+
 <div>
     <h1>Name of my App!</h1>
 </div>
+
 <div>
   <h2>Search</h2>
       <form action="/search" method="GET">
@@ -15,7 +17,8 @@
       <input value="Search" type="submit">
   </form>
 </div>
-<div>
+
+<div id="hidden-login" hidden>
   <h2>Log In</h2>
       <form action="/login" method="POST">
           <div>
@@ -29,11 +32,13 @@
         <input value="Login" type="submit">
       </form>
 </div>
+
   <!-- <div>
     Don't have an account?
     <a href="/register">Register.</a>
   </div> -->
-<div>
+
+<div id="hidden-registration" hidden>
   <h2>Create an account</h2>
       <form action="/register" method="POST">
         <div>
@@ -51,5 +56,9 @@
         <input value="Register" type="submit">
       </form>
 </div>
+
+<!----------------- JS SCRIPT FOR HOMEPAGE --------------------------->
+
+<script src="/static/homepage.js"></script>
 
 {% endblock %}
