@@ -22,7 +22,7 @@ function formSubmit(evt) {
     // console.log(formInputs.datetime)
 
     // connecting to Flask route in Python file
-    fetch('/profile/add-record', {
+    fetch('/profile/add-record.json', {
         method: 'POST',
         body: JSON.stringify(formInputs),
         headers: {
@@ -44,3 +44,48 @@ function formSubmit(evt) {
 // listening for a submit from the form in our html file
 form.addEventListener('submit', formSubmit);
     
+
+
+
+////////////////////////////// CHART JS DISPLAY ON USER PROFILE /////////////////////
+// get data from Flask route
+// data should be a jsonified dict of totals from current year
+// ordered by [Trash, Recycling, Compost, Hazard]
+fetch('/profile/records_by_user.json')
+    .then((response) => response.json())
+    .then(userRecords => {
+        // console.log(userRecords);
+        // console.log(typeof(userRecords.trash));
+
+        const data = [userRecords.trash, 
+                        userRecords.recycling, 
+                        userRecords.compost, 
+                        userRecords.hazard];
+
+        // console.log(data)
+
+        // Insert pie chart into user profile page at the canvas id #testChart
+        new Chart(document.querySelector('#pieChart'), {
+            type: 'pie',
+            data: {
+                labels: [
+            'Trash',
+            'Recycling',
+            'Compost',
+            'Hazard'
+            ],
+            datasets: [{
+                // not clear as to where this label shows up 
+                label: '2022 Waste totals',
+                data: data,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(2, 20, 186)',
+                ],
+                hoverOffset: 2
+            }]
+          }
+        });
+    });

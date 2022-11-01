@@ -26,21 +26,20 @@ def get_user_by_email(email):
 
 
 
-# def create_record(user, bin_type, date_time, weight):
-#     """Create and return a new record."""
-
-#     record = Record(user=user, bin_type_code=bin_type, date_time=date_time, weight=weight)
-
-#     return record
-
-
-
 def create_record(user, bin_type, date_time, weight):
     """Create and return a new record."""
 
     record = Record(user_id=user, bin_type_code=bin_type, date_time=date_time, weight=weight)
 
     return record
+
+
+def get_record_by_user_id(user_id):
+    """Return a record by user_id."""
+
+    records = db.session.query(Record).filter(Record.user_id == user_id).all()
+
+    return records
 
 
 

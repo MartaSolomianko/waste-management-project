@@ -183,7 +183,7 @@ def user_profile():
 
 
 ########################## AJAX ####################################################
-@app.route("/profile/add-record", methods=["POST"])
+@app.route("/profile/add-record.json", methods=["POST"])
 def add_record():
     """Add waste record to user's profile page."""
 
@@ -206,13 +206,68 @@ def add_record():
     # bin_type_code is a string
 
     # create record and add it to the db
-    ##def create_record(user, bin_type, date_time, weight):
     new_record = crud.create_record(user=user_id, bin_type=bin_type_code, date_time=date_time, weight=weight)
     db.session.add(new_record)
     db.session.commit()
 
     # this dictionary goes to .then in JS file and eventually gets inserted back into the html file
     return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%Y-%m-%d"), 'userid': user_id})
+
+
+
+##################################################################################
+#TODO: 
+## if statement to render pie chart only if a user has records in db
+## make sure the pie chart only shows records from the current year 
+## when a user adds a record, get the pie chart to adjust, too
+## think about how to manage diff weight type -- lbs vs kg
+## figure out how to show the title of pie chart
+## if a user clicks on a slice from the pie chart, show those records
+## make routes to allow a user to update or delete a record
+################################################################################## 
+
+@app.route("/profile/records_by_user.json")
+def get_records_by_user():
+    """Get all the records a User has made."""
+
+    # get user id from session
+    session_user_id = session.get("user_id")
+    
+    # query the db for all the records that belong to that user id
+    # returns a list of records
+    records = crud.get_record_by_user_id(session_user_id)
+
+    # get the total weight of trash
+    trash = 0
+    # get the total weight of recycling
+    recycling = 0
+    # get the total weight of compost
+    compost = 0
+    # get the total weight of hazardous
+    hazard = 0
+
+    for record in records:
+        if record.bin_type_code == 'T':
+            trash += record.weight
+        elif record.bin_type_code == 'R':
+            recycling += record.weight
+        elif record.bin_type_code == 'C':
+            compost += record.weight
+        else: 
+            hazard += record.weight
+    
+    weight_totals = {"trash": trash, 
+                    "recycling": recycling, 
+                    "compost": compost, 
+                    "hazard": hazard}
+    
+    # print("***********************************")
+    # print(weight_totals)
+    # print(type(weight_totals))
+    # print("***********************************")
+
+    return jsonify(weight_totals)
+
 
 
 
