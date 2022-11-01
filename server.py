@@ -217,11 +217,9 @@ def add_record():
 
 ##################################################################################
 #TODO: 
-## if statement to render pie chart only if a user has records in db
-## make sure the pie chart only shows records from the current year 
-## when a user adds a record, get the pie chart to adjust, too
+## make sure the pie chart only shows records from the current year? 
+## when a user adds a record, get the pie chart to adjust
 ## think about how to manage diff weight type -- lbs vs kg
-## figure out how to show the title of pie chart
 ## if a user clicks on a slice from the pie chart, show those records
 ## make routes to allow a user to update or delete a record
 ################################################################################## 
@@ -236,6 +234,9 @@ def get_records_by_user():
     # query the db for all the records that belong to that user id
     # returns a list of records
     records = crud.get_record_by_user_id(session_user_id)
+    
+    if not records:
+        return redirect("/profile")
 
     # get the total weight of trash
     trash = 0

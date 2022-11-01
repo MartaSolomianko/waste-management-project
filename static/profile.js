@@ -1,8 +1,64 @@
 "use strict";
 
+///////////////// CHART JS DISPLAY ON USER PROFILE //////////////////////////////
+// setting chart as a global variable
+let ctx 
+// get data from Flask route
+// data should be a jsonified dict of totals from current year
+// then ordered by [Trash, Recycling, Compost, Hazard]
+function userChart() {
+    fetch('/profile/records_by_user.json')
+        .then((response) => response.json())
+        .then(userRecords => {
+            // console.log(userRecords);
+            // console.log(typeof(userRecords.trash));
+
+            const data = [userRecords.trash, 
+                            userRecords.recycling, 
+                            userRecords.compost, 
+                            userRecords.hazard];
+
+            // console.log(data)
+
+            // Insert pie chart into user profile page at the canvas id #piechart
+            ctx = new Chart(document.querySelector('#piechart'), {
+                type: 'pie',
+                data: {
+                    labels: [
+                'Trash',
+                'Recycling',
+                'Compost',
+                'Hazard'
+                ],
+                datasets: [{
+                    // not clear as to where this label shows up 
+                    // label: '2022 Waste totals',
+                    data: data,
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)',
+                        'rgb(2, 20, 186)',
+                    ],
+                    hoverOffset: 2
+                }]
+            },  options: {
+                    plugins : {
+                        title: {
+                            display: true,
+                            text: 'Waste Totals'
+                        }
+                    }
+                } 
+            });
+        });
+    }
+// get user chart to load with current data from db when profile page is opened
+userChart();
+
+
 
 ////////////////////// ADD RECORD TO USER PROFILE ///////////////////////////////////
-
 // capturing the form id we want to listen for a submission on 
 const form = document.querySelector('#addrecord');
 
@@ -38,54 +94,10 @@ function formSubmit(evt) {
         .then(userRecord => {
             const showRecord = document.querySelector('#display-record');
             showRecord.insertAdjacentHTML('beforeend', `<div><p>Date - ${userRecord.datetime} Bin Type- ${userRecord.bintype} Weight- ${userRecord.weight}</p></div>`);
+            ctx.destroy();
+            userChart();
         });
 }
 
 // listening for a submit from the form in our html file
 form.addEventListener('submit', formSubmit);
-    
-
-
-
-////////////////////////////// CHART JS DISPLAY ON USER PROFILE /////////////////////
-// get data from Flask route
-// data should be a jsonified dict of totals from current year
-// ordered by [Trash, Recycling, Compost, Hazard]
-fetch('/profile/records_by_user.json')
-    .then((response) => response.json())
-    .then(userRecords => {
-        // console.log(userRecords);
-        // console.log(typeof(userRecords.trash));
-
-        const data = [userRecords.trash, 
-                        userRecords.recycling, 
-                        userRecords.compost, 
-                        userRecords.hazard];
-
-        // console.log(data)
-
-        // Insert pie chart into user profile page at the canvas id #testChart
-        new Chart(document.querySelector('#pieChart'), {
-            type: 'pie',
-            data: {
-                labels: [
-            'Trash',
-            'Recycling',
-            'Compost',
-            'Hazard'
-            ],
-            datasets: [{
-                // not clear as to where this label shows up 
-                label: '2022 Waste totals',
-                data: data,
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)',
-                    'rgb(2, 20, 186)',
-                ],
-                hoverOffset: 2
-            }]
-          }
-        });
-    });
