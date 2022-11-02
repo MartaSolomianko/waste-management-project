@@ -42,10 +42,10 @@ def get_records_by_user_id(user_id):
     return records
 
 
-def get_user_records_by_year(year):
-    """Return a list of user records by year."""
+# def get_user_records_by_year(year):
+#     """Return a list of user records by year."""
 
-    get_records_by_user_id()
+#     get_records_by_user_id()
 
 
 

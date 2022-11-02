@@ -30,18 +30,17 @@
 
     <!-- Navigation Bar -->
     <nav class="navbar bg-light">
-      <button>
+      
         <a class="navbar-brand" href="/">Home</a>
-      </button>
+     
       {% if session.get('user_id') %}
         <a class="navbar-brand" id="logout-btn" href="/profile/logout">Logout</a>
       {% else %}
-      <button>
-        <a class="navbar-brand" id="login-btn">Login</a>
-      </button>
-      <button>
+
+        <a class="navbar-brand" id="login-btn" hidden>Login</a>
+
         <a class="navbar-brand" id="register-btn">Register</a>
-      </button>
+  
       {% endif %}   
     </nav>
 

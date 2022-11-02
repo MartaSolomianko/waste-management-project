@@ -72,7 +72,7 @@ model.db.session.commit()
   
 
 
-############### Make users in my database table user, each user will make 2 records ####
+############### Make users in my database table user, each user will make 10 records ####
 ph = PasswordHasher()
 names = ["Daniela", "Sherese", "Dan", "Rochelle", "Leslie", "Ozan", "Xenia", "Emily", "Monica", "Javier"]
 
