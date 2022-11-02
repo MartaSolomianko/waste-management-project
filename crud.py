@@ -34,12 +34,18 @@ def create_record(user, bin_type, date_time, weight):
     return record
 
 
-def get_record_by_user_id(user_id):
-    """Return a record by user_id."""
+def get_records_by_user_id(user_id):
+    """Return a list of records by user_id."""
 
     records = db.session.query(Record).filter(Record.user_id == user_id).all()
 
     return records
+
+
+def get_user_records_by_year(year):
+    """Return a list of user records by year."""
+
+    get_records_by_user_id()
 
 
 

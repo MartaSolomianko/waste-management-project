@@ -3,7 +3,7 @@
 import os
 import csv
 from random import choice, uniform
-from datetime import datetime
+from datetime import datetime, date
 from argon2 import PasswordHasher
 
 import crud
@@ -86,14 +86,16 @@ for n in range(10):
     user = crud.create_user(email, hashed_pw, name)
     model.db.session.add(user)
 
-    # for _ in range(2):
-    #     random_bin = choice(bin_type_list)
-    #     weight = uniform(1, 20)
-    #     #date_time = datetime.now()
-
-    #     #record = crud.create_record(user, random_bin, date_time, weight)
-    #     record = crud.create_record(user, random_bin, weight)
-    #     model.db.session.add(record)
+    for _ in range(10):
+        random_bin = choice(bin_type_list)
+        weight = uniform(1, 20)
+        weight = round(weight, 2)
+        date_time = datetime.now()
+        date_time = date_time.date().replace(year=2020)
+        print(date_time)
+        
+        record = crud.create_record(user, random_bin, date_time, weight)
+        model.db.session.add(record)
 
 model.db.session.commit()
 

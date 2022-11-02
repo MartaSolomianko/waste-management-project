@@ -4,7 +4,7 @@
 // setting chart as a global variable
 let ctx 
 // get data from Flask route
-// data should be a jsonified dict of totals from current year
+// data should be a jsonified dict of totals from a user
 // then ordered by [Trash, Recycling, Compost, Hazard]
 function userChart() {
     fetch('/profile/records_by_user.json')
@@ -51,7 +51,10 @@ function userChart() {
                     }
                 } 
             });
-        });
+            // .catch method to catch an error msg from the redirect in server route
+            // this is because I don't want anything to show up on the profile if 
+            // a user doesn't have a record
+        }).catch(() => console.log('catching error'));
     }
 // get user chart to load with current data from db when profile page is opened
 userChart();
@@ -94,6 +97,8 @@ function formSubmit(evt) {
         .then(userRecord => {
             const showRecord = document.querySelector('#display-record');
             showRecord.insertAdjacentHTML('beforeend', `<div><p>Date - ${userRecord.datetime} Bin Type- ${userRecord.bintype} Weight- ${userRecord.weight}</p></div>`);
+            // this allows the pie chart to change dynamically
+            // as a user adds their records in the db
             ctx.destroy();
             userChart();
         });
@@ -101,3 +106,5 @@ function formSubmit(evt) {
 
 // listening for a submit from the form in our html file
 form.addEventListener('submit', formSubmit);
+
+
