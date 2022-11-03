@@ -270,11 +270,11 @@ def get_records_by_user():
 
 @app.route("/profile/show-record.json", methods=["POST"])
 def show_record():
-    """Show a record."""
+    """Get a specific record's information."""
 
     # get record id from JS file
     record_id = request.json.get("record")
-    print(record_id)
+    # print(record_id)
     record_id = int(record_id)
 
     record = crud.get_record_by_record_id(record_id)
@@ -288,7 +288,20 @@ def show_record():
     return jsonify(record_info)
 
 
+@app.route("/profile/delete-record.json", methods=["POST"])
+def delete_record():
+    """Remove a record from the db and user profile page."""
 
+    record_id = request.json.get("recordid")
+    print("**********************")
+    print(record_id)
+    record_id = int(record_id)
+
+    record = crud.get_record_by_record_id(record_id)
+    db.session.delete(record)
+    db.session.commit()
+
+    return "Record has been removed."
 
 
 

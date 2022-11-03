@@ -1,6 +1,7 @@
 "use strict";
 
 ///////////////// CHART JS DISPLAY ON USER PROFILE //////////////////////////////////
+/////// pie chart that shows a user's lifetime record totals ////////////////////////
 // setting chart as a global variable
 let ctx 
 // get data from Flask route
@@ -109,8 +110,8 @@ form.addEventListener('submit', formSubmit);
 
 
 
-//////////////////// SHOW FULL RECORD ON USER PROFILE ///////////////////////////////
-/////// Shows the full record on a user's profile when a record button is clicked
+//////////////////// SHOW FULL RECORD IN MODAL POPUP ON USER PROFILE ///////////////
+/////// Shows the full record on a user's profile when a record button is clicked //
 function showRecord(evt) {
     const record = {
         record: evt.target.value, }
@@ -125,13 +126,13 @@ function showRecord(evt) {
 
     .then((response) => response.json())
     .then(userRecord => {
-        let showRecord = document.querySelector('#test-record');
+        let showRecord = document.querySelector('#show-a-record');
         showRecord.innerHTML = " ";
-        showRecord.insertAdjacentHTML('beforeend', `<div><h2>Record</h2>
+        showRecord.insertAdjacentHTML('beforeend', `<div>
                                                         <p>${userRecord.date}</p>
                                                         <p>${userRecord.weight} Lbs</p> 
                                                         <p>${userRecord.bin_type_code}</p>
-                                                        <button id="delete-record" value="${userRecord.record_id}">Delete</button></div>`);
+                                                        <input hidden id="delete-record-id" value="${userRecord.record_id}"></input>`);
     });
 }
 
@@ -141,3 +142,38 @@ const buttons = document.querySelectorAll('#user-record-btn');
         button.addEventListener('click', showRecord);
     }
 
+
+
+//////////////////// DELETE A RECORD FROM USER PROFILE AND DB ///////////////////////
+const deleteBtn = document.querySelector('#delete-record-btn');
+
+function deleteRecord(evt) {
+    evt.preventDefault();
+    // alert('Are you sure you want to delete this record?');
+
+    const deleteRecord = {
+        recordid: document.querySelector('#delete-record-id').value, }
+
+    console.log(deleteRecord)
+
+
+    fetch('/profile/delete-record.json', {
+        method: 'POST',
+        body: JSON.stringify(deleteRecord),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+    })
+
+    .then((response) => response.text())
+    .then(removeResponse => {
+        const record = document.querySelector(`#record-${deleteRecord.recordid}`);
+        console.log(record);
+        record.remove();
+        alert(removeResponse);
+        ctx.destroy();
+        userChart();
+    });
+}
+
+deleteBtn.addEventListener('click', deleteRecord);
