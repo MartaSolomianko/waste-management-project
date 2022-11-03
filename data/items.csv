@@ -1,3 +1,5 @@
-name,bin_type_code,material,rinse,special_instructions
-bottle,R,plastic,t,please empty the bottle.
-coffee bag,T,mixed,f,none
+name,bin_type_code,material,weight,rinse,special_instructions
+bottle,R,plastic,.10,t,please empty the bottle.
+coffee bag,T,mixed,.10,f,none
+coffee,C,organic,.18,f,none
+

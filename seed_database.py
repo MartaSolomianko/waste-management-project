@@ -28,6 +28,16 @@ for bin in bin_type_list:
 model.db.session.commit()
 
 
+##### Make avatar_levels in my database table avatars #################################
+
+levels = [1, 2, 3, 4, 5, 6]
+
+for level in levels:
+    avatar_level = crud.create_avatar_level(level)
+    model.db.session.add(avatar_level)
+
+model.db.session.commit()
+
 
 ######## Make items in my database table items ##########################################
 
@@ -50,6 +60,10 @@ with open("data/items.csv", newline="") as csv_file:
         name = item["name"]
         #material is a string
         material = item["material"]
+        #weight is a string
+        weight = item["weight"]
+        #needs to be a float
+        weight = float(weight)
 
         # changes the value of rinse to a boolean
         if item["rinse"] == 'f':
@@ -63,7 +77,7 @@ with open("data/items.csv", newline="") as csv_file:
         special_instructions = item["special_instructions"]
 
         # makes items for my database out of the values captured from my CSV
-        db_item = crud.create_item(bin_type, name, material, rinse, special_instructions)
+        db_item = crud.create_item(bin_type, name, material, weight, rinse, special_instructions)
         items_in_db.append(db_item)
 
 # adds the item objects to the database and commits them to the items table.         
@@ -79,11 +93,14 @@ names = ["Daniela", "Sherese", "Dan", "Rochelle", "Leslie", "Ozan", "Xenia", "Em
 for n in range(10):
     email = f"user{n}@test.com" 
     password = "test"
+
     for name in names:
         name = f"{names[n]}"
+    
+    avatar_level = choice(levels)
 
     hashed_pw = ph.hash(password)
-    user = crud.create_user(email, hashed_pw, name)
+    user = crud.create_user(email, hashed_pw, name, avatar_level)
     model.db.session.add(user)
 
     for _ in range(10):

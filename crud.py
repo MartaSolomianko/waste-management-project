@@ -1,12 +1,12 @@
 """CRUD operations for waste management app."""
 
-from model import db, User, Record, Item, BinType, connect_to_db
+from model import db, User, Record, Item, BinType, Avatar, connect_to_db
 
 
-def create_user(email, password, name):
+def create_user(email, password, name, avatar_level):
     """Create and return a new user."""
 
-    user = User(email=email, password=password, name=name)
+    user = User(email=email, password=password, name=name, avatar_level=avatar_level)
 
     return user
 
@@ -26,12 +26,22 @@ def get_user_by_email(email):
 
 
 
+def create_avatar_level(level):
+    """Create and return an avatar level"""
+
+    level = Avatar(level=level)
+
+    return level
+
+
+
 def create_record(user, bin_type, date_time, weight):
     """Create and return a new record."""
 
     record = Record(user_id=user, bin_type_code=bin_type, date_time=date_time, weight=weight)
 
     return record
+
 
 
 def get_records_by_user_id(user_id):
@@ -42,6 +52,7 @@ def get_records_by_user_id(user_id):
     return records
 
 
+
 # def get_user_records_by_year(year):
 #     """Return a list of user records by year."""
 
@@ -49,10 +60,10 @@ def get_records_by_user_id(user_id):
 
 
 
-def create_item(bin_type, name, material, rinse, special_instructions):
+def create_item(bin_type, name, material, weight, rinse, special_instructions):
     """Create and return a new item."""
 
-    item = Item(bin_type_code=bin_type, name=name, material=material, rinse=rinse, special_instructions=special_instructions)
+    item = Item(bin_type_code=bin_type, name=name, material=material, weight=weight, rinse=rinse, special_instructions=special_instructions)
 
     return item
 
