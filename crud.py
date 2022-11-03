@@ -1,6 +1,7 @@
 """CRUD operations for waste management app."""
 
 from model import db, User, Record, Item, BinType, Avatar, connect_to_db
+from datetime import datetime
 
 
 def create_user(email, password, name, avatar_level):
@@ -52,11 +53,24 @@ def get_records_by_user_id(user_id):
     return records
 
 
+# def get_recent_record(user_id):
+#     """Returns most recent record."""
 
-# def get_user_records_by_year(year):
-#     """Return a list of user records by year."""
+#     now = datetime.now().date()
+#     print("**************************")
+#     print(now)
 
-#     get_records_by_user_id()
+#     record = db.session.query(Record).filter((Record.user_id == user_id) & (Record.date_time == now)).first()
+
+#     return record
+
+
+def get_record_by_record_id(record_id):
+    """Return a record."""
+
+    record = db.session.query(Record).filter(Record.record_id == record_id).first()
+
+    return record
 
 
 

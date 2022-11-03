@@ -1,6 +1,6 @@
 "use strict";
 
-///////////////// CHART JS DISPLAY ON USER PROFILE //////////////////////////////
+///////////////// CHART JS DISPLAY ON USER PROFILE //////////////////////////////////
 // setting chart as a global variable
 let ctx 
 // get data from Flask route
@@ -45,7 +45,7 @@ function userChart() {
             },  options: {
                     plugins : {
                         title: {
-                            display: true,
+                            display: false,
                             text: 'Waste Totals'
                         }
                     }
@@ -62,6 +62,8 @@ userChart();
 
 
 ////////////////////// ADD RECORD TO USER PROFILE ///////////////////////////////////
+/// adds a record to the user's profile when the add record form is submitted ///////
+
 // capturing the form id we want to listen for a submission on 
 const form = document.querySelector('#addrecord');
 
@@ -77,8 +79,6 @@ function formSubmit(evt) {
         datetime: new Date(),
 
     };
-
-    // console.log(formInputs.datetime)
 
     // connecting to Flask route in Python file
     fetch('/profile/add-record.json', {
@@ -96,7 +96,7 @@ function formSubmit(evt) {
         .then((response) => response.json())
         .then(userRecord => {
             const showRecord = document.querySelector('#display-record');
-            showRecord.insertAdjacentHTML('beforeend', `<div><p>Date - ${userRecord.datetime} Bin Type- ${userRecord.bintype} Weight- ${userRecord.weight}</p></div>`);
+            showRecord.insertAdjacentHTML('beforeend', `<button id="${userRecord.record_id}">Bin Type- ${userRecord.bintype}</button>`);
             // this allows the pie chart to change dynamically
             // as a user adds their records in the db
             ctx.destroy();
@@ -107,4 +107,37 @@ function formSubmit(evt) {
 // listening for a submit from the form in our html file
 form.addEventListener('submit', formSubmit);
 
+
+
+//////////////////// SHOW FULL RECORD ON USER PROFILE ///////////////////////////////
+/////// Shows the full record on a user's profile when a record button is clicked
+function showRecord(evt) {
+    const record = {
+        record: evt.target.value, }
+    
+    fetch('/profile/show-record.json', {
+        method: 'POST',
+        body: JSON.stringify(record),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+    })
+
+    .then((response) => response.json())
+    .then(userRecord => {
+        let showRecord = document.querySelector('#test-record');
+        showRecord.innerHTML = " ";
+        showRecord.insertAdjacentHTML('beforeend', `<div><h2>Record</h2>
+                                                        <p>${userRecord.date}</p>
+                                                        <p>${userRecord.weight} Lbs</p> 
+                                                        <p>${userRecord.bin_type_code}</p>
+                                                        <button id="delete-record" value="${userRecord.record_id}">Delete</button></div>`);
+    });
+}
+
+// capture all the records and an add event listener to them 
+const buttons = document.querySelectorAll('#user-record-btn');
+    for (const button of buttons) {
+        button.addEventListener('click', showRecord);
+    }
 

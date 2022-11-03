@@ -1,10 +1,11 @@
 """Server for waste management app."""
 
+from turtle import window_height
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db, db
 from argon2 import PasswordHasher
 from jinja2 import StrictUndefined
-from datetime import datetime
+from datetime import date, datetime
 import crud
 import model
 
@@ -210,6 +211,8 @@ def add_record():
     db.session.add(new_record)
     db.session.commit()
 
+    #get_new_record_id = crud.get_recent_record()
+
     # this dictionary goes to .then in JS file and eventually gets inserted back into the html file
     return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%Y-%m-%d"), 'userid': user_id})
 
@@ -265,9 +268,25 @@ def get_records_by_user():
 
 
 
-@app.route("/profile/records_by_year.json")
-def get_records_by_year():
-    """Compare records by year."""
+@app.route("/profile/show-record.json", methods=["POST"])
+def show_record():
+    """Show a record."""
+
+    # get record id from JS file
+    record_id = request.json.get("record")
+    print(record_id)
+    record_id = int(record_id)
+
+    record = crud.get_record_by_record_id(record_id)
+
+    date = record.date_time
+    weight = record.weight
+    bin_type_code = record.bin_type_code
+
+    record_info = {"date": date, "weight": weight, "bin_type_code": bin_type_code, "record_id": record_id}
+
+    return jsonify(record_info)
+
 
 
 

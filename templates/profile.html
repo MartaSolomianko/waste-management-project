@@ -10,9 +10,60 @@
 
 <!------------- USER GREETING -------------------------------------->
 
-<div>
+<!-- <div>
     <h1>Hi {{ user.name }}!</h1>
+</div> -->
+
+<input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
+
+
+
+<div class="container">
+    <h1 class="title">User Dashboard</h1>
+    <div class="row">
+        <!-- this is where a dashboard should go -->
+    </div>
 </div>
+
+<!-- PIE CHART -->
+<div class="container">
+    <h2 class="title">Your Lifetime Waste Totals</h2>
+    <div class="row">
+    <div class="col-4">
+        <!-- pie chart of user's lifetime totals-->
+        <div id="display-pie-chart">
+            <canvas id="piechart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <!-- show user records submitted this year-->
+            <h2>Your Waste Records</h2>
+                <div id="display-record">
+                    {% for record in user.records %}
+                        <div>
+                            <button id="user-record-btn" value="{{ record.record_id }}">
+                            <!-- Date - {{ record.date_time }} -->
+                            Bin Type- {{ record.bin_type_code }}
+                            <!-- Weight- {{ record.weight }} -->
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+    </div>
+    <div class="col-4">
+        <div id="test-record"></div>
+    </div>
+
+    </div>  
+</div>
+   
+    
+
+
+
+
+
 
 <!------------ SEARCH FORM ON USER PROFILE ------------------------>
 
@@ -51,13 +102,13 @@
 
     <div>
     <p>
-    <label for="weight">Enter in a Weight:</label>
-    <input type="text" id="weight">
-    <label for="pounds-kilograms"></label>
+    <label for="weight">Weight:</label>
+    <input type="text" id="weight" placeholder="weight in pounds"><span> lbs</span>
+    <!-- <label for="pounds-kilograms"></label>
     <select id="lbs-kg">
         <option value="Lbs">Pounds</option>
         <option value="Kg">Kilograms</option>
-    </select>
+    </select> -->
     <!-- <input type="range" id="weight" name="weight" min="0" max="1000" step="0.01"> -->
     </p>
     </div>
@@ -70,27 +121,9 @@
 <!--------------- DISPLAY USER WASTE RECORDS ------------------------>
 
 <br>
-<div>
-    <h2>{{ user.name }}'s Waste Records</h2>
-        <div id="display-record">
-            {% for record in user.records %}
-            <div>
-                <p>
-                Date - {{ record.date_time }}
-                Bin Type- {{ record.bin_type_code }}
-                Weight- {{ record.weight }}
-                </p>
-            </div>
-            {% endfor %}
 
-        </div>
-</div>
 
-<!----- DISPLAY USER WASTE TOTALS USING CHART JS PIE CHART --------->
 
-<div id="display-pie-chart">
-    <canvas id="piechart"></canvas>
-</div>
 
 
 <!----------------- JS SCRIPT FOR USER ------------------------------>
