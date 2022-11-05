@@ -1,6 +1,5 @@
 """Server for waste management app."""
 
-from turtle import window_height
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db, db
 from argon2 import PasswordHasher
@@ -183,7 +182,7 @@ def user_profile():
 
 
 
-########################## AJAX ####################################################
+########################## ADD A RECORD ##############################################
 @app.route("/profile/add-record.json", methods=["POST"])
 def add_record():
     """Add waste record to user's profile page."""
@@ -220,10 +219,9 @@ def add_record():
 
 ##################################################################################
 #TODO: 
-## make sure the pie chart only shows records from the current year? 
-## think about how to manage diff weight type -- lbs vs kg
-## if a user clicks on a slice from the pie chart, show those records
-## make routes to allow a user to update or delete a record
+## decide if pie chart should show records from the current year? 
+## if a user clicks on a slice from the pie chart, show those records?
+## make routes to allow a user to edit a record
 ################################################################################## 
 
 @app.route("/profile/records_by_user.json")
@@ -267,6 +265,25 @@ def get_records_by_user():
     return jsonify(weight_totals)
 
 
+@app.route("/profile/show-total.json")
+def show_total():
+    """Show total waste produced by user."""
+
+    # get user id from session
+    session_user_id = session.get("user_id")
+    
+    # returns a list of the user's records
+    records = crud.get_records_by_user_id(session_user_id)
+
+    total_weight = 0
+    
+    for record in records:
+        total_weight += record.weight
+
+
+    return jsonify(total_weight)
+
+
 
 @app.route("/profile/show-record.json", methods=["POST"])
 def show_record():
@@ -288,13 +305,13 @@ def show_record():
     return jsonify(record_info)
 
 
+
 @app.route("/profile/delete-record.json", methods=["POST"])
 def delete_record():
     """Remove a record from the db and user profile page."""
 
     record_id = request.json.get("recordid")
-    print("**********************")
-    print(record_id)
+
     record_id = int(record_id)
 
     record = crud.get_record_by_record_id(record_id)

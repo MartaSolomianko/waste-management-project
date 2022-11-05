@@ -21,13 +21,6 @@
   </head>
 
   <body>
-    <!-- Flash messages -->
-    <div>
-      {% for msg in get_flashed_messages() %}
-        <p class="flash-msg">{{ msg }}</p>
-      {% endfor %}
-    </div>
-
     <!-- Navigation Bar -->
     <nav class="navbar bg-light">
       
@@ -43,6 +36,12 @@
         <a class="navbar-brand" id="register-btn">Register</a>
       {% endif %}   
     </nav>
+    <!-- Flash messages -->
+      <div>
+        {% for msg in get_flashed_messages() %}
+          <p class="flash-msg">{{ msg }}</p>
+        {% endfor %}
+      </div>
 
     {% block body %}
     {% endblock %}

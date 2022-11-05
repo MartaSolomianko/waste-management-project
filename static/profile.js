@@ -102,6 +102,7 @@ function formSubmit(evt) {
             // as a user adds their records in the db
             ctx.destroy();
             userChart();
+            showTotalWaste();
         });
 }
 
@@ -154,7 +155,7 @@ function deleteRecord(evt) {
     const deleteRecord = {
         recordid: document.querySelector('#delete-record-id').value, }
 
-    console.log(deleteRecord)
+    // console.log(deleteRecord)
 
 
     fetch('/profile/delete-record.json', {
@@ -168,12 +169,29 @@ function deleteRecord(evt) {
     .then((response) => response.text())
     .then(removeResponse => {
         const record = document.querySelector(`#record-${deleteRecord.recordid}`);
-        console.log(record);
+        // console.log(record);
         record.remove();
         alert(removeResponse);
         ctx.destroy();
         userChart();
+        showTotalWaste();
     });
 }
 
 deleteBtn.addEventListener('click', deleteRecord);
+
+
+
+//////// SHOW TOTAL WASTE PRODUCED ON USER PROFILE ///////
+function showTotalWaste() {
+    fetch('/profile/show-total.json')
+        .then((response) => response.json())
+        .then(userTotal => {
+            console.log(userTotal)
+            const showTotal = document.querySelector('#lifetime-total');
+            showTotal.innerText = userTotal;
+        
+        });
+    }
+
+showTotalWaste();

@@ -53,17 +53,6 @@ def get_records_by_user_id(user_id):
     return records
 
 
-# def get_recent_record(user_id):
-#     """Returns most recent record."""
-
-#     now = datetime.now().date()
-#     print("**************************")
-#     print(now)
-
-#     record = db.session.query(Record).filter((Record.user_id == user_id) & (Record.date_time == now)).first()
-
-#     return record
-
 
 def get_record_by_record_id(record_id):
     """Return a record."""

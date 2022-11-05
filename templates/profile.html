@@ -9,7 +9,6 @@
 {% block body %}
 
 <!------------- USER GREETING -------------------------------------->
-
 <!-- <div>
     <h1>Hi {{ user.name }}!</h1>
 </div> -->
@@ -17,11 +16,43 @@
 <input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
 
 <!------------- USER DASHBOARD -------------------------------------->
-
 <div class="container">
-    <h1 class="title">User Dashboard</h1>
+    <h1 class="title">Your Dashboard</h1>
     <div class="row">
         <!-- this is where a dashboard should go -->
+        <div id="dashboard">
+          <button>
+            <div>
+              <span>YOU HAVE PRODUCED:</span>
+              <div id="lifetime-total"></div>
+              <span>Lbs</span>
+            </div>
+          </button>
+          <button>
+            <div>
+              <span>YOUR DAILY RATE:</span>
+              <div id="daily-rate"></div>
+            </div>
+          </button>
+          <button>
+            <div>
+              <span>AVATAR</span>
+              <div id="avatar"></div>
+            </div>
+          </button>
+          <button>
+            <!-- <div>
+              <span>ADD A RECORD</span>
+              <div id="add-record"></div>
+            </div>
+          </button> -->
+          <button>
+            <div>
+              <span>FORUM</span>
+              <div id="forum"></div>
+            </div>
+          </button>
+        </div>
     </div>
 </div>
 
@@ -68,7 +99,7 @@
         <!-- form to DELETE RECORD -->
         <form id="show-record">
           <div class="modal-body">
-            <!-- WHERE THE RECORD DETAILS SHOW UP -->
+            <!-- WHERE THE INDIVIDUAL RECORD DETAILS SHOW UP -->
             <div id="show-a-record"></div>
           </div>
           <div class="modal-footer">
@@ -83,7 +114,6 @@
 
 
 <!------------ SEARCH FORM ON USER PROFILE ------------------------>
-
 <div>
     <h2>Search</h2>
         <form action="/search" method="GET">
@@ -97,8 +127,6 @@
 
 
 <!------------- FORM TO ADD A RECORD TO DB -------------------------->
-
-<input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
 
 <div>
 <h2>Add a record:</h2>
@@ -136,7 +164,7 @@
 </div>
 
 
-<!----------------- JS SCRIPT FOR USER ------------------------------>
+<!----------------- JS SCRIPTS FOR PROFILE ------------------------------>
 
 <script src="/static/profile.js"></script>
 
