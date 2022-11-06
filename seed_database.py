@@ -109,6 +109,8 @@ for n in range(10):
         weight = round(weight, 2)
         date_time = datetime.now()
         date_time = date_time.date().replace(year=2020)
+        format = "%B %d, %Y"
+        date_time = date_time.strftime(format)
         print(date_time)
         
         record = crud.create_record(user, random_bin, date_time, weight)

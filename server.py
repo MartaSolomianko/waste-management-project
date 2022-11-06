@@ -174,6 +174,15 @@ def user_profile():
     if not session_user_id:
         flash("Please Login")
         return redirect("/")
+    
+    # get current date
+    today = datetime.now().date()
+
+    format = "%B %d, %Y"
+    today = today.strftime(format)
+
+    # store current date in session
+    session["current_date"] = today
 
     # querying the db with the user_id stored in session
     user = crud.get_user_by_id(session_user_id)
@@ -219,8 +228,11 @@ def add_record():
 
     # keep this format because JS is returning a full date and time stamp
     format = "%Y-%m-%dT%H:%M:%S.%fZ"
+
     # discarding all of the time info and translating to datetime for python
     date_time = datetime.strptime(date_time, format).date()
+    format = "%B %d, %Y"
+    date_time = date_time.strftime(format)
     # user_id is a string
     # bin_type_code is a string
 
@@ -232,7 +244,7 @@ def add_record():
     #get_new_record_id = crud.get_recent_record()
 
     # this dictionary goes to .then in JS file and eventually gets inserted back into the html file
-    return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%Y-%m-%d"), 'userid': user_id})
+    return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time, 'userid': user_id})
 
 
 
@@ -300,7 +312,6 @@ def show_total():
     for record in records:
         total_weight += record.weight
 
-
     return jsonify(total_weight)
 
 
@@ -320,18 +331,8 @@ def show_record():
     weight = record.weight
     bin_type_code = record.bin_type_code
 
-    ## TODO: think about if this is the place to format the date to appear 
-    ## as November 06, 2022 instead of 2022-11-06
-
-    # Format date to not pass empty time information
-    date = date.strftime("%Y-%m-%d")
-    # print("********************************************")
-    # print(date)
-    # print(type(date))
-
-
     record_info = {"date": date, "weight": weight, "bin_type_code": bin_type_code, "record_id": record_id}
-
+    
     return jsonify(record_info)
 
 

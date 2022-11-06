@@ -53,6 +53,13 @@ def get_records_by_user_id(user_id):
     return records
 
 
+# def get_records_by_user_id_for_current_month(user_id, date_today):
+#     """Returns a list of records by user_id for the current month."""
+
+#     records = db.session.query(Record).filter((Record.user_id == user_id) & (Record.date_time == date_today))
+
+
+
 
 def get_record_by_record_id(record_id):
     """Return a record."""

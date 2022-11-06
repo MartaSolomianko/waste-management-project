@@ -14,6 +14,7 @@
 </div> -->
 
 <input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
+<input type="hidden" id="current_date" value="{{ session.get('current_date') }}">
 
 <!-- 
           <div>
@@ -51,9 +52,14 @@
     <div class="col-6">
       <button id="log-bag" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show-log-bag-modal">Log a bag of waste</button>
       <button id="log-item-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show-search-item-modal">Look up an item to Log</button>
+      
+      
+      
       <div class="card">
         <div class="card-body">
-        <h2>November 2022</h2>
+        <!-- have this h2 be based on date tied to record_id -->
+
+        <h2>November 2022 {{ session.get('current_date') }}</h2>
               <div id="display-record">
                   {% for record in user.records %}
                       <div id="record-{{ record.record_id }}">
