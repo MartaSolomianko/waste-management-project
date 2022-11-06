@@ -14,6 +14,7 @@
 </div> -->
 
 <input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
+
 <!-- 
           <div>
             <span>YOUR DAILY RATE:</span>
@@ -22,6 +23,8 @@
         </button>
         <button>
           <div>  -->
+
+
 <!---------------- PIE CHART ----------------------------------------->
 <div class="container">
   <div class="row">
@@ -41,12 +44,13 @@
           </div>
         </div>
 
+
 <!----------------- SHOW USER RECORDS AS GRID ON PROFILE ---------------------->
 <!-- would like this to be a grid and each record to show up as a tiny img -->
 <!-- think about if this needs to be ordered by year and date -->
     <div class="col-6">
-      <button id="log-bag" class="btn btn-primary modal-btn" data-bs-toggle="modal" data-bs-target="#show-log-bag-modal">Log a bag of waste</button>
-      <button>Log an item</button>
+      <button id="log-bag" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show-log-bag-modal">Log a bag of waste</button>
+      <button id="log-item-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show-search-item-modal">Look up an item to Log</button>
       <div class="card">
         <div class="card-body">
         <h2>November 2022</h2>
@@ -66,6 +70,7 @@
       </div>
   </div>
 </div>
+
 
  <!----------------- MODAL FOR EACH INDIVIDUAL USER RECORD  ----------------->
 <div class="modal fade" id="show-record-modal" tabindex="-1">
@@ -92,7 +97,7 @@
   </div>
 
 
-<!------------- FORM TO ADD A BAG OF WASTE TO Records table in DB -------------------------->
+<!------------- MODAL TO ADD A BAG OF WASTE TO Records table in DB -------------------------->
 <div class="modal fade" id="show-log-bag-modal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -101,24 +106,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <!-- form to record a bag of waste -->
-<form id="addrecord">
-<label for="add-record"></label>
+      <form id="addrecord">
+        <label for="add-record"></label>
+      <div>
+        <p>
+          <label for="bintype">Select a bin type:</label>
+            <select id="bin-type">
+              <option value="T">Trash</option>
+              <option value="C">Compost</option>
+              <option value="R">Recycle</option>
+              <option value="H">Hazard</option>
+            </select>
+        </p>
+      </div>
     <div>
-    <p>
-    <label for="bintype">Select a bin type:</label>
-    <select id="bin-type">
-        <option value="T">Trash</option>
-        <option value="C">Compost</option>
-        <option value="R">Recycle</option>
-        <option value="H">Hazard</option>
-    </select>
-    </p>
-    </div>
-
-    <div>
-    <p>
-    <label for="weight">Weight:</label>
-    <input type="text" id="weight" placeholder="weight in pounds"><span> lbs</span> 
+      <p>
+        <label for="weight">Weight:</label>
+          <input type="text" id="weight" placeholder="weight in pounds"><span> lbs</span> 
     <!-- <label for="pounds-kilograms"></label>
     <select id="lbs-kg">
         <option value="Lbs">Pounds</option>
@@ -127,27 +131,34 @@
     <!-- <input type="range" id="weight" name="weight" min="0" max="1000" step="0.01"> -->
     <!-- </p> -->
     </div> 
-
-    <input type="submit" data-bs-dismiss="modal" value="Add record">
-
-</form>
-</div>
-</div>
+      <input type="submit" data-bs-dismiss="modal" value="Add record">
+      </form>
+    </div>
+  </div>
 </div>
 
 
-<!-- SEARCH -->
-<div class="container">
-  <div class="row">
-  <h2>Search</h2>
-      <form action="/search" method="GET">
+<!------------- MODAL TO LOOK UP AN ITEM OF WASTE -------------------------->
+<div class="modal fade" id="show-search-item-modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="item-search">Search for an item to Log:</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- form to look up an item of waste to log -->
+      <!-- SEARCH -->
+      <div class="container">
+        <div class="row">
+          <form action="/search" method="GET">
           <div>
             <label for="search"></label>
-            <input type="text" name="q" placeholder="Search for something">
+            <input type="text" name="q" placeholder="Look for an item to add">
           </div>
-      <input value="Search" type="submit">
-  </form>
-</div>
+            <input value="Search" type="submit">
+          </form>
+        </div>
+      </div>
 </div>
 
 

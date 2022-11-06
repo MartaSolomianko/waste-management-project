@@ -129,6 +129,10 @@ function showRecord(evt) {
     .then(userRecord => {
         let showRecord = document.querySelector('#show-a-record');
         showRecord.innerHTML = " ";
+        // console.log(typeof(userRecord.date));
+        // let date = userRecord.date;
+        // console.log(date);
+       
         showRecord.insertAdjacentHTML('beforeend', `<div>
                                                         <p>${userRecord.date}</p>
                                                         <p>${userRecord.weight} Lbs</p> 
@@ -187,7 +191,7 @@ function showTotalWaste() {
     fetch('/profile/show-total.json')
         .then((response) => response.json())
         .then(userTotal => {
-            console.log(typeof(userTotal));
+            // console.log(typeof(userTotal));
             const showTotal = document.querySelector('#lifetime-total');
             userTotal = userTotal.toFixed(2);
             showTotal.innerText = `${userTotal} lbs`;

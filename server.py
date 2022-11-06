@@ -284,6 +284,7 @@ def get_records_by_user():
     return jsonify(weight_totals)
 
 
+
 @app.route("/profile/show-total.json")
 def show_total():
     """Show total waste produced by user."""
@@ -318,6 +319,16 @@ def show_record():
     date = record.date_time
     weight = record.weight
     bin_type_code = record.bin_type_code
+
+    ## TODO: think about if this is the place to format the date to appear 
+    ## as November 06, 2022 instead of 2022-11-06
+
+    # Format date to not pass empty time information
+    date = date.strftime("%Y-%m-%d")
+    # print("********************************************")
+    # print(date)
+    # print(type(date))
+
 
     record_info = {"date": date, "weight": weight, "bin_type_code": bin_type_code, "record_id": record_id}
 
