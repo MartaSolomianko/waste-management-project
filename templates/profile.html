@@ -36,7 +36,7 @@
         <br>
           <div>You Have Produced:</div>
             <h1 id="lifetime-total"></h1>
-              <!-- add user start date for context -->
+              <!-- suser start date for context -->
             <div>Since: {{ start_date }}</div>
           </div>
         </div>
@@ -45,8 +45,8 @@
 <!-- would like this to be a grid and each record to show up as a tiny img -->
 <!-- think about if this needs to be ordered by year and date -->
     <div class="col-6">
-      <button>Add a Bag</button>
-      <button>Add an Item</button>
+      <button id="log-bag" class="btn btn-primary modal-btn" data-bs-toggle="modal" data-bs-target="#show-log-bag-modal">Log a bag of waste</button>
+      <button>Log an item</button>
       <div class="card">
         <div class="card-body">
         <h2>November 2022</h2>
@@ -92,12 +92,17 @@
   </div>
 
 
-<!------------- FORM TO ADD A RECORD TO DB -------------------------->
-<div>
-<h2>Add a record:</h2>
+<!------------- FORM TO ADD A BAG OF WASTE TO Records table in DB -------------------------->
+<div class="modal fade" id="show-log-bag-modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add-bag">Log a bag of waste</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- form to record a bag of waste -->
 <form id="addrecord">
 <label for="add-record"></label>
-
     <div>
     <p>
     <label for="bintype">Select a bin type:</label>
@@ -123,9 +128,11 @@
     <!-- </p> -->
     </div> 
 
-    <input type="submit" value="Add record">
+    <input type="submit" data-bs-dismiss="modal" value="Add record">
 
 </form>
+</div>
+</div>
 </div>
 
 
