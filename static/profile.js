@@ -46,7 +46,7 @@ function userChart() {
             },  options: {
                     plugins : {
                         title: {
-                            display: false,
+                            display: true,
                             text: 'Waste Totals'
                         }
                     }
@@ -63,7 +63,7 @@ userChart();
 
 
 ////////////////////// ADD RECORD TO USER PROFILE ///////////////////////////////////
-/// adds a record to the user's profile when the add record form is submitted ///////
+// / adds a record to the user's profile when the add record form is submitted ///////
 
 // capturing the form id we want to listen for a submission on 
 const form = document.querySelector('#addrecord');
@@ -182,13 +182,14 @@ deleteBtn.addEventListener('click', deleteRecord);
 
 
 
-//////// SHOW TOTAL WASTE PRODUCED ON USER PROFILE ///////
+///////////////// SHOW TOTAL WASTE PRODUCED ON USER PROFILE /////////////////////
 function showTotalWaste() {
     fetch('/profile/show-total.json')
         .then((response) => response.json())
         .then(userTotal => {
-            console.log(userTotal)
+            console.log(typeof(userTotal));
             const showTotal = document.querySelector('#lifetime-total');
+            userTotal = userTotal.toFixed(2);
             showTotal.innerText = userTotal;
         
         });

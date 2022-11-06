@@ -178,7 +178,26 @@ def user_profile():
     # querying the db with the user_id stored in session
     user = crud.get_user_by_id(session_user_id)
 
-    return render_template("profile.html", user=user)
+    # returns a list of the user's records
+    records = crud.get_records_by_user_id(session_user_id)
+
+    # if the user has records, find the date of the first record
+    # doing it this way because I am seeding my db with 'fake' records
+    if records:
+
+        first_record = records[0]
+        # check that is the first record a user made by looking through record_ids
+        for record in records:
+            # find the smallest record_id, this will match the first record a user made
+            if record.record_id < first_record.record_id:
+                first_record = record
+        
+        print(first_record)
+    
+    start_date = first_record.date_time
+        
+
+    return render_template("profile.html", user=user, start_date=start_date)
 
 
 
