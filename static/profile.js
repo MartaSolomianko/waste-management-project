@@ -190,7 +190,7 @@ function showTotalWaste() {
             console.log(typeof(userTotal));
             const showTotal = document.querySelector('#lifetime-total');
             userTotal = userTotal.toFixed(2);
-            showTotal.innerText = userTotal;
+            showTotal.innerText = `${userTotal} lbs`;
         
         });
     }
