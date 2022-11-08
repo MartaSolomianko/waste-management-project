@@ -1,13 +1,13 @@
 """CRUD operations for waste management app."""
 
-from model import db, User, Record, Item, BinType, Avatar, connect_to_db
+from model import db, User, Record, Item, BinType, connect_to_db
 from datetime import datetime
 
 
-def create_user(email, password, name, avatar_level):
+def create_user(email, password, name):
     """Create and return a new user."""
 
-    user = User(email=email, password=password, name=name, avatar_level=avatar_level)
+    user = User(email=email, password=password, name=name, avatar_level=7)
 
     return user
 
@@ -27,15 +27,6 @@ def get_user_by_email(email):
 
 
 
-def create_avatar_level(level):
-    """Create and return an avatar level"""
-
-    level = Avatar(level=level)
-
-    return level
-
-
-
 def create_record(user, bin_type, date_time, weight):
     """Create and return a new record."""
 
@@ -51,13 +42,6 @@ def get_records_by_user_id(user_id):
     records = db.session.query(Record).filter(Record.user_id == user_id).all()
 
     return records
-
-
-# def get_records_by_user_id_for_current_month(user_id, date_today):
-#     """Returns a list of records by user_id for the current month."""
-
-#     records = db.session.query(Record).filter((Record.user_id == user_id) & (Record.date_time == date_today))
-
 
 
 

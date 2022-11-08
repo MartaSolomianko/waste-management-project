@@ -174,15 +174,6 @@ def user_profile():
     if not session_user_id:
         flash("Please Login")
         return redirect("/")
-    
-    # get current date
-    today = datetime.now().date()
-
-    format = "%B %d, %Y"
-    today = today.strftime(format)
-
-    # store current date in session
-    session["current_date"] = today
 
     # querying the db with the user_id stored in session
     user = crud.get_user_by_id(session_user_id)
@@ -191,22 +182,32 @@ def user_profile():
     records = crud.get_records_by_user_id(session_user_id)
 
     # if the user has records, find the date of the first record
-    # doing it this way because I am seeding my db with 'fake' records
-    if records:
+    # this is to contextualize the total waste a user has logged
+    # if records:
 
-        first_record = records[0]
-        # check that is the first record a user made by looking through record_ids
-        for record in records:
-            # find the smallest record_id, this will match the first record a user made
-            if record.record_id < first_record.record_id:
-                first_record = record
-        
-        print(first_record)
+    #     first_record = records[0]
+    #     # check that is the first record a user made by looking through record_ids
+    #     for record in records:
+    #         # find the earliest record_id, this will match the first record a user made
+    #         if record.record_id < first_record.record_id:
+    #             first_record = record
     
-    start_date = first_record.date_time
+    #     # this is a string
+    #     start_date = first_record.date_time
+    
+    # returns a list of current month's user records
+    # using the user_id stored in session and the date stored in session
+    # current_records = crud.get_records_by_user_id_for_current_month(session_user_id, today)
+
+    # for record in current_records:
+    #     date = record.date_time
+    #     date = date.split()
+    #     month = date[0]
+    #     year = date[2]
         
 
-    return render_template("profile.html", user=user, start_date=start_date)
+    return render_template("profile.html", user=user,   
+                                        records=records)
 
 
 
@@ -225,14 +226,13 @@ def add_record():
 
     # convert values to the accepted value types for record table in db
     weight = float(weight)
+    user_id = int(user_id)
 
     # keep this format because JS is returning a full date and time stamp
     format = "%Y-%m-%dT%H:%M:%S.%fZ"
 
     # discarding all of the time info and translating to datetime for python
     date_time = datetime.strptime(date_time, format).date()
-    format = "%B %d, %Y"
-    date_time = date_time.strftime(format)
     # user_id is a string
     # bin_type_code is a string
 
@@ -241,10 +241,20 @@ def add_record():
     db.session.add(new_record)
     db.session.commit()
 
-    #get_new_record_id = crud.get_recent_record()
+    print()
+    print()
+    print("***************")
+    print(new_record.record_id)
 
+    record_id = new_record.record_id
+
+    print(record_id)
+    
+ 
+    
     # this dictionary goes to .then in JS file and eventually gets inserted back into the html file
-    return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time, 'userid': user_id})
+    # return jsonify(new_record)
+    return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%Y-%m-%d"), 'userid': user_id, 'recordid': new_record.record_id})
 
 
 
@@ -257,7 +267,7 @@ def add_record():
 
 @app.route("/profile/records_by_user.json")
 def get_records_by_user():
-    """Get all the records a User has made."""
+    """Get all the records a User has made to show in chart.js pie chart."""
 
     # get user id from session
     session_user_id = session.get("user_id")
@@ -299,7 +309,7 @@ def get_records_by_user():
 
 @app.route("/profile/show-total.json")
 def show_total():
-    """Show total waste produced by user."""
+    """Show total waste produced by user on profile."""
 
     # get user id from session
     session_user_id = session.get("user_id")
@@ -318,15 +328,24 @@ def show_total():
 
 @app.route("/profile/show-record.json", methods=["POST"])
 def show_record():
-    """Get a specific record's information."""
+    """Get a specific record's information to show in modal on user profile."""
 
     # get record id from JS file
-    record_id = request.json.get("record")
-    # print(record_id)
+    record_id = request.json.get("recordid")
+
+
+    print()
+    print("this is the record id:")
+    print(record_id)
+    print(type(record_id))
+    print()
+
     record_id = int(record_id)
 
     record = crud.get_record_by_record_id(record_id)
-
+    print()
+    print("RECORD ######*************    ##########")
+    print(record)
     date = record.date_time
     weight = record.weight
     bin_type_code = record.bin_type_code

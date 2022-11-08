@@ -15,23 +15,13 @@ class User(db.Model):
     name = db.Column(db.String, nullable=True)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
-    avatar_level = db.Column(db.Integer, db.ForeignKey("avatars.level"))
+    avatar_level = db.Column(db.Integer)
 
     records = db.relationship("Record", back_populates="user")
-    avatar = db.relationship("Avatar", back_populates="users")
     
     def __repr__(self):
         return f"<User user_id={self.user_id} email={self.email}>"
     
-
-class Avatar(db.Model):
-    """An avatar."""
-
-    __tablename__ = "avatars"
-
-    level = db.Column(db.Integer, primary_key=True)
-
-    users = db.relationship("User", back_populates="avatar")
 
     
 class Record(db.Model):
@@ -40,7 +30,7 @@ class Record(db.Model):
     __tablename__ = "records"
 
     record_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    date_time = db.Column(db.String, nullable=False) 
+    date_time = db.Column(db.Date, nullable=False) 
     weight = db.Column(db.Float, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
     bin_type_code = db.Column(db.String(5), db.ForeignKey("bin_types.type_code"), nullable=False)

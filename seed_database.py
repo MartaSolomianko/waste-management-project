@@ -28,16 +28,6 @@ for bin in bin_type_list:
 model.db.session.commit()
 
 
-##### Make avatar_levels in my database table avatars #################################
-
-levels = [1, 2, 3, 4, 5, 6]
-
-for level in levels:
-    avatar_level = crud.create_avatar_level(level)
-    model.db.session.add(avatar_level)
-
-model.db.session.commit()
-
 
 ######## Make items in my database table items ##########################################
 
@@ -97,10 +87,9 @@ for n in range(10):
     for name in names:
         name = f"{names[n]}"
     
-    avatar_level = choice(levels)
 
     hashed_pw = ph.hash(password)
-    user = crud.create_user(email, hashed_pw, name, avatar_level)
+    user = crud.create_user(email, hashed_pw, name)
     model.db.session.add(user)
 
     for _ in range(10):
@@ -109,8 +98,6 @@ for n in range(10):
         weight = round(weight, 2)
         date_time = datetime.now()
         date_time = date_time.date().replace(year=2020)
-        format = "%B %d, %Y"
-        date_time = date_time.strftime(format)
         print(date_time)
         
         record = crud.create_record(user, random_bin, date_time, weight)
