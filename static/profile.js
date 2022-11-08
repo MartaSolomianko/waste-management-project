@@ -130,7 +130,7 @@ form.addEventListener('submit', formSubmit);
 //////////////////// SHOW FULL RECORD IN MODAL POPUP ON USER PROFILE ///////////////
 /////// Shows the full record on a user's profile when a record button is clicked //
 function showRecord(evt) {
-    const id = evt.target.getAttribute("value")
+    const id = evt.target.getAttribute("value");
     if (id !== null) {
         const record = {
             recordid: evt.target.getAttribute("value"), }
@@ -172,9 +172,6 @@ let buttons = document.querySelectorAll('.user-record-btn');
 const buttonsFromNodeList = Array.from(buttons);
 
 buttonsFromNodeList.forEach(button => button.addEventListener('click', showRecord));
-// for (const button of buttons) {
-//     button.addEventListener('click', showRecord);
-// }
 
 
 
@@ -183,12 +180,12 @@ const deleteBtn = document.querySelector('#delete-record-btn');
 
 function deleteRecord(evt) {
     evt.preventDefault();
-    // alert('Are you sure you want to delete this record?');
+    alert('Are you sure you want to delete this record?');
 
     const deleteRecord = {
         recordid: document.querySelector('#delete-record-id').value, }
 
-    // console.log(deleteRecord)
+    console.log(deleteRecord);
 
 
     fetch('/profile/delete-record.json', {

@@ -61,6 +61,7 @@
     <p value="{{ record.record_id }}">{{ record.bin_type_code }}</p>
     <p value="{{ record.record_id }}">Date - {{ record.date_time }}</p>
     <p value="{{ record.record_id }}">Weight - {{ record.weight }} lbs</p>
+    <input hidden id="delete-record-id" value="{{ record.record_id }}">
   </button>
   </div>
   {% endfor %}
