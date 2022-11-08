@@ -56,12 +56,11 @@
 <div class="flex-container">
 <div id="display-record">
   {% for record in records %}
-  <div id="record-{{ record.record_id }}">
+  <div id="record-{{ record.record_id }}" value="{{ record.record_id }}">
   <button class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
     <p value="{{ record.record_id }}">{{ record.bin_type_code }}</p>
     <p value="{{ record.record_id }}">Date - {{ record.date_time }}</p>
     <p value="{{ record.record_id }}">Weight - {{ record.weight }} lbs</p>
-    <input hidden id="delete-record-id" value="{{ record.record_id }}">
   </button>
   </div>
   {% endfor %}

@@ -81,8 +81,12 @@ function formSubmit(evt) {
 
     };
 
-    console.log(formInputs.datetime);
-    console.log(typeof(formInputs.datetime));
+    console.log("This is the new record I want to add to the db:");
+    console.log(formInputs);
+    console.log("This record is a new object and does not have an ID yet")
+    console.log("It will get its ID after it is added to the db")
+
+
 
     // connecting to Flask route in Python file
     fetch('/profile/add-record.json', {
@@ -100,12 +104,17 @@ function formSubmit(evt) {
         .then((response) => response.json())
         .then(userRecord => {
 
+            console.log("This is the user record I just got back from my Flask route:");
             console.log(userRecord);
+            console.log("This record is a:");
             console.log(typeof(userRecord));
-            const showRecord = document.querySelector('#display-record');
-            showRecord.insertAdjacentHTML('beforeend', 
-            `<div id="record-${userRecord.recordid}">
-            <button id="user-record-btn" class="btn btn-primary modal-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="${userRecord.recordid}">
+            console.log("It now has a record ID of:");
+            console.log(userRecord.record_id);
+
+            const showUserRecord = document.querySelector('#display-record');
+            showUserRecord.insertAdjacentHTML('beforeend', 
+            `<div id="record-${userRecord.record_id}" value="${userRecord.record_id}">
+            <button class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="${userRecord.record_id}">
             <p>${userRecord.bintype}</p>
             <p>Date - ${userRecord.datetime}</p>
             <p>Weight - ${userRecord.weight}</p>
@@ -113,6 +122,10 @@ function formSubmit(evt) {
             </div>
             `
             );
+            
+
+            document.querySelector(`#record-${userRecord.record_id} .user-record-btn`).addEventListener('click', showRecord);
+
             
             // this allows the pie chart to change dynamically
             // as a user adds their records in the db
@@ -130,17 +143,22 @@ form.addEventListener('submit', formSubmit);
 //////////////////// SHOW FULL RECORD IN MODAL POPUP ON USER PROFILE ///////////////
 /////// Shows the full record on a user's profile when a record button is clicked //
 function showRecord(evt) {
-    const id = evt.target.getAttribute("value");
+    const id = evt.currentTarget.getAttribute("value");
+    console.log("This is the event.targe");
+    console.log(evt.currentTarget);
+    console.log("This is the id of the record I clicked outside of my if statement:");
+    console.log(id);
+
     if (id !== null) {
         const record = {
-            recordid: evt.target.getAttribute("value"), }
+            record_id: evt.currentTarget.getAttribute("value"), }
     
-        console.log("This is the event object:");
+        console.log("This is the record id inside of the if statement:");
+        console.log(record.record_id);
+        console.log(typeof(record.record_id));
+        console.log("This is the event object I have put a target on:");
         console.log(evt);
     
-        console.log("This is the record id:");
-        console.log(record.recordid);
-        console.log(typeof(record.recordid));
         
         fetch('/profile/show-record.json', {
             method: 'POST',
@@ -153,25 +171,28 @@ function showRecord(evt) {
         .then((response) => response.json())
         .then(userRecord => {
             const showRecord = document.querySelector('#show-a-record');
+            console.log("This is the user record:")
+            console.log(userRecord);
             showRecord.innerHTML = " ";
             // console.log(typeof(userRecord.date));
             // let date = userRecord.date;
             // console.log(date);
            
             showRecord.innerHTML = `
-                                <p value="${userRecord.recordid}">${userRecord.date}</p>
-                                <p value="${userRecord.recordid}">${userRecord.weight} lbs</p> 
-                                <p value="${userRecord.recordid}">${userRecord.bin_type_code}</p>
-                                <input hidden id="delete-record-id" value="${userRecord.recordid}"></input>`;
+                                <p value="${userRecord.record_id}">${userRecord.date}</p>
+                                <p value="${userRecord.record_id}">${userRecord.weight} lbs</p> 
+                                <p value="${userRecord.record_id}">${userRecord.bin_type_code}</p>
+                                <input hidden id="delete-record-id" value="${userRecord.record_id}"></input>`;
         });
     }
 }
 
 // capture all the records and add an event listener to them 
 let buttons = document.querySelectorAll('.user-record-btn');
-const buttonsFromNodeList = Array.from(buttons);
-
-buttonsFromNodeList.forEach(button => button.addEventListener('click', showRecord));
+console.log("Setting up event handlers for buttons");
+    for (const button of buttons) {
+        button.addEventListener('click', showRecord);
+    }
 
 
 
@@ -180,13 +201,15 @@ const deleteBtn = document.querySelector('#delete-record-btn');
 
 function deleteRecord(evt) {
     evt.preventDefault();
-    alert('Are you sure you want to delete this record?');
 
     const deleteRecord = {
-        recordid: document.querySelector('#delete-record-id').value, }
+        record_id: document.querySelector('#delete-record-id').value, }
 
-    console.log(deleteRecord);
-
+    // console.log(deleteRecord);
+    console.log("This is the record ID:");
+    console.log("for the record I want to delete:");
+    console.log(deleteRecord.record_id);
+    alert('Are you sure you want to delete this record?');
 
     fetch('/profile/delete-record.json', {
         method: 'POST',
@@ -198,7 +221,7 @@ function deleteRecord(evt) {
 
     .then((response) => response.text())
     .then(removeResponse => {
-        const record = document.querySelector(`#record-${deleteRecord.recordid}`);
+        const record = document.querySelector(`#record-${deleteRecord.record_id}`);
         // console.log(record);
         record.remove();
         alert(removeResponse);

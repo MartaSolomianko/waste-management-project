@@ -254,7 +254,7 @@ def add_record():
     
     # this dictionary goes to .then in JS file and eventually gets inserted back into the html file
     # return jsonify(new_record)
-    return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%Y-%m-%d"), 'userid': user_id, 'recordid': new_record.record_id})
+    return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%Y-%m-%d"), 'userid': user_id, 'record_id': new_record.record_id})
 
 
 
@@ -331,7 +331,7 @@ def show_record():
     """Get a specific record's information to show in modal on user profile."""
 
     # get record id from JS file
-    record_id = request.json.get("recordid")
+    record_id = request.json.get("record_id")
 
 
     print()
@@ -360,7 +360,7 @@ def show_record():
 def delete_record():
     """Remove a record from the db and user profile page."""
 
-    record_id = request.json.get("recordid")
+    record_id = request.json.get("record_id")
 
     record_id = int(record_id)
 
