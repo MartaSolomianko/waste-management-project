@@ -44,7 +44,7 @@
         </div>
 
 <!----------------- BUTTONS TO LOG A NEW RECORD ------------------------------->
-    <div class="col-6">
+    <div class="col-8">
      <div class="row">
       <button id="log-bag" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show-log-bag-modal">Log a bag of waste</button>
       <button id="log-item-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show-search-item-modal">Look up an item to Log</button>
@@ -53,8 +53,8 @@
 <!-- would like this to be a grid and each record to show up as a tiny img -->
 <!-- think about if this needs to be ordered by year and date --> 
 
-<div class="flex-container">
-<div id="display-record">
+<div class="card">
+<div id="display-record" class="flex-container">
   {% for record in records %}
   <div id="record-{{ record.record_id }}" value="{{ record.record_id }}">
   <button class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
