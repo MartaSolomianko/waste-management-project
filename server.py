@@ -20,6 +20,11 @@ ph = PasswordHasher()
 def homepage():
     """View homepage."""
 
+    session_user_id = session.get("user_id")
+
+    if session_user_id:
+        return redirect("/profile")
+
     return render_template("homepage.html")
 
 
