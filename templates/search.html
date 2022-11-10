@@ -3,40 +3,22 @@
 {% block head %}
 
 <!-- REACT  -->
-<!-- PREPARING TO MAYBE CHANGE THIS PAGE TO REACT -->
-<!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.1/babel.js" integrity="sha512-d8ciNFnLWxAD7NIqQBu4KbUtoRY0Vo4e+tj0b27BH0G5cbqhDhwJR4s7Tber9PVegRlwXgl39qJe8rQxAGrjwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.1/babel.js" integrity="sha512-d8ciNFnLWxAD7NIqQBu4KbUtoRY0Vo4e+tj0b27BH0G5cbqhDhwJR4s7Tber9PVegRlwXgl39qJe8rQxAGrjwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 {% endblock %}
 
 {% block body %}
-<div>
-    <h2>Search</h2>
-        <form action="/search" method="GET">
-            <div>
-              <label for="search"></label>
-              <input type="text" name="q" placeholder="Search for something">
-            </div>
-        <input value="Search" type="submit">
-    </form>
-  </div>
-<div>
-    {% if item %}
-    <h2>Search Results</h2>
-        <div>
-            <ul>
-                <li>Item Name: {{ item.name }}</li>
-                <li>Item Material: {{ item.material }}</li>
-                <li>Item Bin: {{ item.bin_type_code }}</li><br>
-            </ul>
-        </div>
-    {% endif %}
-</div>
+<input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
+
+<!-- React search results -->
+<div id="search-page"></div>
+
 
 
 <!------------- SCRIPT FOR JSX ----------------------------->
-<!-- 
-<script type="text/jsx" src="/static/dashboard.jsx"></script> -->
+
+<script type="text/jsx" src="/static/search.jsx"></script>
 
 {% endblock %}

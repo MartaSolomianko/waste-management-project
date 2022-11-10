@@ -38,7 +38,6 @@ class Record(db.Model):
     user = db.relationship("User", back_populates="records")
     bin_type = db.relationship("BinType", back_populates="records")
 
-
     def __repr__(self):
         return f"<Record record_id={self.record_id} date_time={self.date_time} bin_type_code={self.bin_type_code}>"
     
@@ -60,7 +59,6 @@ class Item(db.Model):
     bin_type_code = db.Column(db.String(5), db.ForeignKey("bin_types.type_code"), nullable=False)
 
     bin_type = db.relationship("BinType", back_populates="items")
-    
 
     def __repr__(self):
         return f"<Item item_id={self.item_id} name={self.name} bin_type_code={self.bin_type_code}>"

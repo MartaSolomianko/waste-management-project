@@ -215,6 +215,22 @@ def user_profile():
                                         records=records)
 
 
+####################### SEARCH AN ITEM TO ADD #######################################
+@app.route("/profile/search")
+def user_item_search():
+    """Show search page to user."""
+
+    # getting the user's user_id from session, returns None if no user_id
+    session_user_id = session.get("user_id")
+
+    # if there is no user_id in the session, ask the user to Login
+    if not session_user_id:
+        flash("Please Login")
+        return redirect("/")
+
+    return render_template("search.html")
+
+
 
 ########################## ADD A RECORD ##############################################
 @app.route("/profile/add-record.json", methods=["POST"])
