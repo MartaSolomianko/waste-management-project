@@ -26,56 +26,6 @@ def homepage():
         return redirect("/profile")
 
     return render_template("homepage.html")
-
-
-
-@app.route("/search")
-def search():
-    """Show search results."""
-
-    # saving search form inputs to variable 
-    user_input = request.args.get("q")
-
-    # accounting for odd characters, capital letters, or blank spaces in search
-    search = crud.clean_user_search(user_input)
-
-    # if empty input submitted
-    if search == "":
-        flash("Sorry, couldn't find that. Try searching again.")
-        return redirect("/search/error")
-    
-    # check if there is an exact name match in db
-    item = crud.get_item_by_name(search)
-
-    # check if you can return a result based on a material in db
-    if not item:
-        item = crud.get_item_by_material(search)
-
-        # if there are no exact matches, check if there is a similar name match in db
-        if not item:
-            item = crud.get_similar_item_by_name(search)
-
-            # check if there is a similar sounding material in db
-            if not item:
-                item = crud.get_similar_item_by_material(search)
-                
-                # if you can't find an item, flash an error message
-                if not item:
-                    flash(f"Sorry, {search} is not in our database. Try searching for something else.")
-                    return redirect("/search/error")
-                        
-    
-    return render_template("search.html", item=item)
-
-
-
-@app.route("/search/error")
-def search_error():
-    """Show error message on search results page if no item is found."""
-
-    item = None
-
-    return render_template("search.html", item=item)
     
 
 
@@ -229,6 +179,76 @@ def user_item_search():
         return redirect("/")
 
     return render_template("search.html")
+
+
+## FIGURE OUT WHAT TO DO WITH RETURN REDIRECT NOW THAT SWITCHED TO JSON
+@app.route("/profile/search-item.json", methods=["POST"])
+def search():
+    """Show search results."""
+
+    # saving search form inputs to variable 
+    # user_input = request.args.get("q")
+
+    # grab input from search form in jsx file? 
+    user_input = request.json.get("name")
+    print()
+    print(user_input)
+
+    # accounting for odd characters, capital letters, or blank spaces in search
+    search = crud.clean_user_search(user_input)
+
+    # if empty input submitted
+    if search == "":
+        flash("Sorry, couldn't find that. Try searching again.")
+        return redirect("/profile/search/error")
+    
+    # check if there is an exact name match in db
+    item = crud.get_item_by_name(search)
+
+    # check if you can return a result based on a material in db
+    if not item:
+        item = crud.get_item_by_material(search)
+
+        # if there are no exact matches, check if there is a similar name match in db
+        if not item:
+            item = crud.get_similar_item_by_name(search)
+
+            # check if there is a similar sounding material in db
+            if not item:
+                item = crud.get_similar_item_by_material(search)
+                
+                # if you can't find an item, flash an error message
+                if not item:
+                    flash(f"Sorry, {search} is not in our database. Try searching for something else.")
+                    return redirect("/profile/search/error")
+
+
+    print()                               
+    print("This is the item found in the db")
+    print(item.weight)
+    print(item.name)
+    print(item.bin_type_code)
+    print(item.item_id)
+    print('############################')
+
+    name = item.name
+    weight = item.weight
+    bin = item.bin_type_code
+    material = item.material
+
+    
+    # return render_template("search.html", item=item)
+    return jsonify({'name': name, 'weight': weight, 'bin': bin, 'material': material})
+
+
+
+@app.route("/profile/search/error")
+def search_error():
+    """Show error message on search results page if no item is found."""
+
+    item = None
+
+    return render_template("search.html", item=item)
 
 
 
