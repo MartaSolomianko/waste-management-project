@@ -8,7 +8,15 @@ function SearchForm() {
     const [material, setMaterial] = React.useState('');
     const [bin, setBin] = React.useState('');
     const [weight, setWeight] = React.useState(0); 
+    const [displayName, setdisplayName] = React.useState('');
 
+    // function to maybe update the weight after a user types in a value in the Search results...
+    function handleWeight() {
+        setWeight()
+    }
+
+
+    // this only happens after the enter button is clicked
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log('Before fetch request'); 
@@ -24,13 +32,22 @@ function SearchForm() {
         })
             .then((response) => response.json())
             .then((itemDetails) => {
-                console.log("inside of fetch request");
+                // check for the empty dictionary if empty don't do anything
+                console.log("after fetch request");
                 console.log(itemDetails.name);
-                setName(itemDetails.name);
-                setBin(itemDetails.bin);
+                // setName(itemDetails.name);
+                setdisplayName(itemDetails.name);
                 setWeight(itemDetails.weight);
                 setMaterial(itemDetails.material);
-
+                if (itemDetails.bin === 'R') {
+                    setBin('Recycling');
+                } else if (itemDetails.bin === 'C') {
+                    setBin('Compost');
+                } else if (itemDetails.bin === 'T') {
+                    setBin('Trash');
+                } else {
+                    setBin('Hazardous');
+                }
             });
     }     
     return (
@@ -44,7 +61,7 @@ function SearchForm() {
     </input>
     </label>
     <button onClick={handleSubmit}>Enter</button>
-    {bin && <SearchResults name={name} bin={bin} weight={weight} material={material}/>}
+    {bin && <SearchResults name={displayName} bin={bin} weight={weight} material={material} handleWeight={handleWeight}/>}
     </React.Fragment>
     );
 }
@@ -52,14 +69,17 @@ function SearchForm() {
 
 
 // child component
+// change weight to typical weight 
+// take out the handle weight function
 function SearchResults({name, material, bin, weight}) {
 
-    // to pass info from parent to child as props -- material, bin type
+    // weight as a state that gets the input a user enters
 
-
-    const handleAddRecord = () => {
-        console.log('Hi, I added a record')
-        // JS line of code this would send back to user profile 
+    const handleAddRecord = (event) => {
+        event.preventDefault();
+        console.log('Hi, I added a record that weighs:');
+        console.log(weight);
+        // JS line of code this would send a user back to their user profile page 
         // to add a record to the db I need to send: 
         // datetime
         // weight
@@ -71,19 +91,25 @@ function SearchResults({name, material, bin, weight}) {
 
     return (
     <React.Fragment>
-    <h3>I am the search results</h3>
+    <h3>Search results:</h3>
     <div>
     <p> Item name: {name} </p>
     <p> Item material: {material} </p>
-    <p> Throw this out in: {bin} </p>
-    <p> {weight} lbs</p>
-    <button onClick={handleAddRecord}>Add to your Records</button>
-    </div>
-    {/* button will take the user back to their profile page 
-    and add a record to the records */}
+    <p> a {name} normally weighs {weight} lbs</p>
 
     {/* add weight form here? */}
+    <label>Add 
+    {/* trying to update the prop variable weight back in the parent component */}
+    <input onChange={() => handleWeight}></input> lbs
+    </label>
 
+    {/* button will take the user back to their profile page 
+    and add a record to the records */}
+    <div>
+    <button onClick={handleAddRecord}>to my {bin}</button>
+    </div>
+
+    </div>
     </React.Fragment>
     );
 }
@@ -98,7 +124,6 @@ function SearchPageContainer() {
     <h2>Search Page!</h2>
     <SearchForm />
     </React.Fragment> 
-
     );
 }
 
