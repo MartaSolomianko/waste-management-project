@@ -161,8 +161,7 @@ def user_profile():
     #     year = date[2]
         
 
-    return render_template("profile.html", user=user,   
-                                        records=records)
+    return render_template("profile.html", user=user, records=records)
 
 
 ####################### SEARCH AN ITEM TO ADD #######################################
@@ -181,7 +180,7 @@ def user_item_search():
     return render_template("search.html")
 
 
-## FIGURE OUT WHAT TO DO WITH RETURN REDIRECT NOW THAT SWITCHED TO JSON
+
 @app.route("/profile/search-item.json", methods=["POST"])
 def search():
     """Show search results."""
@@ -199,8 +198,8 @@ def search():
 
     # if empty input submitted
     if search == "":
-        flash("Sorry, couldn't find that. Try searching again.")
-        return redirect("/profile/search/error")
+        # flash("Sorry, couldn't find that. Try searching again.")
+        return jsonify({})
     
     # check if there is an exact name match in db
     item = crud.get_item_by_name(search)
@@ -219,36 +218,26 @@ def search():
                 
                 # if you can't find an item, flash an error message
                 if not item:
-                    flash(f"Sorry, {search} is not in our database. Try searching for something else.")
-                    return redirect("/profile/search/error")
-
-
-    print()                               
-    print("This is the item found in the db")
-    print(item.weight)
-    print(item.name)
-    print(item.bin_type_code)
-    print(item.item_id)
-    print('############################')
+                    # flash(f"Sorry, {search} is not in our database. Try searching for something else.")
+                    return jsonify({})
 
     name = item.name
     weight = item.weight
     bin = item.bin_type_code
     material = item.material
-
     
     # return render_template("search.html", item=item)
     return jsonify({'name': name, 'weight': weight, 'bin': bin, 'material': material})
 
 
 
-@app.route("/profile/search/error")
-def search_error():
-    """Show error message on search results page if no item is found."""
+# @app.route("/profile/search/error")
+# def search_error():
+#     """Show error message on search results page if no item is found."""
 
-    item = None
+#     item = None
 
-    return render_template("search.html", item=item)
+#     return render_template("search.html", item=item)
 
 
 
@@ -282,26 +271,59 @@ def add_record():
     db.session.add(new_record)
     db.session.commit()
 
-    print()
-    print()
-    print("***************")
-    print(new_record.record_id)
+    # record_id = new_record.record_id
 
-    record_id = new_record.record_id
-
-    print(record_id)
-    
- 
-    
     # this dictionary goes to .then in JS file and eventually gets inserted back into the html file
     # return jsonify(new_record)
     return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%Y-%m-%d"), 'userid': user_id, 'record_id': new_record.record_id})
 
 
 
+#################### ADD A RECORD FROM SEARCH/REACT PAGE #########################
+@app.route("/profile/search/add-record")
+def add_item_record():
+    """Add a record to the db and return a user back to the profile page."""
+
+    ## get values to add to db from query string
+    weight = request.args.get("weight")
+    bin = request.args.get("bin")
+
+    # switch weight to a integer
+    weight = float(weight)
+
+    # switch bin type to a code
+    if bin == "Recycling":
+        bin = "R"
+    elif bin == "Compost":
+        bin = "C"
+    elif bin == "Trash":
+        bin = "T"
+    else:
+        bin = "H"
+
+    # stamp a record here with datetime.now
+    date_time = datetime.now().date()
+
+    # getting the user's user_id from session, returns None if no user_id
+    # this is for both loading the profile page and also to add a record to db
+    session_user_id = session.get("user_id")
+
+    # if there is no user_id in the session, ask the user to Login
+    if not session_user_id:
+        flash("Please Login")
+        return redirect("/")
+
+    # create record and add it to the db
+    new_record = crud.create_record(user=session_user_id, bin_type=bin, date_time=date_time, weight=weight)
+    db.session.add(new_record)
+    db.session.commit()
+
+    return redirect("/profile")
+
+
+
 ##################################################################################
 #TODO: 
-## decide if pie chart should show records from the current year? 
 ## if a user clicks on a slice from the pie chart, show those records?
 ## make routes to allow a user to edit a record
 ################################################################################## 

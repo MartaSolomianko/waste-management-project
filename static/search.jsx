@@ -7,13 +7,9 @@ function SearchForm() {
     const [name, setName] = React.useState('');
     const [material, setMaterial] = React.useState('');
     const [bin, setBin] = React.useState('');
-    const [weight, setWeight] = React.useState(0); 
-    const [displayName, setdisplayName] = React.useState('');
-
-    // function to maybe update the weight after a user types in a value in the Search results...
-    function handleWeight() {
-        setWeight()
-    }
+    const [typicalWeight, setTypicalWeight] = React.useState(0); 
+    const [displayName, setDisplayName] = React.useState('');
+    const [error, setError] = React.useState('');
 
 
     // this only happens after the enter button is clicked
@@ -32,12 +28,20 @@ function SearchForm() {
         })
             .then((response) => response.json())
             .then((itemDetails) => {
-                // check for the empty dictionary if empty don't do anything
+                // check for the empty dictionary if empty, don't do anything
+                if (Object.keys(itemDetails).length === 0) {
+                    // console.log("Try searching again!");
+                    setDisplayName('');
+                    setError('ERROR! Try searching again!');
+                    console.log(error);
+
+                } else {
+                setError('');
                 console.log("after fetch request");
                 console.log(itemDetails.name);
                 // setName(itemDetails.name);
-                setdisplayName(itemDetails.name);
-                setWeight(itemDetails.weight);
+                setDisplayName(itemDetails.name);
+                setTypicalWeight(itemDetails.weight);
                 setMaterial(itemDetails.material);
                 if (itemDetails.bin === 'R') {
                     setBin('Recycling');
@@ -47,7 +51,7 @@ function SearchForm() {
                     setBin('Trash');
                 } else {
                     setBin('Hazardous');
-                }
+                }}
             });
     }     
     return (
@@ -61,7 +65,8 @@ function SearchForm() {
     </input>
     </label>
     <button onClick={handleSubmit}>Enter</button>
-    {bin && <SearchResults name={displayName} bin={bin} weight={weight} material={material} handleWeight={handleWeight}/>}
+    { error && <div> {error} </div>}
+    { displayName && <SearchResults name={displayName} bin={bin} typicalWeight={typicalWeight} material={material}/>}
     </React.Fragment>
     );
 }
@@ -69,24 +74,20 @@ function SearchForm() {
 
 
 // child component
-// change weight to typical weight 
-// take out the handle weight function
-function SearchResults({name, material, bin, weight}) {
+function SearchResults({name, material, bin, typicalWeight}) {
 
-    // weight as a state that gets the input a user enters
+    // this stores the weight input a user enters
+    const [userWeight, setUserWeight] = React.useState(0);
 
     const handleAddRecord = (event) => {
         event.preventDefault();
-        console.log('Hi, I added a record that weighs:');
-        console.log(weight);
-        // JS line of code this would send a user back to their user profile page 
-        // to add a record to the db I need to send: 
-        // datetime
-        // weight
-        // user_id
-        // bin_type_code
-        // url = "/add-record?weight=1&material=plastic"
-        // window.location.href = url 
+        // console.log('Hi, I added a record that weighs:');
+        // console.log(typicalWeight);
+        // console.log(userWeight);
+
+        const url = `/profile/search/add-record?weight=${userWeight}&bin=${bin}`
+        // console.log(url);
+        window.location.href = url 
     }
 
     return (
@@ -95,18 +96,20 @@ function SearchResults({name, material, bin, weight}) {
     <div>
     <p> Item name: {name} </p>
     <p> Item material: {material} </p>
-    <p> a {name} normally weighs {weight} lbs</p>
+    <p> {name} normally weighs {typicalWeight} lbs</p>
 
-    {/* add weight form here? */}
+    {/* TODO: play around with the initial value showing up in the input box */}
     <label>Add 
-    {/* trying to update the prop variable weight back in the parent component */}
-    <input onChange={() => handleWeight}></input> lbs
+    <input 
+    value={userWeight}
+    onChange={(event) => setUserWeight(event.target.value)}>
+    </input> lbs
     </label>
 
     {/* button will take the user back to their profile page 
     and add a record to the records */}
     <div>
-    <button onClick={handleAddRecord}>to my {bin}</button>
+    <button onClick={handleAddRecord}>{userWeight}lbs to my {bin}</button>
     </div>
 
     </div>
