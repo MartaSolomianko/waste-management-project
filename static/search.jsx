@@ -15,8 +15,8 @@ function SearchForm() {
     // this only happens after the enter button is clicked
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('Before fetch request'); 
-        console.log(name);  
+        // console.log('Before fetch request'); 
+        // console.log(name);  
 
         // sending the input the user typed into the search route in server.py
         fetch('/profile/search-item.json', {
@@ -28,12 +28,13 @@ function SearchForm() {
         })
             .then((response) => response.json())
             .then((itemDetails) => {
-                // check for the empty dictionary if empty, don't do anything
+                // check for the empty dictionary if empty, show error message
                 if (Object.keys(itemDetails).length === 0) {
                     // console.log("Try searching again!");
+                    // set search results to not show up on the page
                     setDisplayName('');
-                    setError('ERROR! Try searching again!');
-                    console.log(error);
+                    setError('We could not find that, try searching again.');
+                    // console.log(error);
 
                 } else {
                 setError('');
@@ -65,7 +66,7 @@ function SearchForm() {
     </input>
     </label>
     <button onClick={handleSubmit}>Enter</button>
-    { error && <div> {error} </div>}
+    { error && <div> {error} </div> }
     { displayName && <SearchResults name={displayName} bin={bin} typicalWeight={typicalWeight} material={material}/>}
     </React.Fragment>
     );
@@ -77,7 +78,7 @@ function SearchForm() {
 function SearchResults({name, material, bin, typicalWeight}) {
 
     // this stores the weight input a user enters
-    const [userWeight, setUserWeight] = React.useState(0);
+    const [userWeight, setUserWeight] = React.useState('');
 
     const handleAddRecord = (event) => {
         event.preventDefault();
