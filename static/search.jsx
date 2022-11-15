@@ -99,7 +99,6 @@ function SearchResults({name, material, bin, typicalWeight}) {
     <p> Item material: {material} </p>
     <p> {name} normally weighs {typicalWeight} lbs</p>
 
-    {/* TODO: play around with the initial value showing up in the input box */}
     <label>Add 
     <input 
     value={userWeight}

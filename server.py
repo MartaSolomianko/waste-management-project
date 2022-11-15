@@ -136,32 +136,35 @@ def user_profile():
     # returns a list of the user's records
     records = crud.get_records_by_user_id(session_user_id)
 
-    # if the user has records, find the date of the first record
-    # this is to contextualize the total waste a user has logged
-    # if records:
-
-    #     first_record = records[0]
-    #     # check that is the first record a user made by looking through record_ids
-    #     for record in records:
-    #         # find the earliest record_id, this will match the first record a user made
-    #         if record.record_id < first_record.record_id:
-    #             first_record = record
+    # dictionary key contains the month and year
+    # value of each key is a list of those records associated with that year and month
+    sorted_records = {}
+    # today's month and year
+    today = datetime.now().strftime("%Y-%m")
     
-    #     # this is a string
-    #     start_date = first_record.date_time
-    
-    # returns a list of current month's user records
-    # using the user_id stored in session and the date stored in session
-    # current_records = crud.get_records_by_user_id_for_current_month(session_user_id, today)
+    # opening up our list of a user's record objects 
+    for record in records:
+        # sort each record into a list based on date
+        record_date = record.date_time.strftime("%Y-%m")
+        if record_date not in sorted_records:
+            sorted_records[record_date] = []
+        sorted_records[record_date].append(record)
 
-    # for record in current_records:
-    #     date = record.date_time
-    #     date = date.split()
-    #     month = date[0]
-    #     year = date[2]
-        
 
-    return render_template("profile.html", user=user, records=records)
+
+
+    print()
+    print("*********************************")
+    print("this is the dictionary of sorted records?")
+    print(sorted_records)
+    print("this is the date today")
+    print(today)
+    print("*********************************")
+    print()
+
+
+
+    return render_template("profile.html", user=user, sorted_records=sorted_records)
 
 
 ####################### SEARCH AN ITEM TO ADD #######################################
