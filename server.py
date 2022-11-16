@@ -136,35 +136,55 @@ def user_profile():
     # returns a list of the user's records
     records = crud.get_records_by_user_id(session_user_id)
 
+    sorted_records = records[::-1]
+    print()
+    print("This is my unsorted list of records")
+    print(records)
+    print("This is my sorted list of records")
+    print(sorted_records)
+
     # dictionary key contains the month and year
     # value of each key is a list of those records associated with that year and month
-    sorted_records = {}
+    records_dict = {}
 
     # TODO: not certain if I will need this for when a new month comes around 
     # and a user does not have records yet
     # today's month and year 
-    # today = datetime.now().strftime("%B %Y")
+    today = datetime.now().date()
+    today = date(2023,4,2).strftime("%Y %B")
     
     # opening up our list of a user's record objects 
-    for record in records:
+    for record in sorted_records:
         # sort each record into a list based on date
-        record_date = record.date_time.strftime("%B %Y")
-        if record_date not in sorted_records:
-            sorted_records[record_date] = []
-        sorted_records[record_date].append(record)
-    
+        #155 to be strftime 
+        record_date = record.date_time.strftime("%Y %B")
+        print()
+        print(record_date)
+        if today not in records_dict:
+            records_dict[today] = []
+        if record_date not in records_dict:
+            records_dict[record_date] = []
+        records_dict[record_date].append(record)
+
+    for month_year in records_dict:
+        records_dict[month_year] = records_dict[month_year][::-1]
+
 
     print()
     print("*********************************")
     print("this is the dictionary of sorted records?")
-    print(sorted_records)
+    print(records_dict)
     print("this is the date today")
-    # print(today)
+    print(today)
     print("*********************************")
     print()
 
+    first_record = records[0]
+    start_date = first_record.date_time.strftime("%B %d, %Y")
+    # print(start_date)
+        
 
-    return render_template("profile.html", user=user, sorted_records=sorted_records)
+    return render_template("profile.html", user=user, records_dict=records_dict, start_date = start_date)
 
 
 ####################### SEARCH AN ITEM TO ADD #######################################
@@ -253,6 +273,7 @@ def add_record():
     user_id = request.json.get("userid")
     bin_type_code = request.json.get("bintype")
     date_time = request.json.get("datetime")
+    # date_time = "2022-12-01"
     weight = request.json.get("weight")
     # print(date_time)
     # print(type(date_time))
@@ -266,6 +287,7 @@ def add_record():
 
     # discarding all of the time info and translating to datetime for python
     date_time = datetime.strptime(date_time, format).date()
+    date_time = date(2023,4,2)
     # user_id is a string
     # bin_type_code is a string
 
@@ -306,6 +328,7 @@ def add_item_record():
 
     # stamp a record here with datetime.now
     date_time = datetime.now().date()
+    date_time = date(2023,4,2)
 
     # getting the user's user_id from session, returns None if no user_id
     # this is for both loading the profile page and also to add a record to db

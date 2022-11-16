@@ -45,8 +45,13 @@
           </div>
         </div>
         <br>
+
+        {% if records_dict %}
           <div>You have produced:</div>
             <h1 id="lifetime-total"></h1>
+          <div id="start-date">Since {{ start_date }}</div>
+        {% endif %}
+
           </div>
         </div>
 
@@ -65,7 +70,7 @@
 <!-- Swiper -->
 <div dir="rtl" class="swiper mySwiper">
 <div class="swiper-wrapper">
-{% for date in sorted_records|sort(reverse = True) %}
+{% for date in records_dict %}
 <div class="swiper-slide">
 <div class="card">
 <div class="card-header">
@@ -74,7 +79,7 @@
 <div class="card-body">
 
 <div id="display-record" class="flex-container">
-  {% for record in sorted_records[date] %}
+  {% for record in records_dict[date] %}
   <div id="record-{{ record.record_id }}" value="{{ record.record_id }}">
   <button class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
     <p value="{{ record.record_id }}">{{ record.bin_type_code }}</p>
