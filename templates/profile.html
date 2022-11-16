@@ -59,18 +59,17 @@
 
 <!----------------- SHOW USER RECORDS AS GRID ON PROFILE ---------------------->
 <!-- would like this to be a grid and each record to show up as a tiny img -->
-<!-- think about if this needs to be ordered by year and date --> 
 
 <br>
 <div class="container carousel">
 <!-- Swiper -->
-<div class="swiper mySwiper">
+<div dir="rtl" class="swiper mySwiper">
 <div class="swiper-wrapper">
 {% for date in sorted_records|sort(reverse = True) %}
 <div class="swiper-slide">
 <div class="card">
 <div class="card-header">
-This is the dictionary key {{ date }}
+{{ date }}
 </div>
 <div class="card-body">
 

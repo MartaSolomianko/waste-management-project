@@ -7,7 +7,7 @@
 /* USER PROFILE RECORDS */
 .flex-container {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     flex-wrap: wrap-reverse;
     justify-content: flex-start;
     align-items: flex-end;

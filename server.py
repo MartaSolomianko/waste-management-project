@@ -139,29 +139,29 @@ def user_profile():
     # dictionary key contains the month and year
     # value of each key is a list of those records associated with that year and month
     sorted_records = {}
-    # today's month and year
-    today = datetime.now().strftime("%Y-%m")
+
+    # TODO: not certain if I will need this for when a new month comes around 
+    # and a user does not have records yet
+    # today's month and year 
+    # today = datetime.now().strftime("%B %Y")
     
     # opening up our list of a user's record objects 
     for record in records:
         # sort each record into a list based on date
-        record_date = record.date_time.strftime("%Y-%m")
+        record_date = record.date_time.strftime("%B %Y")
         if record_date not in sorted_records:
             sorted_records[record_date] = []
         sorted_records[record_date].append(record)
-
-
-
+    
 
     print()
     print("*********************************")
     print("this is the dictionary of sorted records?")
     print(sorted_records)
     print("this is the date today")
-    print(today)
+    # print(today)
     print("*********************************")
     print()
-
 
 
     return render_template("profile.html", user=user, sorted_records=sorted_records)
@@ -412,7 +412,8 @@ def show_record():
     print()
     print("RECORD ######*************    ##########")
     print(record)
-    date = record.date_time
+    date = record.date_time.strftime("%B %d %Y")
+    print(date)
     weight = record.weight
     bin_type_code = record.bin_type_code
 

@@ -173,6 +173,8 @@ function showRecord(evt) {
             const showRecord = document.querySelector('#show-a-record');
             console.log("This is the user record:")
             console.log(userRecord);
+            console.log("This is the date on the record")
+            console.log(userRecord.date);
             showRecord.innerHTML = " ";
             // console.log(typeof(userRecord.date));
             // let date = userRecord.date;
