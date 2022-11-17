@@ -15,7 +15,6 @@ ph = PasswordHasher()
 
 
 ####################### HOMEPAGE/LOGIN/LOGOUT/REGISTER/SEARCH ROUTES ##################
-
 @app.route("/")
 def homepage():
     """View homepage."""
@@ -117,7 +116,6 @@ def user_logout():
 
 
 ##################### User Profile Routes ############################################
-
 @app.route("/profile")
 def user_profile():
     """Show user's profile page."""
@@ -150,8 +148,7 @@ def user_profile():
     # TODO: not certain if I will need this for when a new month comes around 
     # and a user does not have records yet
     # today's month and year 
-    today = datetime.now().date()
-    today = date(2023,4,2).strftime("%Y %B")
+    today = datetime.now().date().strftime("%Y %B")
     
     # opening up our list of a user's record objects 
     for record in sorted_records:
@@ -179,10 +176,13 @@ def user_profile():
     print("*********************************")
     print()
 
-    first_record = records[0]
-    start_date = first_record.date_time.strftime("%B %d, %Y")
-    # print(start_date)
-        
+    if records:
+        first_record = records[0]
+        start_date = first_record.date_time.strftime("%B %d, %Y")
+        # print(start_date)
+    if not records: 
+        start_date = today
+        records_dict[today] = []
 
     return render_template("profile.html", user=user, records_dict=records_dict, start_date = start_date)
 
@@ -287,7 +287,6 @@ def add_record():
 
     # discarding all of the time info and translating to datetime for python
     date_time = datetime.strptime(date_time, format).date()
-    date_time = date(2023,4,2)
     # user_id is a string
     # bin_type_code is a string
 
@@ -328,7 +327,6 @@ def add_item_record():
 
     # stamp a record here with datetime.now
     date_time = datetime.now().date()
-    date_time = date(2023,4,2)
 
     # getting the user's user_id from session, returns None if no user_id
     # this is for both loading the profile page and also to add a record to db

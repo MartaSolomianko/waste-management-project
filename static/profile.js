@@ -129,9 +129,20 @@ function formSubmit(evt) {
             
             // this allows the pie chart to change dynamically
             // as a user adds their records in the db
-            ctx.destroy();
-            userChart();
-            showTotalWaste();
+            console.log(ctx);
+            
+            if (ctx == null) {
+                userChart();
+                console.log("We made the chart");
+                showTotalWaste();
+            } else {
+                ctx.destroy();
+                console.log("Hi we have destroyed the chart but not yet made the chart");
+                userChart();
+                console.log("We made the chart");
+                showTotalWaste();
+            }
+            
         });
 }
 
