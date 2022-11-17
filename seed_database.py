@@ -104,16 +104,3 @@ for n in range(10):
         model.db.session.add(record)
 
 model.db.session.commit()
-
-
-
-#Q1 
-#### Normally when a user records a weight of their trash, they will submit a form
-#### can that form be submitted with a datetime.now() stamp so the user doesn't have 
-#### to enter the day and time each time they submit a record in their form?
-
-
-#Q2 
-#### two columns in my items table have default values at the database level.
-#### do those defaults come into play if I were to have an empty value for 
-#### them in my CSV data? 

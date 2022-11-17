@@ -11,27 +11,15 @@
   href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
 />
 
-
 {% endblock %}
 {% block body %}
 
-<!------------- USER GREETING -------------------------------------->
+<!------------- USER INFO -------------------------------------->
 <!-- <div>
     <h1>Hi {{ user.name }}!</h1>
 </div> -->
 
 <input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
-<!-- <input type="hidden" id="current_date" value="{{ session.get('current_date') }}"> -->
-
-<!-- 
-          <div>
-            <span>YOUR DAILY RATE:</span>
-            <div id="daily-rate"></div>
-          </div>
-        </button>
-        <button>
-          <div>  -->
-
 
 <!---------------- PIE CHART ----------------------------------------->
 <div class="container">
@@ -45,14 +33,11 @@
           </div>
         </div>
         <br>
-
         {% if records_dict %}
           <div>You have produced:</div>
             <h1 id="lifetime-total"></h1>  
           <div id="start-date">Since {{ start_date }}</div>
-         
         {% endif %}
-
           </div>
         </div>
 
@@ -64,42 +49,40 @@
     </div>
 
 <!----------------- SHOW USER RECORDS AS GRID ON PROFILE ---------------------->
-<!-- would like this to be a grid and each record to show up as a tiny img -->
-
 <br>
-<div class="container carousel">
-<!-- Swiper -->
-<div dir="rtl" class="swiper mySwiper">
-<div class="swiper-wrapper">
-{% for date in records_dict %}
-<div class="swiper-slide">
-<div class="card">
-<div class="card-header">
-{{ date }}
-</div>
-<div class="card-body">
+  <div class="container carousel">
+  <!-- Swiper -->
+    <div dir="rtl" class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        {% for date in records_dict %}
+          <div class="swiper-slide">
+            <div class="card">
+              <div class="card-header">
+                {{ date }}
+              </div>
+                <div class="card-body">
 
-<div id="display-record" class="flex-container">
-  {% for record in records_dict[date] %}
-  <div id="record-{{ record.record_id }}" value="{{ record.record_id }}">
-  <button class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
-    <p value="{{ record.record_id }}">{{ record.bin_type_code }}</p>
-    <p value="{{ record.record_id }}">Date - {{ record.date_time }}</p>
-    <p value="{{ record.record_id }}">Weight - {{ record.weight }} lbs</p>
-  </button>
-  </div>
-  {% endfor %}
-</div>
+                  <div id="display-record" class="flex-container">
+                    {% for record in records_dict[date] %}
+                      <div id="record-{{ record.record_id }}" value="{{ record.record_id }}">
+                        <button class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
+                          <p value="{{ record.record_id }}">{{ record.bin_type_code }}</p>
+                          <p value="{{ record.record_id }}">Date - {{ record.date_time }}</p>
+                          <p value="{{ record.record_id }}">Weight - {{ record.weight }} lbs</p>
+                        </button>
+                      </div>
+                    {% endfor %}
+                  </div>
 
-</div>
-</div>
-</div>
-{% endfor %}
-</div>
-<div class="swiper-pagination"></div>
-<div class="swiper-button-next"></div>
-<div class="swiper-button-prev"></div>
-</div>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+      </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
 </div>
 
  <!----------------- MODAL FOR EACH INDIVIDUAL USER RECORD  ----------------->
@@ -125,7 +108,6 @@
       </div>
     </div>
   </div>
-
 
 <!------------- MODAL TO ADD A BAG OF WASTE TO Records table in DB -------------------------->
 <div class="modal fade" id="show-log-bag-modal" tabindex="-1">
@@ -165,7 +147,6 @@
 <!----------------- JS SCRIPTS FOR PROFILE ------------------------------>
 
 <script src="/static/profile.js"></script>
-
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>

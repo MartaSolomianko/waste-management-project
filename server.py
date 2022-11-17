@@ -394,6 +394,36 @@ def get_records_by_user():
 
 
 
+@app.route("/profile/monthy_avg.json")
+def show_monthly_avg():
+    """Show a 30-day average of waste a user produces."""
+
+    # get user id from session
+    session_user_id = session.get("user_id")
+    
+    # returns a list of the user's records
+    records = crud.get_records_by_user_id(session_user_id)
+
+    if len(records) >= 30:
+        last_thirty = records[-30:-1]
+
+    else: 
+        return jsonify({})
+
+    total = 0
+
+    for record in last_thirty:
+        total += record.weight
+
+    monthly_avg = total / 30
+
+    print()
+    print(monthly_avg)
+
+    return jsonify(monthly_avg)
+
+
+
 @app.route("/profile/show-total.json")
 def show_total():
     """Show total waste produced by user on profile."""

@@ -81,10 +81,10 @@ function formSubmit(evt) {
 
     };
 
-    console.log("This is the new record I want to add to the db:");
-    console.log(formInputs);
-    console.log("This record is a new object and does not have an ID yet")
-    console.log("It will get its ID after it is added to the db")
+    // console.log("This is the new record I want to add to the db:");
+    // console.log(formInputs);
+    // console.log("This record is a new object and does not have an ID yet")
+    // console.log("It will get its ID after it is added to the db")
 
 
 
@@ -104,12 +104,12 @@ function formSubmit(evt) {
         .then((response) => response.json())
         .then(userRecord => {
 
-            console.log("This is the user record I just got back from my Flask route:");
-            console.log(userRecord);
-            console.log("This record is a:");
-            console.log(typeof(userRecord));
-            console.log("It now has a record ID of:");
-            console.log(userRecord.record_id);
+            // console.log("This is the user record I just got back from my Flask route:");
+            // console.log(userRecord);
+            // console.log("This record is a:");
+            // console.log(typeof(userRecord));
+            // console.log("It now has a record ID of:");
+            // console.log(userRecord.record_id);
 
             const showUserRecord = document.querySelector('#display-record');
             showUserRecord.insertAdjacentHTML('beforeend', 
@@ -130,16 +130,16 @@ function formSubmit(evt) {
             // this allows the pie chart to change dynamically
             // as a user adds their records in the db
             console.log(ctx);
-            
+
             if (ctx == null) {
                 userChart();
-                console.log("We made the chart");
+                // console.log("We made the chart!");
                 showTotalWaste();
             } else {
                 ctx.destroy();
-                console.log("Hi we have destroyed the chart but not yet made the chart");
+                // console.log("Hi we have destroyed the chart but not yet made the chart");
                 userChart();
-                console.log("We made the chart");
+                // console.log("We made the chart");
                 showTotalWaste();
             }
             
@@ -152,23 +152,23 @@ form.addEventListener('submit', formSubmit);
 
 
 //////////////////// SHOW FULL RECORD IN MODAL POPUP ON USER PROFILE ///////////////
-/////// Shows the full record on a user's profile when a record button is clicked //
+// Shows the full record's info on a user's profile in a modal popup when a record button is clicked //
 function showRecord(evt) {
     const id = evt.currentTarget.getAttribute("value");
-    console.log("This is the event.targe");
-    console.log(evt.currentTarget);
-    console.log("This is the id of the record I clicked outside of my if statement:");
-    console.log(id);
+    // console.log("This is the event.target");
+    // console.log(evt.currentTarget);
+    // console.log("This is the id of the record I clicked outside of my if statement:");
+    // console.log(id);
 
     if (id !== null) {
         const record = {
             record_id: evt.currentTarget.getAttribute("value"), }
     
-        console.log("This is the record id inside of the if statement:");
-        console.log(record.record_id);
-        console.log(typeof(record.record_id));
-        console.log("This is the event object I have put a target on:");
-        console.log(evt);
+        // console.log("This is the record id inside of the if statement:");
+        // console.log(record.record_id);
+        // console.log(typeof(record.record_id));
+        // console.log("This is the event object I have put a target on:");
+        // console.log(evt);
     
         
         fetch('/profile/show-record.json', {
@@ -191,6 +191,7 @@ function showRecord(evt) {
             // let date = userRecord.date;
             // console.log(date);
            
+            // hidden input here that will be used for when/if a user will want to delete this specific record.
             showRecord.innerHTML = `
                                 <p value="${userRecord.record_id}">${userRecord.date}</p>
                                 <p value="${userRecord.record_id}">${userRecord.weight} lbs</p> 
@@ -202,7 +203,7 @@ function showRecord(evt) {
 
 // capture all the records and add an event listener to them 
 let buttons = document.querySelectorAll('.user-record-btn');
-console.log("Setting up event handlers for buttons");
+// console.log("Setting up event handlers for buttons");
     for (const button of buttons) {
         button.addEventListener('click', showRecord);
     }
@@ -219,9 +220,9 @@ function deleteRecord(evt) {
         record_id: document.querySelector('#delete-record-id').value, }
 
     // console.log(deleteRecord);
-    console.log("This is the record ID:");
-    console.log("for the record I want to delete:");
-    console.log(deleteRecord.record_id);
+    // console.log("This is the record ID:");
+    // console.log("for the record I want to delete:");
+    // console.log(deleteRecord.record_id);
     alert('Are you sure you want to delete this record?');
 
     fetch('/profile/delete-record.json', {
@@ -244,6 +245,7 @@ function deleteRecord(evt) {
     });
 }
 
+// this delete button is on the modal pop up
 deleteBtn.addEventListener('click', deleteRecord);
 
 
@@ -255,6 +257,7 @@ function showTotalWaste() {
         .then(userTotal => {
             // console.log(typeof(userTotal));
             const showTotal = document.querySelector('#lifetime-total');
+            // .toFixed keeps the user total to two decimal places
             userTotal = userTotal.toFixed(2);
             showTotal.innerText = `${userTotal} lbs`;
         

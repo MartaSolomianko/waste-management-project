@@ -46,7 +46,7 @@ def get_records_by_user_id(user_id):
 
 
 def get_record_by_record_id(record_id):
-    """Return a record."""
+    """Return a specific record."""
 
     record = db.session.query(Record).filter(Record.record_id == record_id).first()
 
@@ -97,13 +97,6 @@ def get_similar_item_by_material(material):
     """Return an item by material."""
 
     return db.session.query(Item).filter(Item.material.like(f"%{material}%")).first()
-
-
-
-# def get_items_by_bin_type(bin_type_code):
-#     """Return an item by bin type."""
-
-#     return db.session.query(Item).filter(Item.bin_type_code == f"{bin_type_code}").all()
 
 
 
