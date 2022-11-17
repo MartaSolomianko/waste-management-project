@@ -7,7 +7,7 @@ from datetime import datetime
 def create_user(email, password, name):
     """Create and return a new user."""
 
-    user = User(email=email, password=password, name=name, avatar_level=7)
+    user = User(email=email, password=password, name=name)
 
     return user
 
@@ -46,7 +46,7 @@ def get_records_by_user_id(user_id):
 
 
 def get_record_by_record_id(record_id):
-    """Return a specific record."""
+    """Return a specific record by record_id."""
 
     record = db.session.query(Record).filter(Record.record_id == record_id).first()
 

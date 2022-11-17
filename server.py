@@ -14,7 +14,7 @@ app.jinja_env.undefined = StrictUndefined
 ph = PasswordHasher()
 
 
-####################### HOMEPAGE/LOGIN/LOGOUT/REGISTER/SEARCH ROUTES ##################
+####################### HOMEPAGE/LOGIN/LOGOUT/REGISTER ##############################
 @app.route("/")
 def homepage():
     """View homepage."""
@@ -134,52 +134,39 @@ def user_profile():
     # returns a list of the user's records
     records = crud.get_records_by_user_id(session_user_id)
 
+    # reverse the returned records bc I want the most recent month to
+    # appear first on the user profile page
     sorted_records = records[::-1]
-    print()
-    print("This is my unsorted list of records")
-    print(records)
-    print("This is my sorted list of records")
-    print(sorted_records)
 
     # dictionary key contains the month and year
     # value of each key is a list of those records associated with that year and month
     records_dict = {}
 
-    # TODO: not certain if I will need this for when a new month comes around 
-    # and a user does not have records yet
-    # today's month and year 
+    # today's month and year used only when a user does not have records yet for the current month/year
     today = datetime.now().date().strftime("%Y %B")
     
-    # opening up our list of a user's record objects 
+    # opening up the list of a user's record objects 
     for record in sorted_records:
         # sort each record into a list based on date
-        #155 to be strftime 
         record_date = record.date_time.strftime("%Y %B")
-        print()
-        print(record_date)
+        # print()
+        # print(record_date)
         if today not in records_dict:
             records_dict[today] = []
         if record_date not in records_dict:
             records_dict[record_date] = []
         records_dict[record_date].append(record)
 
+    # this sorts the dictionary values, aka the records from newest to oldest
     for month_year in records_dict:
         records_dict[month_year] = records_dict[month_year][::-1]
-
-
-    print()
-    print("*********************************")
-    print("this is the dictionary of sorted records?")
-    print(records_dict)
-    print("this is the date today")
-    print(today)
-    print("*********************************")
-    print()
 
     if records:
         first_record = records[0]
         start_date = first_record.date_time.strftime("%B %d, %Y")
         # print(start_date)
+
+    # if a new user, initailze all values to today and ready for them to begin entering records    
     if not records: 
         start_date = today
         records_dict[today] = []
@@ -187,12 +174,13 @@ def user_profile():
     return render_template("profile.html", user=user, records_dict=records_dict, start_date = start_date)
 
 
-####################### SEARCH AN ITEM TO ADD #######################################
+####################### SEARCH AN ITEM TO ADD SEARCH IN REACT #######################
 @app.route("/profile/search")
 def user_item_search():
     """Show search page to user."""
 
     # getting the user's user_id from session, returns None if no user_id
+    # need the user's id in case they want to log a record of an individual item
     session_user_id = session.get("user_id")
 
     # if there is no user_id in the session, ask the user to Login
@@ -208,20 +196,16 @@ def user_item_search():
 def search():
     """Show search results."""
 
-    # saving search form inputs to variable 
-    # user_input = request.args.get("q")
-
-    # grab input from search form in jsx file? 
+    # grab input from search form in jsx file 
     user_input = request.json.get("name")
-    print()
-    print(user_input)
+    # print()
+    # print(user_input)
 
     # accounting for odd characters, capital letters, or blank spaces in search
     search = crud.clean_user_search(user_input)
 
     # if empty input submitted
     if search == "":
-        # flash("Sorry, couldn't find that. Try searching again.")
         return jsonify({})
     
     # check if there is an exact name match in db
@@ -241,30 +225,19 @@ def search():
                 
                 # if you can't find an item, flash an error message
                 if not item:
-                    # flash(f"Sorry, {search} is not in our database. Try searching for something else.")
                     return jsonify({})
 
+    # capture the info of the found item
     name = item.name
     weight = item.weight
     bin = item.bin_type_code
     material = item.material
     
-    # return render_template("search.html", item=item)
     return jsonify({'name': name, 'weight': weight, 'bin': bin, 'material': material})
 
 
 
-# @app.route("/profile/search/error")
-# def search_error():
-#     """Show error message on search results page if no item is found."""
-
-#     item = None
-
-#     return render_template("search.html", item=item)
-
-
-
-########################## ADD A RECORD ##############################################
+########################## ADD A RECORD FROM USER PROFILE PAGE ######################
 @app.route("/profile/add-record.json", methods=["POST"])
 def add_record():
     """Add waste record to user's profile page."""
@@ -273,7 +246,6 @@ def add_record():
     user_id = request.json.get("userid")
     bin_type_code = request.json.get("bintype")
     date_time = request.json.get("datetime")
-    # date_time = "2022-12-01"
     weight = request.json.get("weight")
     # print(date_time)
     # print(type(date_time))
@@ -281,29 +253,25 @@ def add_record():
     # convert values to the accepted value types for record table in db
     weight = float(weight)
     user_id = int(user_id)
+    # bin_type_code is a string
 
     # keep this format because JS is returning a full date and time stamp
     format = "%Y-%m-%dT%H:%M:%S.%fZ"
 
     # discarding all of the time info and translating to datetime for python
     date_time = datetime.strptime(date_time, format).date()
-    # user_id is a string
-    # bin_type_code is a string
 
     # create record and add it to the db
     new_record = crud.create_record(user=user_id, bin_type=bin_type_code, date_time=date_time, weight=weight)
     db.session.add(new_record)
     db.session.commit()
 
-    # record_id = new_record.record_id
-
     # this dictionary goes to .then in JS file and eventually gets inserted back into the html file
-    # return jsonify(new_record)
     return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%Y-%m-%d"), 'userid': user_id, 'record_id': new_record.record_id})
 
 
 
-#################### ADD A RECORD FROM SEARCH/REACT PAGE #########################
+#################### ADD A RECORD FROM SEARCH/REACT PAGE ############################
 @app.route("/profile/search/add-record")
 def add_item_record():
     """Add a record to the db and return a user back to the profile page."""
@@ -346,12 +314,7 @@ def add_item_record():
 
 
 
-##################################################################################
-#TODO: 
-## if a user clicks on a slice from the pie chart, show those records?
-## make routes to allow a user to edit a record
-################################################################################## 
-
+######### SHOW TOTAL WEIGHTS OF WASTE RECORDS IN USER PROFILE IN PIE CHART ##########
 @app.route("/profile/records_by_user.json")
 def get_records_by_user():
     """Get all the records a User has made to show in chart.js pie chart."""
@@ -394,36 +357,6 @@ def get_records_by_user():
 
 
 
-@app.route("/profile/monthy_avg.json")
-def show_monthly_avg():
-    """Show a 30-day average of waste a user produces."""
-
-    # get user id from session
-    session_user_id = session.get("user_id")
-    
-    # returns a list of the user's records
-    records = crud.get_records_by_user_id(session_user_id)
-
-    if len(records) >= 30:
-        last_thirty = records[-30:-1]
-
-    else: 
-        return jsonify({})
-
-    total = 0
-
-    for record in last_thirty:
-        total += record.weight
-
-    monthly_avg = total / 30
-
-    print()
-    print(monthly_avg)
-
-    return jsonify(monthly_avg)
-
-
-
 @app.route("/profile/show-total.json")
 def show_total():
     """Show total waste produced by user on profile."""
@@ -443,6 +376,7 @@ def show_total():
 
 
 
+##################### USER RECORD INFO IN MODAL POP UP ON PROFILE ###################
 @app.route("/profile/show-record.json", methods=["POST"])
 def show_record():
     """Get a specific record's information to show in modal on user profile."""
@@ -450,21 +384,14 @@ def show_record():
     # get record id from JS file
     record_id = request.json.get("record_id")
 
-
-    print()
-    print("this is the record id:")
-    print(record_id)
-    print(type(record_id))
-    print()
-
     record_id = int(record_id)
 
+    # get all info about a particular record using the record id
     record = crud.get_record_by_record_id(record_id)
-    print()
-    print("RECORD ######*************    ##########")
-    print(record)
+
+    # get the record's date from the db and make it into a reader friendly string
     date = record.date_time.strftime("%B %d %Y")
-    print(date)
+
     weight = record.weight
     bin_type_code = record.bin_type_code
 
@@ -474,10 +401,12 @@ def show_record():
 
 
 
+############ DELETE A RECORD FROM MODAL POP UP ######################################
 @app.route("/profile/delete-record.json", methods=["POST"])
 def delete_record():
     """Remove a record from the db and user profile page."""
 
+    # get the specific record id from the JS file
     record_id = request.json.get("record_id")
 
     record_id = int(record_id)

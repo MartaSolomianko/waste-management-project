@@ -15,7 +15,6 @@ class User(db.Model):
     name = db.Column(db.String, nullable=True)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
-    avatar_level = db.Column(db.Integer)
 
     records = db.relationship("Record", back_populates="user")
     
@@ -42,9 +41,7 @@ class Record(db.Model):
         return f"<Record record_id={self.record_id} date_time={self.date_time} bin_type_code={self.bin_type_code}>"
     
 
-#### default values for rinse and special_instructions are not doing anything here because in my 
-#### seed_database.py I am passing in all values... return to this later when not making
-#### fake items
+
 class Item(db.Model):
     """An item."""
 
@@ -97,5 +94,3 @@ if __name__ == "__main__":
     from server import app
 
     connect_to_db(app)
-    ## Q- do I need to connect_to_db(app, waste_db)?
-    ## A- only for test_db
