@@ -356,7 +356,7 @@ def get_records_by_user():
     return jsonify(weight_totals)
 
 
-
+################## SHOW TOTAL WEIGHT OF WASTE PRODUCED ON USER PROFILE ################
 @app.route("/profile/show-total.json")
 def show_total():
     """Show total waste produced by user on profile."""
@@ -373,6 +373,45 @@ def show_total():
         total_weight += record.weight
 
     return jsonify(total_weight)
+
+
+
+################# SHOW DAILY RATE OF WASTE PRODUCED ON USER PROFILE ##################
+@app.route("/profile/show-daily-rate.json")
+def show_daily_rate():
+    """Show a users daily rate in lbs per day on profile."""
+
+    # get user id from session
+    session_user_id = session.get("user_id")
+    
+    # returns a list of the user's records
+    records = crud.get_records_by_user_id(session_user_id)
+
+    # if a user has recordec more than 12 records of waste 
+    # chose 12 because I calculated on avg a user would throw out 
+    # R, T, C once/week meaning 12 times per month. 
+    if len(records) >= 12:
+        # grabs the first record a user has
+        first_record = records[0] 
+        # takes the date of that first record
+        first_date = first_record.date_time
+
+        # capturing the date today
+        today = datetime.now().date()
+        # calculating a timedelta instance, aka the difference between two datetime dates
+        delta = today - first_date
+        # grabbing just the day portion of that timedelta instance
+        delta = delta.days
+
+        total_weight = 0
+
+        for record in records:
+            total_weight += record.weight
+
+        # calculating the daily rate based total weight produced / total days since first record
+        daily_rate = total_weight / delta
+
+    return jsonify(daily_rate)
 
 
 

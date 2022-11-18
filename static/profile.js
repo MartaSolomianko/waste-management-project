@@ -141,6 +141,7 @@ function formSubmit(evt) {
                 userChart();
                 // console.log("We made the chart");
                 showTotalWaste();
+                showDailyRate();
             }
             
         });
@@ -182,10 +183,10 @@ function showRecord(evt) {
         .then((response) => response.json())
         .then(userRecord => {
             const showRecord = document.querySelector('#show-a-record');
-            console.log("This is the user record:")
-            console.log(userRecord);
-            console.log("This is the date on the record")
-            console.log(userRecord.date);
+            // console.log("This is the user record:")
+            // console.log(userRecord);
+            // console.log("This is the date on the record")
+            // console.log(userRecord.date);
             showRecord.innerHTML = " ";
             // console.log(typeof(userRecord.date));
             // let date = userRecord.date;
@@ -242,6 +243,7 @@ function deleteRecord(evt) {
         ctx.destroy();
         userChart();
         showTotalWaste();
+        showDailyRate();
     });
 }
 
@@ -250,7 +252,7 @@ deleteBtn.addEventListener('click', deleteRecord);
 
 
 
-///////////////// SHOW TOTAL WASTE PRODUCED ON USER PROFILE /////////////////////
+///////////////// SHOW TOTAL WASTE PRODUCED ON USER PROFILE ///////////////////////
 function showTotalWaste() {
     fetch('/profile/show-total.json')
         .then((response) => response.json())
@@ -265,3 +267,18 @@ function showTotalWaste() {
     }
 
 showTotalWaste();
+
+
+/////////////////////// SHOW DAILY RATE ON USER PROFILE ///////////////////////////
+function showDailyRate() {
+    fetch('/profile/show-daily-rate.json')
+    .then((response) => response.json())
+    .then(userDailyRate => {
+
+        const showDailyRate = document.querySelector('#daily-rate');
+        userDailyRate = userDailyRate.toFixed(2);
+        showDailyRate.innerText = `${userDailyRate} lbs/day`;
+    });
+}
+
+showDailyRate();
