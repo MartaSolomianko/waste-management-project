@@ -75,31 +75,39 @@ model.db.session.commit()
   
 
 
-############### Make users in my database table user, each user will make 10 records ####
+############### Make a user in my database table user and a history of records for that user ############
 ph = PasswordHasher()
-names = ["Daniela", "Sherese", "Dan", "Rochelle", "Leslie", "Ozan", "Xenia", "Emily", "Monica", "Javier"]
 
-for n in range(10):
-    email = f"user{n}@test.com" 
-    password = "test"
+name = "Marta"
+email = "marta@gmail.com"
+password = "test"
+hashed_pw = ph.hash(password)
+user = crud.create_user(email, hashed_pw, name)
+model.db.session.add(user)
 
-    for name in names:
-        name = f"{names[n]}"
-    
+# random ordered lists of days 
+sept_days = [2, 5, 6, 9, 14, 16, 19, 22, 24, 26, 28]
+oct_days = [1, 3, 4, 5, 8, 10, 12, 14, 18, 19, 22]
+nov_days = [1, 4, 7, 8, 10, 13, 15]
 
-    hashed_pw = ph.hash(password)
-    user = crud.create_user(email, hashed_pw, name)
-    model.db.session.add(user)
+db_dict = {}
 
-    for _ in range(10):
+db_dict[9] = sept_days
+db_dict[10] = oct_days
+db_dict[11] = nov_days
+
+for month in db_dict:
+    month = month
+    for days in db_dict[month]:
+        day = days
+        date_time = date(2022,month,day)
         random_bin = choice(bin_type_list)
         weight = uniform(1, 20)
         weight = round(weight, 2)
-        date_time = datetime.now()
-        # date_time = date_time.date().replace(year=2021)
-        # print(date_time)
-        
+
+        # make and add september records to db
         record = crud.create_record(user, random_bin, date_time, weight)
         model.db.session.add(record)
+
 
 model.db.session.commit()
