@@ -2,6 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from argon2 import PasswordHasher
+from datetime import date
 
 
 db = SQLAlchemy()
@@ -95,8 +96,12 @@ def example_data():
     ph = PasswordHasher()
 
     testuser = User(user_id=10, name="Marta", email="marta2@test.com", password=ph.hash("test"))
+    testbin = BinType(type_code="R")
+    testrecord = Record(record_id=100, user_id=testuser.user_id, bin_type_code="R", weight=5, date_time=date(2022,11,18))
 
     db.session.add(testuser)
+    db.session.add(testbin)
+    db.session.add(testrecord)
     db.session.commit()
 
 
