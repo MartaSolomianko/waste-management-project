@@ -21,10 +21,10 @@
   </head>
 
   <body>
+    {% if session.get('user_id') %}
     <!-- Navigation Bar -->
     <nav class="navbar bg-light">
       <a class="navbar-brand">Waste Not</a>
-      {% if session.get('user_id') %}
         <!-- <a class="navbar-brand" id="user-profile" href="/profile">Profile</a> -->
         <a class="navbar-brand" id="logout-btn" href="/profile/logout">Logout</a>
       {% endif %}   
