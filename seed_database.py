@@ -1,4 +1,4 @@
-"""Script to seed database for waste management app."""
+"""Script to drop and reseed database for waste management app."""
 
 import os
 import csv
@@ -34,7 +34,6 @@ model.db.session.commit()
 with open("data/items.csv", newline="") as csv_file:
     items = csv.DictReader(csv_file)
     # items is a dictionary object
-    #print(items)
     
     # items_in_db is a list of dictionaries. 
     # Each dictionary in the list contains the values for an item in my db
@@ -52,7 +51,7 @@ with open("data/items.csv", newline="") as csv_file:
         material = item["material"]
         #weight is a string
         weight = item["weight"]
-        #needs to be a float
+        #weight needs to be a float
         weight = float(weight)
 
         # changes the value of rinse to a boolean
@@ -97,8 +96,8 @@ for n in range(10):
         weight = uniform(1, 20)
         weight = round(weight, 2)
         date_time = datetime.now()
-        date_time = date_time.date().replace(year=2020)
-        print(date_time)
+        # date_time = date_time.date().replace(year=2021)
+        # print(date_time)
         
         record = crud.create_record(user, random_bin, date_time, weight)
         model.db.session.add(record)
