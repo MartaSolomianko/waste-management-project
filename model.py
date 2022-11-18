@@ -1,6 +1,7 @@
 """Models for waste management app."""
 
 from flask_sqlalchemy import SQLAlchemy
+from argon2 import PasswordHasher
 
 
 db = SQLAlchemy()
@@ -76,9 +77,7 @@ class BinType(db.Model):
         return f"<BinType type_code={self.type_code}>"
 
 
-##############################################################################
-
-
+############################ TESTING AND DB CONNECTIONS ########################
 def connect_to_db(flask_app, db_uri="postgresql:///waste_db", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
@@ -88,6 +87,18 @@ def connect_to_db(flask_app, db_uri="postgresql:///waste_db", echo=True):
     db.init_app(flask_app)
 
     print("Connected to the db!")
+
+
+def example_data():
+    """Example data for test database."""
+
+    ph = PasswordHasher()
+
+    testuser = User(user_id=10, name="Marta", email="marta2@test.com", password=ph.hash("test"))
+
+    db.session.add(testuser)
+    db.session.commit()
+
 
 
 if __name__ == "__main__":
