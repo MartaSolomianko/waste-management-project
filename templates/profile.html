@@ -19,12 +19,17 @@
     <h1>Hi {{ user.name }}!</h1>
 </div> -->
 
+
 <input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
 
 <!---------------- PIE CHART ----------------------------------------->
 <div class="container">
   <div class="row">
     <div class="col-4">
+
+      <div>Your daily rate:</div> 
+      <h2 id="daily-rate"></h2> 
+
       <div class="card">
         <div class="card-body">
       <!-- pie chart and counter of user's lifetime totals-->
@@ -36,8 +41,6 @@
         {% if records_dict %}
           <div>You have produced:</div>
             <h1 id="lifetime-total"></h1> 
-            <div>At a rate of:</div>  
-            <h2 id="daily-rate"></h2> 
           <div id="start-date">Since {{ start_date }}</div>
         {% endif %}
           </div>

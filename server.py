@@ -389,7 +389,7 @@ def show_daily_rate():
 
     # if a user has recordec more than 12 records of waste 
     # chose 12 because I calculated on avg a user would throw out 
-    # R, T, C once/week meaning 12 times per month. 
+    # R, T, C once/week meaning 12 times per month.
     if len(records) >= 12:
         # grabs the first record a user has
         first_record = records[0] 
