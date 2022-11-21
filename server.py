@@ -387,7 +387,7 @@ def show_daily_rate():
     # returns a list of the user's records
     records = crud.get_records_by_user_id(session_user_id)
 
-    # if a user has recordec more than 12 records of waste 
+    # if a user has recorded more than 12 records of waste 
     # chose 12 because I calculated on avg a user would throw out 
     # R, T, C once/week meaning 12 times per month.
     if len(records) >= 12:

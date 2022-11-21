@@ -1,6 +1,136 @@
 name,bin_type_code,material,weight,rinse,special_instructions
-bottle,R,plastic,.10,t,please empty the bottle.
-coffee bag,T,mixed,.10,f,none
-coffee,C,organic,.18,f,none
-
-
+bottle,R,plastic,0.02,f,please empty the bottle. Leave cap on.
+plastic bottle,R,plastic,0.02,f,please empty the bottle. Leave cap on.
+coffee cup,R,plastic,0.02,f,please clean and empty the cup.
+aluminum can,R,aluminum,0.03,t,no liquids or food.
+aluminum foil,R,aluminum,,f,no liquids or food.
+bottle cap,R,plastic,0.004,f,
+jar lid,R,plastic,0.02,f,
+steel lid (from a can),R,tin,0.02,f,
+paint can,R,tin,,f,must be empty or dry.
+spray can,R,aluminum,,f,must be empty.
+steel can,R,steel/tin,,f,no liquids or food.
+plastic bag,R,plastic,0.01,f,"place clean, dry, empty plastic bags inside a clear plastic bag (roughly the size of a basketball)."
+bucket ,R,plastic,,f,buckets with metal handles are ok. 
+CD case,R,plastic,0.1,f,remove paper insert.
+DVD case,R,plastic,0.16,f,remove paper insert.
+CDROM case,R,plastic,0.1,f,remove paper insert.
+coffee cup lid,R,plastic,0.01,f,
+container,R,plastic,,f,
+clamshell,R,plastic,,f,
+plastic cork,R,plastic,,f,
+plastic cup,R,plastic,,f,
+plastic plate,R,plastic,,f,
+plastic flower pot,R,plastic,,f,
+laundry detergent bottle,R,plastic,,f,
+molded plastic packaging,R,plastic,,f,
+toys,R,plastic,,f,"no electronics, metal, or batteries."
+yogurt container,R,plastic,,t,"no liquids or food, please."
+tupperware,R,plastic,,f,"no liquids or food, please."
+plastic utensil,R,plastic,,f,
+glass,R,glass,,f,"no liquids or food, please. "
+glass bottle,R,glass,,t,metal caps and lids ok. 
+glass jar,R,glass,,t,lids ok. 
+metal cap,R,metal,,f,"no liquids or food, please."
+metal lid,R,metal,,f,
+wrapping paper,R,paper,,f,non-metallic. 
+shredded paper,R,paper,,f,"place in sealed paper bag and label ""shredded paper""."
+sticky note,R,paper,,f,
+phonebook,R,paper,,f,
+kraft paper,R,paper,,f,
+newspaper,R,paper,,f,"clean, dry and unsoiled."
+junk mail,R,paper,,f,
+magazine,R,paper,,f,
+envelopes,R,paper,,f,envelopes with windows are okay. 
+egg cartons,R,paper,,f,
+computer paper,R,paper,,f,
+office paper,R,paper,,f,
+cereal box,R,paper,,f,remove plastic liner. 
+paperboard,R,paper,,f,remove plastic liner. 
+cardboard,R,cardboard,,f,non-waxed.
+paper bag,R,paper,,f,"clean, dry and unsoiled."
+milk carton,R,paper,,t,empty and clean.
+juice carton,R,paper,,t,empty and clean.
+paper carton,R,paper,,t,empty and clean.
+soup carton,R,paper,,t,empty and clean.
+juice box,R,paper,,t,empty and clean.
+ice cream container,R,paper/plastic,,t,empty and clean.
+coffee grounds,C,organic,0.178,f,none
+soiled napkin,C,paper,0.01,f,none
+greasy pizza box,C,paper,0.3,f,none
+greasy paper bag,C,paper,,f,
+coffee filter,C,paper,,f,
+paper plate,C,paper,,f,
+tissue,C,paper,,f,
+paper towel,C,paper,,f,
+take-out box,C,paper,,f,
+tea bag,C,paper,0.003,f,none
+waxed cardboard,C,paper,,f,none
+fruit,C,organic,,f,
+vegetables,C,organic,,f,
+apple,C,organic,,f,
+banana peel,C,organic,,f,
+banana,C,organic,,f,
+plant debris,C,organic,,f,
+tree trimmings,C,organic,,f,
+eggshells,C,organic,,f,
+eggs,C,organic,,f,
+leftovers,C,organic,,f,
+spoiled food,C,organic,,f,
+cooked meat (including bones),C,organic,,f,
+seafood (including shellfish),C,organic,,f,
+wooden chopsticks,C,wooden,,f,
+coffee stirrer,C,wooden,,f,
+toothpick,C,wooden,,f,
+clean wood ,C,wood,,f,
+sawdust,C,wood,,f,
+hair,C,natural,,f,
+fur,C,natural,,f,
+feathers,C,natural,,f,
+cork (not plastic),C,natural,,f,
+cotton balls,C,cotton,,f,
+cotton swabs with paper stem,C,cotton,,f,
+cooking grease,C,organic,,f,
+cat litter,T,organic matter,,f,
+animal feces,T,organic matter,,f,bagged. 
+ceramic dishware,T,ceramic,,f,
+cigarette butts,T,mixed,,f,run under water prior to disposal. 
+dental floss,T,mixed,,f,
+diaper,T,mixed,,f,
+feminine hygiene products,T,mixed,,f,
+glass mirror,T,glass,,f,place inside a double brown paper bag and smashed in small pieces. 
+window,T,glass,,f,place inside a double brown paper bag and smashed in small pieces. 
+incandescent light bulbs,T,mixed,,f,no fluorescents or HIDs. 
+plywood,T,mixed wood,,f,
+press board,T,mixed wood,,f,
+painted wood,T,mixed wood,,f,
+stained wood,T,mixed wood,,f,
+twist ties,T,mixed,,f,
+styrofoam,T,styrofoam,,f,
+sponges,T,mixed,,f,
+six-pack ring holder,T,plastic,,f,please cut up. 
+rubber band,T,rubber,,f,
+biodegradable plastic,T,mixed,,f,
+plastic items mixed with rubber,T,mixed,,f,
+plastic items mixed with metal,T,mixed,,f,
+pen,T,mixed,,f,
+pencil,T,mixed,,f,
+mylar (shiny metal) bag,T,mixed,,f,
+potato chip bag,T,mixed,,f,
+candy bar wrapper,T,mixed,,f,
+balloon,T,mixed,,f,
+AA/AAA battery,H,mixed,0.1,f,Put small household batteries into a clear plastic bag on top of black bin the day before your collection day. Please tape both ends of all lithium batteries. 
+Solidified oil (bacon grease or lard),C,organic,,f,
+Cooking oil,H,organic,,f,Drop off up to 10 gallons/customer of cooking oil in 5 gallon containers at the SF Household Hazardous Waste Facility. 
+Medication,H,other,,f,Drop off medications for safe handling at any San Francisco police station. 
+Paint,H,other,,f,Drop off paint at the SF transfer station household hazardous waste facility. 
+Sharps,H,other,,f,"Pick up a free sharps container at any Walgreens pharmacy. When full, just return it to Walgreens for proper management. "
+Motor Oil,H,hazardous,,f,
+Fluorescent Tubes/Lamps,H,hazardous,,f,
+Printing ink,H,hazardous,,f,
+Solvents,H,hazardous,,f,
+Compressor oil,H,hazardous,,f,
+Photofixer/developer,H,hazardous,,f,
+Poisons,H,hazardous,,f,
+Antifreeze,H,hazardous,,f,
+Propane,H,hazardous,,f,

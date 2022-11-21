@@ -50,6 +50,8 @@ with open("data/items.csv", newline="") as csv_file:
         #material is a string
         material = item["material"]
         #weight is a string
+        if item["weight"] == "":
+            item["weight"] = 0
         weight = item["weight"]
         #weight needs to be a float
         weight = float(weight)
