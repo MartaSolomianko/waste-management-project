@@ -4,6 +4,32 @@ body {
   background-color: #e8ede3;
 }
 
-/* TODO: alert messages
-navigation 
-flash messages */
+
+.flash-msg {
+  padding-top: 10px;
+  padding-left: 70px;
+  align-items: baseline;
+
+}
+
+
+.navbar {
+  padding: 0;
+  background-color: #e8ede3;
+  position: sticky;
+  z-index: 200;
+  top: 0;
+  border-bottom: 1px solid #e8ede3;
+}
+
+.navbar .navbar-brand {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 44px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 15px;
+}
