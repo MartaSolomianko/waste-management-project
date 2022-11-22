@@ -14,7 +14,12 @@ h3 {
   }
 
 #pie-chart-card {
+    padding-bottom: 20px;
     margin-bottom: 40px;
+}
+
+#pie-chart-header {
+    background-color: #fdfdfd;
 }
 
 /* USER PROFILE RECORDS */
@@ -41,11 +46,37 @@ h3 {
 
 }
 
+#daily-rate-padding {
+    margin-top: 25px;
+}
+
+#lifetime-total {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    text-align: center;
+
+}
+
+#lifetime-buffer {
+    margin-top: 150px;
+}
+
+#weight-label {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+}
+
 #display-record {
     padding-top: 30px;
     padding-left: 50px;
     padding-right: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
+}
+
+.container {
+    padding-top: 25px;
 }
 
 .container .card {
@@ -66,11 +97,15 @@ h3 {
 
 .container .card-body {
     background-color: #fdfdfd;
-    color: #718752;
+    color: #2E2E30;
+    text-align: center;
+
+
 }
 
 .container .card-footer {
     background-color: #fdfdfd;
+    border: 0;
     font-style: normal;
     font-weight: 400;
     font-size: 20px;

@@ -5,7 +5,8 @@ body {
 }
 
 .flash-msg {
-  padding-top: 10px;
+  color: #718752;
+  padding-top: 30px;
   padding-left: 70px;
   align-items: baseline;
 }
@@ -22,11 +23,25 @@ body {
 .navbar .navbar-brand {
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 44px;
   letter-spacing: 1px;
   display: flex;
   align-items: center;
   gap: 10px;
   padding-left: 15px;
+}
+
+#logout-btn {
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+  color:#718752;
+  margin-right: 15px;
+  font-size: 18px;
+}
+
+#logout-btn:hover {
+  background-color: #718752;
+  color: white;
+  
 }

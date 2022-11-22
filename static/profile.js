@@ -261,7 +261,7 @@ function showTotalWaste() {
             const showTotal = document.querySelector('#lifetime-total');
             // .toFixed keeps the user total to two decimal places
             userTotal = userTotal.toFixed(2);
-            showTotal.innerText = `${userTotal} lbs`;
+            showTotal.innerHTML = `${userTotal} <span id="weight-label">lbs</span>`;
         
         });
     }
@@ -277,7 +277,7 @@ function showDailyRate() {
 
         const showDailyRate = document.querySelector('#daily-rate');
         userDailyRate = userDailyRate.toFixed(2);
-        showDailyRate.innerText = `${userDailyRate} lbs/day`;
+        showDailyRate.innerHTML = `${userDailyRate} <span id="weight-label">lbs/day</span>`;
     });
 }
 

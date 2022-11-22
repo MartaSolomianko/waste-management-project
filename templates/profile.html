@@ -17,44 +17,63 @@
 <!------------- USER INFO -------------------------------------->
 <input type="hidden" id="user-id" value="{{ session.get('user_id') }}">
 
-<!---------------- PIE CHART ----------------------------------------->
+
+<!-------------- USER PROFILE ---------------------------------->
 <div class="container"> 
   <div class="row">
-    <div class="col-4">
-      <div class="row">
+        
+        <div class="col-6">
+        <div class="row">
+
+<!-------------- BUTTONS TO LOG A NEW RECORD ------------------->
+        <div class="col-6">
         <button id="log-bag" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show-log-bag-modal">Log a bag</button>
         <a href="/profile/search" id="log-item-btn" class="btn btn-primary">Log an item</a>   
-      </div>
-
-        <h3>Your daily rate:</h3> 
-          <div id="daily-rate-card" class="card">
-            <h2 id="daily-rate"></h2> 
-          </div>
-        <h3>You have produced:</h3>
-          <div id="pie-chart-card" class="card">
-            <div class="card-body">
-              <!-- pie chart and counter of user's lifetime totals-->
-                <div id="display-pie-chart">
-                  <canvas id="piechart"></canvas>
-                </div>
-              </div>
-            <div class="card-footer">
-        {% if records_dict %}
+        </div>
       
-        <h2 id="lifetime-total"></h2> 
-      <div id="start-date">Since {{ start_date }}</div>
-    {% endif %}
-      </div>
-          </div>
+<!-------------- DAILY RATE CARD ------------------------------->
+        <div id="daily-rate-padding" class="col-6">
+        <h3>Your daily rate:</h3> 
+        <div id="daily-rate-card" class="card">
+        <h2 id="daily-rate"></h2> 
+        </div>
+        </div>
         </div>
 
-<!----------------- BUTTONS TO LOG A NEW RECORD ------------------------------->
-    <div class="col-8">
+<!-------------- PIE CHART -------------------------------------->
+        <h3>You have produced:</h3>
+        <div id="pie-chart-card" class="card">
+        <div id="pie-chart-header" class="card-header"></div>
+        <div class="card-body">
+        <div class="row">
+        <div class="col-7">
+<!-- pie chart and counter of user's lifetime totals-->
+            <div id="display-pie-chart">
+            <canvas id="piechart"></canvas>
+            </div>
+            </div>
+                
+            <div id="lifetime-buffer" class="col-5">
+            {% if records_dict %}
+            <h2 id="lifetime-total"></h2> 
+            <div id="start-date">Since {{ start_date }}</div>
+            {% endif %}
+            </div>
+            </div>
+          
+            </div>
+            <div class="card-footer"></div>
+            </div>
+            </div>
+
+
+
 
     
 
 <!----------------- SHOW USER RECORDS AS GRID ON PROFILE ---------------------->
 <br>
+<div class="col-6">
   <div class="container carousel">
   <!-- Swiper -->
     <div dir="rtl" class="swiper mySwiper">
@@ -80,11 +99,13 @@
                   </div>
 
                 </div>
+                <div class="card-footer">
+                  <div class="swiper-pagination"></div>
+                </div>
               </div>
             </div>
         {% endfor %}
       </div>
-        <div class="swiper-pagination"></div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
