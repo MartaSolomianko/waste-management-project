@@ -61,7 +61,7 @@ form {
     padding-left: 13px;
 }
 
-.btn-primary {
+#log-reg-btn {
     background-color: #718752;
     border-color: #718752;
     width: 90%;
@@ -73,7 +73,7 @@ form {
     margin-bottom: 10px;
 }
 
-.btn-primary:hover {
+#log-reg-btn:hover {
     background-color: white;
     border-color: #718752;
     color: #718752;
