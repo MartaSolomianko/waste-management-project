@@ -36,10 +36,10 @@ function userChart() {
                     // label: '2022 Waste totals',
                     data: data,
                     backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)',
-                        'rgb(2, 20, 186)',
+                        '#2E2E30',
+                        '#006C8C',
+                        '#718752',
+                        '#730217',
                     ],
                     hoverOffset: 2
                 }]

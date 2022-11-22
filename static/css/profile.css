@@ -1,0 +1,128 @@
+h3 {
+    font-style: normal;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    color:#718752;
+}
+
+/* USER PROFILE PIE CHART */
+#piechart {
+    height: 20px;
+    width: 20%;
+    padding-bottom: 20px;
+  }
+
+#pie-chart-card {
+    margin-bottom: 40px;
+}
+
+/* USER PROFILE RECORDS */
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+#daily-rate-card {
+    background-color:#fdfdfd;
+    border-color: #718752;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    text-transform: lowercase;
+
+}
+
+#display-record {
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 20px;
+}
+
+.container .card {
+    border-color: #718752;
+}
+
+.container .card-header {
+    background-color: #718752;
+    border: 0;
+    color: #fdfdfd;
+    margin-top: 0px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.container .card-body {
+    background-color: #fdfdfd;
+    color: #718752;
+}
+
+.container .card-footer {
+    background-color: #fdfdfd;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+}
+
+.container .swiper-button-prev {
+    color: #718752;
+  }
+  
+.container .swiper-button-next {
+    color: #718752;
+  }
+  
+.container .swiper-pagination-bullet-active {
+    background: #718752;
+  }
+
+
+/* BUTTONS TO LOG WASTE RECORDS */
+#log-bag {
+    background-color: white;
+    border-color: #718752;
+    width: 98%;
+    color: #718752;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    margin-top: 25px;
+}
+
+#log-bag:hover {
+    background-color: #718752;
+    color: white;
+}
+
+#log-item-btn {
+    background-color: white;
+    border-color: #718752;
+    width: 98%;
+    color: #718752;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+#log-item-btn:hover {
+    background-color: #718752;
+    color: white;
+}
+
+
+
