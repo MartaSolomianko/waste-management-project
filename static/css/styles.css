@@ -4,14 +4,11 @@ body {
   background-color: #e8ede3;
 }
 
-
 .flash-msg {
   padding-top: 10px;
   padding-left: 70px;
   align-items: baseline;
-
 }
-
 
 .navbar {
   padding: 0;
