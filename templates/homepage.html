@@ -1,50 +1,63 @@
 {% extends 'base.html' %}
 {% block title %} Waste Management App {% endblock %}
+{% block head %}
+{% endblock %}
 
 {% block body %}
-<!-- if there's no user id stored in session, ask a user to login -->
-{% if not session.get('user_id') %}
-<div id="login-form">
-  <h2>Waste Not</h2>
-      <form action="/login" method="POST">
-          <div>
-            <label for="email"></label>
-            <input type="text" name="email" placeholder="email" required>
-          </div>
-          <div>
-            <label for="password"></label>
-            <input type="password" name="password" placeholder="password" required>
-          </div>
-        <input value="Login" type="submit">
-        <div>
-          Don't have an account?
-          <span id="registration-span">Register.</span>
-        </div>
-      </form>
-</div>
-{% endif %} 
+<div id="background-img">
+<div class="container-fluid">
 
-<div id="register-form" hidden>
-  <h2>Create an account</h2>
-      <form action="/register" method="POST">
-        <div>
-          <label for="name"></label>
-          <input type="text" name="name" placeholder="first name">
-        </div>
-          <div>
-            <label for="email"></label>
-            <input type="text" name="email" placeholder="email" required>
-          </div>
-          <div>
-            <label for="password"></label>
-            <input type="password" name="password" placeholder="password" required>
-          </div>
-        <input value="Register" type="submit">
-        <div>
-          Already have an account?
-          <span id="login-span">Login.</span>
-        </div>
-      </form>
+  <div class="row">
+
+    <div class="col-md-4 offset-md-7 login-container">
+      <div class="login-container-inside">
+        <!-- if there's no user id stored in session, ask a user to login -->
+        {% if not session.get('user_id') %}
+          <h1>Waste Not</h1>
+            <h2 class="subtitle">Manage your waste to minimize your ecological footprint.</h2>
+              <div id="login-form">
+                <form action="/login" method="POST">
+                  <div>
+                    <label for="email"></label>
+                    <input type="text" class="form-input" name="email" placeholder="Email" required>
+                  </div>
+                  <div>
+                    <label for="password"></label>
+                    <input type="password" class="form-input" name="password" placeholder="Password" required>
+                  </div>
+                <input class=log-reg-btn value="Login" type="submit">
+                <div class="toggle-form">
+                  Don't have an account?
+                  <span id="registration-span">Register.</span>
+                </div>
+              </form>
+            </div>
+            {% endif %} 
+            <div id="register-form" hidden>
+                  <form action="/register" method="POST">
+                    <div>
+                      <label for="name"></label>
+                      <input type="text" class="form-input" name="name" placeholder="First name">
+                    </div>
+                      <div>
+                        <label for="email"></label>
+                        <input type="text" class="form-input" name="email" placeholder="Email" required>
+                      </div>
+                      <div>
+                        <label for="password"></label>
+                        <input type="password" class="form-input" name="password" placeholder="Password" required>
+                      </div>
+                    <input class=log-reg-btn value="Register" type="submit">
+                    <div class="toggle-form">
+                      Already have an account?
+                      <span id="login-span">Login.</span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+    </div>
+</div>
 </div>
 
 

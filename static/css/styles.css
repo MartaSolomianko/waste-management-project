@@ -1,3 +1,9 @@
+body {
+  font-family: 'Lato', sans-serif;
+  color: #1C0F0B;
+}
+
+
 /* USER PROFILE PIE CHART */
 #piechart {
     height: 20px;

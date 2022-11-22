@@ -1,0 +1,97 @@
+#background-img {
+    background: url("/static/img/background.jpg") no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+
+}
+
+.login-container {
+    position: relative;
+    height: 100vh;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+  
+.login-container-inside {
+    background-color: white;
+    position: absolute;
+    top: 50px;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    padding: 60px;
+    text-align: center;
+}
+
+
+h1 {
+    margin-top: 50px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+
+}
+
+.subtitle {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    width: 90%;
+
+}
+
+form {
+    margin-top: 70px;
+    height: 45px;
+    border-radius: 4px;
+    border-width: 0;
+    width: 100%;
+}
+
+.form-input {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    height: 40px;
+    background: #f7f7f7;
+    border-radius: 0px;
+    border-width: 0;
+    margin: 0 0 4px;
+    width: 90%;
+    padding-left: 13px;
+}
+
+.log-reg-btn {
+    background-color: #718752;
+    width: 90%;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.log-reg-btn:hover {
+    background-color: #829C5F
+}
+
+.toggle-form {
+    font-style: normal;
+    font-weight: 300;
+}
+
+
+#login-span:hover {
+    font-weight: 700;
+    color: #718752;
+}
+
+#registration-span:hover {
+    font-weight: 700;
+    color: #718752;
+}
+  
+
+  
+ 
