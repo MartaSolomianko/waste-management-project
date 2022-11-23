@@ -133,15 +133,16 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="add-bag">Log a bag of waste</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button id="modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-title" id="add-bag">Log a bag of waste</div>
+
       <!-- form to record a bag of waste -->
       <form id="addrecord">
         <label for="add-record"></label>
       <div>
         <p>
-          <label for="bintype">Select a bin type:</label>
+          <label for="bintype">Select a bin:</label>
             <select id="bin-type">
               <option value="T">Trash</option>
               <option value="C">Compost</option>
@@ -152,11 +153,12 @@
       </div>
     <div>
       <p>
-        <label for="weight">Weight:</label>
+        <label for="weight"></label>
           <input type="text" id="weight" placeholder="weight in pounds"><span> lbs</span> 
     </div> 
-      <input type="submit" data-bs-dismiss="modal" value="Add record">
+      <input type="submit" id="log-bag-btn" class="btn btn-primary" data-bs-dismiss="modal" value="Log waste">
       </form>
+      <div class="modal-footer"></div>
     </div>
   </div>
 </div>

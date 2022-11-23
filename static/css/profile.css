@@ -177,4 +177,59 @@ h4 {
 }
 
 /* USER PROFILE MODALS */
+.modal-header {
+    background-color: #e8ede3;
+    color:#fdfdfd;
+    border: 0;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.modal-title {
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #2E2E30;
+}
+
+.modal-content {
+    background-color: #e8ede3;
+    border: 0;
+    width: 85%;
+    font-size: 16px;
+    text-align: center;
+
+}
+
+.modal-footer {
+    border: 0;
+}
+
+#addrecord {
+    background-color: #e8ede3;
+    padding-bottom: 200px;
+    padding-top: 80px;
+    margin-top: 40px;
+    text-align: center;
+    align-content: baseline;
+}
+
+#log-bag-btn {
+    background-color: #718752;
+    border-color: #718752;
+    width: 80%;
+    color: white;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+#log-bag-btn:hover {
+    background-color: white;
+    border-color: #718752;
+    color: #718752;
+}
+
 
