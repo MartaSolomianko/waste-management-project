@@ -193,10 +193,9 @@ function showRecord(evt) {
             // console.log(date);
            
             // hidden input here that will be used for when/if a user will want to delete this specific record.
-            showRecord.innerHTML = `
-                                <p value="${userRecord.record_id}">${userRecord.date}</p>
-                                <p value="${userRecord.record_id}">${userRecord.weight} lbs</p> 
-                                <p value="${userRecord.record_id}">${userRecord.bin_type_code}</p>
+            showRecord.innerHTML = `<div class="modal-title" id="show-record-title" value="${userRecord.record_id}">${userRecord.date}</div>
+                                <div id="show-record-weight" value="${userRecord.record_id}">${userRecord.weight} <span id="weight-label">lbs</span></div> 
+                                <div id="show-record-bin" value="${userRecord.record_id}">${userRecord.bin_type_code}</div>
                                 <input hidden id="delete-record-id" value="${userRecord.record_id}"></input>`;
         });
     }

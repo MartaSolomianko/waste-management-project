@@ -429,10 +429,20 @@ def show_record():
     record = crud.get_record_by_record_id(record_id)
 
     # get the record's date from the db and make it into a reader friendly string
-    date = record.date_time.strftime("%B %d %Y")
+    date = record.date_time.strftime("%B %d")
 
     weight = record.weight
     bin_type_code = record.bin_type_code
+    
+    # switch bin type to a code
+    if bin_type_code == "R":
+        bin_type_code = "Recycling"
+    elif bin_type_code == "C":
+        bin_type_code = "Compost"
+    elif bin_type_code == "T":
+        bin_type_code = "Trash"
+    else:
+        bin_type_code = "Hazard"
 
     record_info = {"date": date, "weight": weight, "bin_type_code": bin_type_code, "record_id": record_id}
     
