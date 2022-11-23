@@ -1,3 +1,4 @@
+/* GENERAL USER PROFILE STYLES */
 h3 {
     font-style: normal;
     text-transform: uppercase;
@@ -6,7 +7,14 @@ h3 {
     color:#718752;
 }
 
-/* USER PROFILE PIE CHART */
+h4 {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 40px;
+    color:white
+}
+
+/* USER PROFILE PIE CHART WITH LIFETIME TOTAL CARD*/
 #piechart {
     height: 20px;
     width: 20%;
@@ -22,13 +30,22 @@ h3 {
     background-color: #fdfdfd;
 }
 
-/* USER PROFILE RECORDS */
-.flex-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap-reverse;
-    justify-content: flex-start;
-    align-items: flex-end;
+#lifetime-total {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    text-align: center;
+}
+
+#lifetime-buffer {
+    margin-top: 150px;
+}
+
+/* USER PROFILE DAILY RATE CARD */
+#weight-label {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
 }
 
 #daily-rate-card {
@@ -43,29 +60,19 @@ h3 {
     font-size: 20px;
     text-align: center;
     text-transform: lowercase;
-
 }
 
 #daily-rate-padding {
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
-#lifetime-total {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 60px;
-    text-align: center;
-
-}
-
-#lifetime-buffer {
-    margin-top: 150px;
-}
-
-#weight-label {
-    font-style: normal;
-    font-weight: 300;
-    font-size: 15px;
+/* USER PROFILE RECORDS IN CALENDAR GRID */
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-start;
+    align-items: flex-end;
 }
 
 #display-record {
@@ -75,12 +82,22 @@ h3 {
     padding-bottom: 40px;
 }
 
+#record-button {
+    padding-top: 33px;
+    padding-bottom: 33px;
+    padding-right: 33px;
+    padding-left: 33px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+}
+
 .container {
-    padding-top: 25px;
+    padding-top: 20px;
 }
 
 .container .card {
     border-color: #718752;
+    margin-bottom: 40px;
 }
 
 .container .card-header {
@@ -91,16 +108,15 @@ h3 {
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
+    letter-spacing: 3px;
+    padding: 10px 0;
     text-align: center;
-    text-transform: uppercase;
 }
 
 .container .card-body {
     background-color: #fdfdfd;
     color: #2E2E30;
     text-align: center;
-
-
 }
 
 .container .card-footer {
@@ -114,40 +130,41 @@ h3 {
 
 .container .swiper-button-prev {
     color: #718752;
-  }
+}
   
 .container .swiper-button-next {
     color: #718752;
-  }
+}
   
 .container .swiper-pagination-bullet-active {
     background: #718752;
-  }
+    margin-bottom: 50px;
+}
 
 
 /* BUTTONS TO LOG WASTE RECORDS */
 #log-bag {
-    background-color: white;
+    background-color: #718752;
     border-color: #718752;
     width: 98%;
-    color: #718752;
+    color: white;
     font-size: 14px;
     letter-spacing: 3px;
     padding: 10px 0;
     margin-bottom: 10px;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 #log-bag:hover {
-    background-color: #718752;
-    color: white;
+    background-color: white;
+    color: #718752;
 }
 
 #log-item-btn {
-    background-color: white;
+    background-color: #718752;
     border-color: #718752;
     width: 98%;
-    color: #718752;
+    color: white;
     font-size: 14px;
     letter-spacing: 3px;
     padding: 10px 0;
@@ -155,9 +172,9 @@ h3 {
 }
 
 #log-item-btn:hover {
-    background-color: #718752;
-    color: white;
+    background-color: white;
+    color: #718752;
 }
 
-
+/* USER PROFILE MODALS */
 

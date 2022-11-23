@@ -37,9 +37,9 @@ function userChart() {
                     data: data,
                     backgroundColor: [
                         '#2E2E30',
-                        '#006C8C',
-                        '#718752',
-                        '#730217',
+                        '#037ba0',
+                        '#8fa175',
+                        '#84031b',
                     ],
                     hoverOffset: 2
                 }]

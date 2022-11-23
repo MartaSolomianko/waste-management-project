@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{% endblock %}
+{% block title %} Waste Not {% endblock %}
 {% block head %}
 
 <!-- CHART JS -->
@@ -66,11 +66,6 @@
             </div>
             </div>
 
-
-
-
-    
-
 <!----------------- SHOW USER RECORDS AS GRID ON PROFILE ---------------------->
 <br>
 <div class="col-6">
@@ -89,10 +84,8 @@
                   <div id="display-record" class="flex-container">
                     {% for record in records_dict[date] %}
                       <div id="record-{{ record.record_id }}" value="{{ record.record_id }}">
-                        <button class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
-                          <p value="{{ record.record_id }}">{{ record.bin_type_code }}</p>
-                          <p value="{{ record.record_id }}">Date - {{ record.date_time }}</p>
-                          <p value="{{ record.record_id }}">Weight - {{ record.weight }} lbs</p>
+                        <button id="record-button" class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
+                          <h4 id="record-date-display" value="{{ record.record_id }}">{{ record.date_time.strftime("%d") }}</h4>
                         </button>
                       </div>
                     {% endfor %}

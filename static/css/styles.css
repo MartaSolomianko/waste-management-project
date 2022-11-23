@@ -7,8 +7,8 @@ body {
 .flash-msg {
   color: #718752;
   padding-top: 30px;
-  padding-left: 70px;
-  align-items: baseline;
+  padding-left: 75px;
+  align-items: bottom;
 }
 
 .navbar {
