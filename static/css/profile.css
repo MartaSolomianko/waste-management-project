@@ -197,7 +197,6 @@ h4 {
     background-color: #e8ede3;
     border: 0;
     width: 85%;
-    font-size: 16px;
     text-align: center;
 
 }
@@ -209,10 +208,66 @@ h4 {
 #addrecord {
     background-color: #e8ede3;
     padding-bottom: 200px;
-    padding-top: 80px;
-    margin-top: 40px;
+    margin-top: 0px;
+    font-size: 16px;
     text-align: center;
     align-content: baseline;
+}
+
+.log-input {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    height: 40px;
+    background: #f7f7f7;
+    color:#2E2E30;
+    border-radius: 0px;
+    border-width: 0;
+    margin: 0 0 4px;
+    width: 70%;
+    padding-left: 13px;
+}
+
+#lbs-label {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+}
+
+#select-bin {
+    font-style: normal;
+    font-size: 14px;
+}
+
+#select-title {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    margin-right: 5px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+#bin-type {
+    font-style: normal;
+    background-color: #f7f7f7;
+    color:#2E2E30;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    border: transparent;
+    width: 40%;
+    padding-top: 10px;
+    padding-bottom: 12px;
+    line-height: 20px;
+    letter-spacing: 1px;
+}
+
+.log-bag-option {
+    font-style: normal;
+    color:#718752;
+    font-weight: 400;
+    font-size: 14px;
 }
 
 #log-bag-btn {

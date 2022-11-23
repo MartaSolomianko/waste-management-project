@@ -141,20 +141,20 @@
       <form id="addrecord">
         <label for="add-record"></label>
       <div>
-        <p>
-          <label for="bintype">Select a bin:</label>
+        <p id="select-bin">
+          <label id="select-title" for="bintype">Select a bin:  </label>
             <select id="bin-type">
-              <option value="T">Trash</option>
-              <option value="C">Compost</option>
-              <option value="R">Recycle</option>
-              <option value="H">Hazard</option>
+              <option class="log-bag-option" value="T">Trash</option>
+              <option class="log-bag-option" value="C">Compost</option>
+              <option class="log-bag-option" value="R">Recycling</option>
+              <option class="log-bag-option" value="H">Hazard</option>
             </select>
         </p>
       </div>
     <div>
       <p>
         <label for="weight"></label>
-          <input type="text" id="weight" placeholder="weight in pounds"><span> lbs</span> 
+          <input type="text" class="log-input" id="weight" placeholder="Weight in pounds"><span id="lbs-label"> lbs</span> 
     </div> 
       <input type="submit" id="log-bag-btn" class="btn btn-primary" data-bs-dismiss="modal" value="Log waste">
       </form>
