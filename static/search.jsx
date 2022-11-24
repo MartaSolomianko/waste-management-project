@@ -57,15 +57,17 @@ function SearchForm() {
     }     
     return (
     <React.Fragment>
-    <label htmlFor="searchItem">
+    <form className="search-form">
+    <label htmlFor="searchItem"></label>
         <input 
         value={name} 
+        className="search-input"
         onChange={(event) => setName(event.target.value)} 
         id="searchItem"
-        placeholder="Look up an item">
+        placeholder="What are you throwing out?">
         </input>
-    </label>
-    <button onClick={handleSubmit}>Enter</button>
+    <button className="search-btn" onClick={handleSubmit}>Enter</button>
+    </form>
     {/* if there is an error message for a search not found in db, this allows the error to appear on page */}
     { error && <div> {error} </div> }
     {/* using display name becuase I did not want the search results to appear on the page until a user clicks the enter button */}
