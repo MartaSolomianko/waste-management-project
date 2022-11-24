@@ -35,13 +35,12 @@ body {
 #logout-btn {
   background-color: rgba(0, 0, 0, 0);
   border: 0;
-  color:#718752;
+  color:#2E2E30;
   margin-right: 15px;
   font-size: 18px;
 }
 
 #logout-btn:hover {
-  background-color: #718752;
-  color: white;
-  
+  text-decoration: underline;
+  color: #2E2E30;
 }
