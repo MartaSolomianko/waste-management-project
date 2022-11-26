@@ -1,4 +1,6 @@
 /* STYLES FOR SEARCH PAGE IN REACT */
+
+/* SEARCH FORM */
 .search-form {
     position: relative;
     padding-top: 50px;
@@ -17,12 +19,12 @@
     width: 50%;
     padding-left: 50px;
     outline: none;
-
 }
 
 .search-btn {
     background-color: white;
     border-color: transparent;
+    border-radius: 5px;
     width: 10%;
     color: #718752;
     font-size: 14px;
@@ -34,4 +36,88 @@
 .search-btn:hover {
     background-color: #718752;
     color: white;
+}
+
+/* SEARCH RESULTS */
+#search-results-card {
+    position: absolute;
+    padding-top: 30px;
+    margin-top: 75px;
+    margin-left: 515px;
+    margin-right: 0px;
+    height: 250px;
+    width: 350px;
+    text-align: center;
+}
+
+#log-item-form {
+    margin-top: 0px;
+}
+
+#search-result-title {
+    font-style: normal;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 25px;
+    letter-spacing: 1px;
+    color:#718752;
+}
+
+#search-description {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+    margin-top: 15px;
+
+}
+
+.log-item-weight-input {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    height: 40px;
+    background: #f7f7f7;
+    color:#2E2E30;
+    border-radius: 5px;
+    border-width: 0;
+    margin: 0 0 4px;
+    width: 60%;
+    padding-left: 13px;
+    outline: none;
+}
+
+
+.log-item-btn {
+    background-color: #718752;
+    border-color: transparent;
+    color:#f7f7f7;
+    border-radius: 5px;
+    width: 80%;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 8px 0px 8px 0px;
+    margin-bottom: 10px;
+    margin-top: 14px;
+    outline: none;
+}
+
+.log-item-btn:hover {
+    background-color: white;
+    border-color: #718752;
+    border-width: 1px;
+    outline: none;
+    color:#718752;
+}
+
+#log-item-lbs-label {
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0px;
+    font-size: 15px;
+}
+
+.err-msg {
+    position: absolute;
+    margin-top: 85px;
+    margin-left: 545px;
 }

@@ -69,7 +69,7 @@ function SearchForm() {
     <button className="search-btn" onClick={handleSubmit}>Enter</button>
     </form>
     {/* if there is an error message for a search not found in db, this allows the error to appear on page */}
-    { error && <div> {error} </div> }
+    { error && <div className="err-msg"> {error} </div> }
     {/* using display name becuase I did not want the search results to appear on the page until a user clicks the enter button */}
     { displayName && <SearchResults name={displayName} bin={bin} typicalWeight={typicalWeight} material={material}/>}
     </React.Fragment>
@@ -100,23 +100,24 @@ function SearchResults({name, material, bin, typicalWeight}) {
 
     return (
     <React.Fragment>
-    <h3>Search results:</h3>
-        <div>
-            <p> Item name: {name} </p>
-            <p> Item material: {material} </p>
-            <p> {name} normally weighs {typicalWeight} lbs</p>
+    {/* Search results and form to log an individual item's weight to a bin */}
+        <div id="search-results-card" className="card">
+            <div id="search-result-title"> {name} </div>
+            {/* <p> Item material: {material} </p> */}
+            <p id="search-description"> 1 {name} typically weighs {typicalWeight} lbs</p>
             {/* this is the form to add a weight to a user's bin in the db */}
-            <label>Add 
+            <form id="log-item-form">
+            <label htmlFor="logWeight"></label>
             <input 
             value={userWeight}
+            placeHolder="Weight in pounds"
+            className="log-item-weight-input"
             onChange={(event) => setUserWeight(event.target.value)}>
-            </input> lbs
-            </label>
+            </input><span id="lbs-label"> lbs</span>
             {/* this button will take the user back to their profile page 
             and add a record to their records */}
-            <div>
-            <button onClick={handleAddRecord}>{userWeight}lbs to my {bin}</button>
-            </div>
+            <button className="log-item-btn" onClick={handleAddRecord}>Log <span id="log-item-lbs-label">{userWeight} lbs</span> to my {bin}</button>
+            </form>
         </div>
     </React.Fragment>
     );
