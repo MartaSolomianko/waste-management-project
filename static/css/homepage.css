@@ -86,14 +86,23 @@ form {
     font-weight: 300;
 }
 
+#login-span {
+    font-weight: 400;
+    color: #718752;
+}
 
 #login-span:hover {
-    font-weight: 700;
+    font-weight: 300;
+    color: #718752;
+}
+
+#registration-span {
+    font-weight: 400;
     color: #718752;
 }
 
 #registration-span:hover {
-    font-weight: 700;
+    font-weight: 300;
     color: #718752;
 }
   
