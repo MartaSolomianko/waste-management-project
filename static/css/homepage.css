@@ -59,6 +59,7 @@ form {
     margin: 0 0 4px;
     width: 90%;
     padding-left: 13px;
+    outline: none;
 }
 
 #log-reg-btn {
@@ -70,12 +71,14 @@ form {
     letter-spacing: 3px;
     padding: 10px 0;
     margin-bottom: 10px;
+    outline: none;
 }
 
 #log-reg-btn:hover {
     background-color: white;
     border-color: #718752;
     color: #718752;
+    outline: none;
 }
 
 .toggle-form {

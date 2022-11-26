@@ -38,9 +38,11 @@ body {
   color:#2E2E30;
   margin-right: 15px;
   font-size: 18px;
+  outline: none;
 }
 
 #logout-btn:hover {
   text-decoration: underline;
   color: #2E2E30;
+  outline: none;
 }

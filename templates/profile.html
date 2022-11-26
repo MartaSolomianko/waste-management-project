@@ -20,51 +20,48 @@
 
 <!-------------- USER PROFILE ---------------------------------->
 <div class="container"> 
-  <div class="row">
-        
-        <div class="col-6">
+  <div class="row">   
+    <div class="col-6">
         <div class="row">
 
 <!-------------- BUTTONS TO LOG A NEW RECORD ------------------->
         <div class="col-6">
-        <button id="log-bag" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show-log-bag-modal">Log a bag</button>
-        <a href="/profile/search" id="log-item-btn" class="btn btn-primary">Log an item</a>   
+          <button id="log-bag" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#show-log-bag-modal">Log a bag</button>
+          <a href="/profile/search" id="log-item-btn" class="btn btn-primary">Log an item</a>   
         </div>
       
 <!-------------- DAILY RATE CARD ------------------------------->
         <div id="daily-rate-padding" class="col-6">
-        <h3>Your daily rate:</h3> 
-        <div id="daily-rate-card" class="card">
-        <h2 id="daily-rate"></h2> 
+          <h3>Your daily rate:</h3> 
+            <div id="daily-rate-card" class="card">
+              <h2 id="daily-rate"></h2> 
+            </div>
         </div>
-        </div>
-        </div>
+      </div>
 
 <!-------------- PIE CHART -------------------------------------->
         <h3>You have produced:</h3>
-        <div id="pie-chart-card" class="card">
-        <div id="pie-chart-header" class="card-header"></div>
-        <div class="card-body">
-        <div class="row">
-        <div class="col-7">
+          <div id="pie-chart-card" class="card">
+            <div id="pie-chart-header" class="card-header"></div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-7">
 <!-- pie chart and counter of user's lifetime totals-->
-            <div id="display-pie-chart">
-            <canvas id="piechart"></canvas>
+                    <div id="display-pie-chart">
+                      <canvas id="piechart"></canvas>
+                    </div>
+                  </div> 
+                <div id="lifetime-buffer" class="col-5">
+                  {% if records_dict %}
+                    <h2 id="lifetime-total"></h2> 
+                      <div id="start-date">Since {{ start_date }}</div>
+                  {% endif %}
+                </div>
+              </div>
             </div>
+              <div class="card-footer"></div>
             </div>
-                
-            <div id="lifetime-buffer" class="col-5">
-            {% if records_dict %}
-            <h2 id="lifetime-total"></h2> 
-            <div id="start-date">Since {{ start_date }}</div>
-            {% endif %}
-            </div>
-            </div>
-          
-            </div>
-            <div class="card-footer"></div>
-            </div>
-            </div>
+          </div>
 
 <!----------------- SHOW USER RECORDS AS GRID ON PROFILE ---------------------->
 <br>
@@ -80,7 +77,6 @@
                 {{ date }}
               </div>
                 <div class="card-body">
-
                   <div id="display-record" class="flex-container">
                     {% for record in records_dict[date] %}
                       <div id="record-{{ record.record_id }}" value="{{ record.record_id }}">
@@ -90,7 +86,6 @@
                       </div>
                     {% endfor %}
                   </div>
-
                 </div>
                 <div class="card-footer">
                   <div class="swiper-pagination"></div>
@@ -111,16 +106,10 @@
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <!-- <h5 class="modal-title" id="record"></h5> -->
         <!-- form to DELETE RECORD -->
         <form id="show-record">
+        <!-- WHERE THE INDIVIDUAL RECORD DETAILS SHOW UP -->
           <div id="show-a-record"></div>
-          <!-- <div class="modal-body"> -->
-            <!-- WHERE THE INDIVIDUAL RECORD DETAILS SHOW UP -->
-            <!-- <div id="show-a-record"></div>
-          </div> -->
-            <!-- MAKE AN EDIT BUTTON HERE? -->
-            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Edit</button> -->
             <input type="submit" id="delete-record-btn" data-bs-dismiss="modal" class="btn btn-primary delete-record" value="Delete"></button>
         </form>
         <div class="modal-footer"></div>
@@ -136,7 +125,6 @@
         <button id="modal-close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-title" id="add-bag">Log a bag of waste</div>
-
       <!-- form to record a bag of waste -->
       <form id="addrecord">
         <label for="add-record"></label>
