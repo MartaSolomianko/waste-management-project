@@ -82,19 +82,19 @@
                       <div id="record-{{ record.record_id }}" value="{{ record.record_id }}">
                         {% if record.bin_type_code == "R" %}
                         <button id="record-button-recycle" class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
-                          <h4 id="record-date-display" value="{{ record.record_id }}">{{ record.date_time.strftime("%d") }}</h4>
+                          {{ record.date_time.strftime("%d") }}
                         </button>
                         {% elif record.bin_type_code == "C" %}
                         <button id="record-button-compost" class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
-                          <h4 id="record-date-display" value="{{ record.record_id }}">{{ record.date_time.strftime("%d") }}</h4>
+                          {{ record.date_time.strftime("%d") }}
                         </button>
                         {% elif record.bin_type_code == "T" %}
                         <button id="record-button-trash" class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
-                          <h4 id="record-date-display" value="{{ record.record_id }}">{{ record.date_time.strftime("%d") }}</h4>
+                          {{ record.date_time.strftime("%d") }}
                         </button>
                         {% else %}
                         <button id="record-button-hazard" class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="{{ record.record_id }}">
-                          <h4 id="record-date-display" value="{{ record.record_id }}">{{ record.date_time.strftime("%d") }}</h4>
+                          {{ record.date_time.strftime("%d") }}
                         </button>
                         {% endif %}
                       </div>

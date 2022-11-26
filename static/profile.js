@@ -41,7 +41,7 @@ function userChart() {
                         '#8fa175',
                         '#84031b',
                     ],
-                    hoverOffset: 2
+                    hoverOffset: 4
                 }]
             },  options: {
                     plugins : {
@@ -115,7 +115,7 @@ function formSubmit(evt) {
             showUserRecord.insertAdjacentHTML('beforeend', 
             `<div id="record-${userRecord.record_id}" value="${userRecord.record_id}">
             <button id="record-button-${userRecord.bintype}" class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="${userRecord.record_id}">
-            <h4 id="record-date-display" value="${userRecord.record_id}">${userRecord.datetime}</h4>
+            ${userRecord.datetime}
             </button>
             </div>
             `

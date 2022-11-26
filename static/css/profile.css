@@ -7,12 +7,6 @@ h3 {
     color:#718752;
 }
 
-h4 {
-    font-style: normal;
-    font-weight: 300;
-    font-size: 40px;
-    color:white
-}
 
 /* USER PROFILE PIE CHART WITH LIFETIME TOTAL CARD*/
 #piechart {
@@ -87,6 +81,16 @@ h4 {
     margin-left: 2px;
     background-color: #037ba0;
     border-color: #037ba0;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 40px;
+    color:white
+}
+
+#record-button-recycle:hover {
+    background-color:white;
+    border-color: #037ba0;
+    color:#037ba0;
 }
 
 #record-button-compost {
@@ -98,6 +102,16 @@ h4 {
     margin-left: 2px;
     background-color: #8fa175;
     border-color: #8fa175;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 40px;
+    color:white
+}
+
+#record-button-compost:hover {
+    background-color:white;
+    border-color: #8fa175;
+    color:#8fa175;
 }
 
 #record-button-trash {
@@ -109,6 +123,16 @@ h4 {
     margin-left: 2px;
     background-color: #2E2E30;
     border-color: #2E2E30;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 40px;
+    color:white
+}
+
+#record-button-trash:hover {
+    background-color:white;
+    border-color: #2E2E30;
+    color:#2E2E30;
 }
 
 #record-button-hazard {
@@ -120,6 +144,16 @@ h4 {
     margin-left: 2px;
     background-color: #84031b;
     border-color: #84031b;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 40px;
+    color:white
+}
+
+#record-button-hazard:hover {
+    background-color:white;
+    border-color: #84031b;
+    color:#84031b;
 }
 
 .container {
