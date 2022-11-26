@@ -114,7 +114,7 @@ function formSubmit(evt) {
             const showUserRecord = document.querySelector('#display-record');
             showUserRecord.insertAdjacentHTML('beforeend', 
             `<div id="record-${userRecord.record_id}" value="${userRecord.record_id}">
-            <button id="record-button" class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="${userRecord.record_id}">
+            <button id="record-button-${userRecord.bintype}" class="btn btn-primary modal-btn user-record-btn" data-bs-toggle="modal" data-bs-target="#show-record-modal" value="${userRecord.record_id}">
             <h4 id="record-date-display" value="${userRecord.record_id}">${userRecord.datetime}</h4>
             </button>
             </div>

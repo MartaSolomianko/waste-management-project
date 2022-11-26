@@ -266,6 +266,16 @@ def add_record():
     db.session.add(new_record)
     db.session.commit()
 
+    # switching bin codes for names to trigger color coding on buttons on user profile
+    if bin_type_code == "T":
+        bin_type_code = "trash"
+    elif bin_type_code == "C":
+        bin_type_code = "compost"
+    elif bin_type_code == "R":
+        bin_type_code = "recycle"
+    else: 
+        bin_type_code = "hazard"
+
     # this dictionary goes to .then in JS file and eventually gets inserted back into the html file
     return jsonify({'weight': weight, 'bintype': bin_type_code, 'datetime': date_time.strftime("%d"), 'userid': user_id, 'record_id': new_record.record_id})
 
