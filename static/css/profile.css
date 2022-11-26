@@ -21,18 +21,13 @@ h4 {
     padding-bottom: 20px;
   }
 
-#pie-chart-card {
-    padding-bottom: 20px;
-    margin-bottom: 40px;
-}
-
 #pie-chart-header {
     background-color: #fdfdfd;
 }
 
 #lifetime-total {
     font-style: normal;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 60px;
     text-align: center;
 }
@@ -83,13 +78,48 @@ h4 {
     padding-bottom: 40px;
 }
 
-#record-button {
+#record-button-recycle {
     padding-top: 33px;
     padding-bottom: 33px;
     padding-right: 33px;
     padding-left: 33px;
     margin-bottom: 2px;
     margin-left: 2px;
+    background-color: #037ba0;
+    border-color: #037ba0;
+}
+
+#record-button-compost {
+    padding-top: 33px;
+    padding-bottom: 33px;
+    padding-right: 33px;
+    padding-left: 33px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    background-color: #8fa175;
+    border-color: #8fa175;
+}
+
+#record-button-trash {
+    padding-top: 33px;
+    padding-bottom: 33px;
+    padding-right: 33px;
+    padding-left: 33px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    background-color: #2E2E30;
+    border-color: #2E2E30;
+}
+
+#record-button-hazard {
+    padding-top: 33px;
+    padding-bottom: 33px;
+    padding-right: 33px;
+    padding-left: 33px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    background-color: #84031b;
+    border-color: #84031b;
 }
 
 .container {
