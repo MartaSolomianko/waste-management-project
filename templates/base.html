@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/svg+xml" href="/static/img/trashbin.svg"/>
     <!-- Base CSS -->
     <link href="/static/css/styles.css" rel="stylesheet">
     <!-- Homepage style sheet -->
@@ -33,7 +35,7 @@
     {% if session.get('user_id') %}
     <!-- Navigation Bar -->
     <nav class="navbar bg-light">
-      <a class="navbar-brand" href="/profile">Waste Not</a>
+      <a class="navbar-brand" href="/profile">Waste Not<img id="app-logo" src="/static/img/trashbin.svg" width=30px></a>
         <!-- <a class="navbar-brand" id="user-profile" href="/profile">Profile</a> -->
         <a id="logout-btn" class="btn btn-primary" href="/profile/logout">Logout</a>
       {% endif %}   
