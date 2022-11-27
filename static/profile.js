@@ -38,7 +38,7 @@ function userChart() {
                     backgroundColor: [
                         '#2E2E30',
                         '#037ba0',
-                        '#8fa175',
+                        '#196b59',
                         '#84031b',
                     ],
                     hoverOffset: 4
@@ -221,7 +221,7 @@ function deleteRecord(evt) {
     // console.log("This is the record ID:");
     // console.log("for the record I want to delete:");
     // console.log(deleteRecord.record_id);
-    alert('Are you sure you want to delete this record?');
+    // alert('Are you sure you want to delete this record?');
 
     fetch('/profile/delete-record.json', {
         method: 'POST',

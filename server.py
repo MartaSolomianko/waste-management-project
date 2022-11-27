@@ -63,7 +63,7 @@ def register_user():
             session["user_id"] = new_user.user_id
             
             # flash a message saying Welcome, _____!
-            flash(f"Welcome, {new_user.name}!")
+            # flash(f"Welcome, {new_user.name}!")
 
             # send the new user to their profile page 
             return redirect ("/profile")
@@ -98,7 +98,7 @@ def login():
         session["user_id"] = user.user_id
        
         # welcome them back using their email from the Login Form
-        flash(f"Welcome back, {user.name}!")
+        # flash(f"Welcome back, {user.name}!")
 
         # take them to their profile page with ID from session
         return redirect("/profile")

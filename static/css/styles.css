@@ -5,8 +5,9 @@ body {
 }
 
 .flash-msg {
-  color: #718752;
-  padding-top: 30px;
+  color: #7a553f;
+  padding-top: 10px;
+  margin-bottom: 0px;
   padding-left: 75px;
   align-items: bottom;
 }
