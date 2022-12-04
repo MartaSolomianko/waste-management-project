@@ -6,6 +6,7 @@ Waste Not seeks to solve this problem by helping individuals track and manage th
 * :rocket: [Technologies](#technologies-used)
 * :sparkles: [Features](#features)
 * :construction: [Future Improvements](#future-improvements)
+* :book: [Set Up](#set-up)
 * :nerd_face: [About Me](#about-me)
 ## Technologies Used
 * Backend: Python, Flask, PstgreSQL, SQLAlchemy
@@ -40,6 +41,30 @@ Users can:
 
 ## Future Improvements
 * Refactor Search Logic and Search page design to include more search results.
-* Add a status indicator to a user’s dashboard that shows whether they are in Great, Good, Fair, or Poor standing based on their Daily Rate calculation.  
+* Add a status indicator to a user’s dashboard that shows whether they are in Great, Good, Fair, or Poor standing based on their Daily Rate calculation. 
+* Work on responsive design for phone screen size.
+## Set Up
+To run this project, clone or fork this repo: 
+```
+git clone https://github.com/MartaSolomianko/waste-management-project.git
+```
+Create and activate a virtual environment inside your directory
+```
+virtualenv env
+source env/bin/activate
+```
+Install the dependencies:
+```
+pip install -r requirements.txt
+```
+Set up the database:
+```
+python3 seed_database.py
+```
+Run the app:
+```
+python3 server.py
+```
+You can now navigate to 'localhost:5000/' to access the app
 ## About Me
-Hi, there! I'm Marta and Waste Not is my first full-stack web application. I wrote it in four weeks while I studied at Hackbright, a 12-week software engineering fellowship. 
+:wave: Hi, there! I'm Marta. Waste Not is my first full-stack web application. I wrote it in four weeks while I studied at Hackbright, a 12-week software engineering fellowship. 
