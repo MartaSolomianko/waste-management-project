@@ -260,6 +260,7 @@ def add_record():
 
     # discarding all of the time info and translating to datetime for python
     date_time = datetime.strptime(date_time, format).date()
+    # date_time = date(2022,11,28)
 
     # create record and add it to the db
     new_record = crud.create_record(user=user_id, bin_type=bin_type_code, date_time=date_time, weight=weight)

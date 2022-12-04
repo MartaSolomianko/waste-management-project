@@ -236,7 +236,7 @@ function deleteRecord(evt) {
         const record = document.querySelector(`#record-${deleteRecord.record_id}`);
         // console.log(record);
         record.remove();
-        alert(removeResponse);
+        // alert(removeResponse);
         ctx.destroy();
         userChart();
         showTotalWaste();
