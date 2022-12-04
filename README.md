@@ -1,6 +1,4 @@
 # Waste Not <img src="/static/img/trashbin.svg" width=32px>
-Waste Not -- the app that helps you manage your waste to minimize your ecological footprint<br></br>
-
 Proper waste management is a marker of a society’s health. The challenge with this is that the waste is essentially rendered invisible, making it impossible for the average citizen to visualize their daily habits' impact on the environment. 
 
 Waste Not seeks to solve this problem by helping individuals track and manage their waste. With simple tools and analytics, Waste Not helps users become aware of patterns in the waste they produce so they can take action and become better stewards of the environment.
