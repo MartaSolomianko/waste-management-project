@@ -86,6 +86,8 @@ password = "test"
 hashed_pw = ph.hash(password)
 user = crud.create_user(email, hashed_pw, name)
 model.db.session.add(user)
+model.db.session.commit()
+
 
 # random ordered lists of days 
 sept_days = [2, 5, 6, 9, 14, 16, 19, 22, 24, 26, 28]
@@ -107,8 +109,8 @@ for month in db_dict:
         weight = uniform(1, 20)
         weight = round(weight, 2)
 
-        # make and add september records to db
-        record = crud.create_record(user, random_bin, date_time, weight)
+        # make and add records to db
+        record = crud.create_record(user.user_id, random_bin, date_time, weight)
         model.db.session.add(record)
 
 
